@@ -822,7 +822,7 @@ class="badge" id="badge-segue_kondo">Disponible</span><h3>Segue Kondo
 });
 </script>
 <script>
-(async () => {
+window.addEventListener('load', async function() {
   const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwa47Uosu0gO6HUx_fX4dSrsVngerGF-RdZLoXkYTUXeCfQg3-6g6Nfwr0u29gHD4JF/exec';
   try {
     const res = await fetch(SCRIPT_URL);
@@ -836,6 +836,6 @@ class="badge" id="badge-segue_kondo">Disponible</span><h3>Segue Kondo
       badge.style.background = dispo ? '' : '#B5311A';
     });
   } catch(e) {}
-})();
+});
 </script></body>
 </html>
