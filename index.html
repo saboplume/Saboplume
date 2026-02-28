@@ -663,8 +663,6 @@ footer{animation:footerFadeIn 0.6s ease forwards;animation-play-state:paused}
 @keyframes valTitreIn{from{opacity:0;transform:translateX(-30px)}to{opacity:1;transform:translateX(0)}}
 .sval.visible .valh h2{animation:valTitreIn 0.7s ease 0.1s both}
 .sval.visible .valh .lbl{animation:valTitreIn 0.5s ease 0s both;opacity:0}
-/* FIX CAROUSEL MOBILE */
-@media(max-width:800px){.tcard{height:auto!important;max-height:none!important;overflow:visible!important}.ttxt{overflow:visible!important;display:block!important;max-height:none!important;-webkit-line-clamp:unset!important}}
 </style>
 </head>
 <body>
@@ -747,7 +745,7 @@ footer{animation:footerFadeIn 0.6s ease forwards;animation-play-state:paused}
         <span class="mcopt-icon">📱</span>
         <div class="mcopt-txt"><strong>WhatsApp</strong><span>+236 74 22 57 57</span></div>
       </a>
-      <a href="/cdn-cgi/l/email-protection#deadbfbcb1aeb2abb3bb9eb1abaab2b1b1b5f0b8ac"><span class="__cf_email__" data-cfemail="97e4f6f5f8e7fbe2faf2d7f8e2e3fbf8f8fcb9f1e5">[email&#160;protected]</span></a>
+      <a href="mailto:saboplume@outlook.fr">saboplume@outlook.fr</a>
     </div>
   </div>
 </div>
@@ -1054,7 +1052,7 @@ footer{animation:footerFadeIn 0.6s ease forwards;animation-play-state:paused}
       <div class="contl"><span class="contll">Adresse</span><span class="contlv"><a href="https://maps.google.com/?q=Bimbo,Rue+du+Général+Gambi,République+Centrafricaine" target="_blank">Bimbo — Rue du Général Gambi</a></span></div>
       <div class="contl"><span class="contll">Horaires</span><span class="contlv">Tous les jours · 8h — 17h</span></div>
       <div class="contl"><span class="contll">Téléphone</span><span class="contlv"><a href="tel:+23674225757">+236 74 22 57 57</a></span></div>
-      <div class="contl"><span class="contll">Email</span><span class="contlv"><a href="/cdn-cgi/l/email-protection#94e7f5f6fbe4f8e1f9f1d4fbe1e0f8fbfbffbaf2e6"><span class="__cf_email__" data-cfemail="d4a7b5b6bba4b8a1b9b194bba1a0b8bbbbbffab2a6">[email&#160;protected]</span></a></span></div>
+      <div class="contl"><span class="contll">Email</span><span class="contlv"><a href="mailto:saboplume@outlook.fr">saboplume@outlook.fr</a></span></div>
       <div class="socbtns">
         <a href="https://www.facebook.com/share/1ArfaX1XMn/" target="_blank" class="bsoc">Facebook</a>
         <a href="https://www.tiktok.com/@saboplume" target="_blank" class="bsoc">TikTok</a>
@@ -1087,7 +1085,7 @@ footer{animation:footerFadeIn 0.6s ease forwards;animation-play-state:paused}
   </div>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script type="module">
+<script type="module">
 // ======================= FIREBASE =======================
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 import { getFirestore, doc, getDoc, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
@@ -1638,4 +1636,16 @@ document.addEventListener('DOMContentLoaded',async function(){
              +(svc   ? '\nService : '+svc   : '')
              +(quart ? '\nQuartier : '+quart : '')
              +'\n\nAvis :\n'+txt+'\n\nVia saboplume.com';
-    window.loc
+    window.location.href = 'mailto:'+em+'?subject='+encodeURIComponent(subj)+'&body='+encodeURIComponent(body);
+    document.getElementById('avisnom').value  = '';
+    document.getElementById('avissvc').value  = '';
+    document.getElementById('avisquart').value= '';
+    document.getElementById('avistxt').value  = '';
+    noteAvis = 0;
+    majEtoiles(0);
+  });
+})();
+
+</script>
+</body>
+</html>
