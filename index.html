@@ -107,7 +107,7 @@ select.inp{cursor:pointer}
 .bdk{background:var(--br);color:#fff;border:none;padding:10px 20px;font-family:"Cinzel",serif;font-size:11px;letter-spacing:.1em;cursor:pointer}
 .qi{display:grid;grid-template-columns:68px 1fr;gap:14px;padding:22px 0;border-bottom:1px solid #c8d4b8}
 .qi:first-child{border-top:1px solid #c8d4b8}
-.qin{font-family:"Cormorant Garamond",serif;font-size:44px;color:var(--vt);line-height:1;font-weight:300}
+.qin{font-family:"Cinzel",serif;font-size:36px;color:var(--vt);line-height:1;font-weight:600}
 .qit{font-family:"Cinzel",serif;font-size:12px;letter-spacing:.05em;margin-bottom:4px}
 .qi p{font-size:14px;color:#555}
 /* VALEURS */
@@ -438,7 +438,7 @@ footer span{font-family:"Cinzel",serif;font-size:10px;letter-spacing:.06em;color
     <div class="aprl">
       <div class="lbl">À Propos</div>
       <h2>Vision et évolution</h2>
-      <p>Saboplume est une EURL créée à Bimbo par Bélinda Songuet, avec une ambition claire : proposer des produits fermiers de qualité et des services adaptés aux besoins des habitants de Bimbo.</p>
+      <p>Saboplume est une EURL créée à Bimbo en 2027 par Bélinda Songuet, avec une ambition claire : proposer des produits fermiers de qualité et des services adaptés aux besoins des habitants de Bimbo.</p>
       <p>Grâce à la confiance de sa clientèle, Saboplume a progressivement élargi ses activités autour de trois pôles complémentaires.</p>
     </div>
     <div class="gerant-col">
@@ -465,8 +465,8 @@ footer span{font-family:"Cinzel",serif;font-size:10px;letter-spacing:.06em;color
       <div class="pcb" style="border-left:4px solid var(--vt)">
         <span class="badge">Disponible</span>
         <h3>Palette de 30 oeufs</h3>
-        <p class="pdesc">Fraîcheur assurée, production régulière directement de notre élevage.</p>
-        <div style="background:#eef2e8;border:1.5px solid var(--vt);padding:10px 14px;margin-bottom:14px;font-size:14px;color:var(--vt)"><strong>Fraîcheur garantie</strong> — Nos oeufs viennent directement de poules élevées à Bimbo, sans intermédiaire.</div>
+        <p class="pdesc">Production régulière directement de notre élevage, disponible tous les jours.</p>
+        
         <div class="ppied"><span class="pprix">1&nbsp;000 FCFA</span><button class="badd" data-nom="Palette de 30 oeufs" data-prix="1000">+ AJOUTER</button></div>
       </div>
     </div>
@@ -594,7 +594,7 @@ footer span{font-family:"Cinzel",serif;font-size:10px;letter-spacing:.06em;color
     <div class="tcard hidden"><div class="tet">★★★★☆</div><p class="ttxt">Le pack chaises + tentes pour notre événement religieux était parfait. Je recommande à tous mes amis&nbsp;!</p><div class="tau"><div class="av" style="background:#5A3520">FM</div><div><span class="an">Félicien Mandaba</span><span class="ar">Client · Location · Gobongo</span></div></div></div>
     <div class="tcard hidden"><div class="tet">★★★★★</div><p class="ttxt">Des oeufs très frais, des chèvres en bonne santé. Saboplume c'est la qualité centrafricaine dont on peut être fier.</p><div class="tau"><div class="av" style="background:#3B5E2B">RD</div><div><span class="an">Rose Doumolou</span><span class="ar">Cliente · Produits Fermiers · Lakouanga</span></div></div></div>
     <div class="tcard hidden"><div class="tet">★★★★★</div><p class="ttxt">Notre séminaire d'entreprise a été un succès grâce au traiteur Saboplume. Ponctuel, professionnel, délicieux.</p><div class="tau"><div class="av" style="background:#7B2D00">AN</div><div><span class="an">Aubin Ngbango</span><span class="ar">Client · Traiteur · Castor</span></div></div></div>
-    <div class="tcard hidden"><div class="tet">★★★★☆</div><p class="ttxt">Je suis cliente fidèle depuis plus d'un an. La qualité ne change pas et le service est toujours au top&nbsp;!</p><div class="tau"><div class="av" style="background:#8B4513">VN</div><div><span class="an">Véronique Nganzi</span><span class="ar">Cliente · Produits Fermiers · Sica 2</span></div></div></div>
+    <div class="tcard hidden"><div class="tet">★★★★☆</div><p class="ttxt">Je commande régulièrement depuis plusieurs mois. La qualité est constante et le service toujours au top&nbsp;!</p><div class="tau"><div class="av" style="background:#8B4513">VN</div><div><span class="an">Véronique Nganzi</span><span class="ar">Cliente · Produits Fermiers · Sica 2</span></div></div></div>
   </div>
   <button class="bvoirplus" id="bvoirplus">Voir plus de témoignages ↓</button>
 </section>
@@ -658,7 +658,7 @@ footer span{font-family:"Cinzel",serif;font-size:10px;letter-spacing:.06em;color
 </section>
 
 <footer>
-  <span>© 2026 Saboplume EURL · Bimbo, République Centrafricaine</span>
+  <span>© 2027 Saboplume EURL · Bimbo, République Centrafricaine</span>
   <div class="flinks">
     <a href="#produits">Produits Fermiers</a>
     <a href="#traiteur">Traiteur</a>
@@ -945,7 +945,7 @@ document.addEventListener('DOMContentLoaded',async function(){
     } else {
       var em='saboplume@outlook.fr';
       var subj='Commande Saboplume - '+nom;
-      window.location.href='mailto:'+em+'?subject='+encodeURIComponent(subj)+'&body='+encodeURIComponent(msg);
+      window.open('mailto:'+em+'?subject='+encodeURIComponent(subj)+'&body='+encodeURIComponent(msg),'_blank');
     }
     panier=[];majPan();
     document.getElementById('sform').style.display='none';
