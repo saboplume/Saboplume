@@ -234,9 +234,9 @@ select.inp{cursor:pointer}
 .avish{text-align:center;margin-bottom:40px}
 .avish h2{font-family:"Cormorant Garamond",serif;font-size:46px;margin-bottom:10px}
 .avish p{font-size:15px;color:#666;max-width:500px;margin:0 auto}
-.avisf{background:#fff;padding:36px}
-.aviseg{display:flex;gap:8px;justify-content:center;margin-bottom:8px}
-.avise{font-size:38px;color:#ddd;cursor:pointer;transition:color .15s;user-select:none;line-height:1}
+.avisf{background:#fff;padding:36px;position:relative;z-index:5}
+.aviseg{display:flex;gap:8px;justify-content:center;margin-bottom:8px;position:relative;z-index:10;pointer-events:auto}
+.avise{font-size:38px;color:#ddd;cursor:pointer;transition:color .15s;user-select:none;line-height:1;pointer-events:auto;position:relative;z-index:10}
 .avise.on,.avise.hov{color:var(--or)}
 .avisnt{text-align:center;font-family:"Cinzel",serif;font-size:11px;letter-spacing:.1em;color:#aaa;margin-bottom:20px;min-height:18px}
 .bavis{width:100%;background:var(--br);color:#fff;border:none;padding:15px;font-family:"Cinzel",serif;font-size:12px;letter-spacing:.14em;cursor:pointer;margin-top:6px}
@@ -470,8 +470,7 @@ footer span{font-family:"Cinzel",serif;font-size:10px;letter-spacing:.06em;color
 .sapr.visible .aprl,.sapr.visible .gerant-col,.sapr.visible .aprr{opacity:1;transform:none}
 
 /* Avis section */
-.avisf{opacity:0;transform:translateY(20px);transition:opacity 0.6s ease 0.2s,transform 0.6s ease 0.2s}
-.savis.visible .avisf{opacity:1;transform:translateY(0)}
+.avisf{transition:none}
 
 /* Eng cards num animation */
 @keyframes engNumIn{from{opacity:0;transform:scale(0.5)}to{opacity:1;transform:scale(1)}}
@@ -559,7 +558,7 @@ footer{animation:footerFadeIn 0.6s ease forwards;animation-play-state:paused}
 .menu a:hover{padding-left:8px}
 
 /* --- ÉTOILES AVIS hover --- */
-.avise{transition:transform 0.15s ease,color 0.15s ease}
+.avise{transition:transform 0.15s ease,color 0.15s ease;pointer-events:auto;cursor:pointer}
 .avise:hover,.avise.on{transform:scale(1.2)}
 
 /* --- LOCO onglets location --- */
@@ -606,7 +605,7 @@ footer{animation:footerFadeIn 0.6s ease forwards;animation-play-state:paused}
 
 /* Scroll indicator hero */
 @keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
-.hero::after{content:'↓';position:absolute;bottom:30px;left:50%;transform:translateX(-50%);font-family:"Cinzel",serif;font-size:13px;letter-spacing:.2em;color:#bbb;animation:bounce 1.5s ease infinite}
+.hero::after{content:'↓';position:absolute;bottom:30px;left:50%;transform:translateX(-50%);font-family:"Cinzel",serif;font-size:13px;letter-spacing:.2em;color:#bbb;animation:bounce 1.5s ease infinite;pointer-events:none}
 .hero{position:relative}
 
 /* Formulaire traiteur : champs apparition cascade */
@@ -986,7 +985,7 @@ footer{animation:footerFadeIn 0.6s ease forwards;animation-play-state:paused}
 </section>
 
 <!-- AVIS -->
-<section class="savis reveal" id="laisser-avis">
+<section class="savis" id="laisser-avis">
   <div class="avisc">
     <div class="avish">
       <div class="lbl" style="justify-content:center">Votre Avis Compte</div>
@@ -1437,41 +1436,7 @@ document.addEventListener('DOMContentLoaded',async function(){
     }
   });
 
-  // Avis (via mailto, discret)
-  var avises=document.querySelectorAll('.avise');
-  var txts=['','Très décevant','Décevant','Correct','Bien','Excellent !'];
-  function majEtoiles(n){
-    for(var i=0;i<avises.length;i++){avises[i].classList.toggle('on',i<n);}
-    document.getElementById('avisnt').textContent=n>0?txts[n]+' ('+n+'/5)':'Cliquez pour noter';
-  }
-  for(var ai=0;ai<avises.length;ai++){
-    (function(idx){
-      avises[idx].addEventListener('mouseenter',function(){majEtoiles(idx+1);});
-      avises[idx].addEventListener('click',function(){noteAvis=idx+1;majEtoiles(noteAvis);});
-    })(ai);
-  }
-  document.getElementById('aviseg').addEventListener('mouseleave',function(){majEtoiles(noteAvis);});
-
-  document.getElementById('bavis').addEventListener('click',function(){
-    var nom=document.getElementById('avisnom').value.trim();
-    var svc=document.getElementById('avissvc').value.trim();
-    var quart=document.getElementById('avisquart').value.trim();
-    var txt=document.getElementById('avistxt').value.trim();
-    if(!noteAvis){alert('Veuillez choisir une note.');return;}
-    if(!nom){alert('Veuillez entrer votre prénom.');return;}
-    if(!txt){alert('Veuillez écrire votre avis.');return;}
-    var nb='★★★★★'.substring(0,noteAvis)+'☆☆☆☆☆'.substring(noteAvis);
-    var em='saboplume@outlook.fr';
-    var subj='Avis Saboplume '+nb+' - '+nom;
-    var body='Avis Saboplume\n\nNote : '+nb+'\nNom : '+nom+(svc?'\nService : '+svc:'')+(quart?'\nQuartier : '+quart:'')+'\n\nAvis :\n'+txt+'\n\nVia saboplume.com';
-    window.location.href='mailto:'+em+'?subject='+encodeURIComponent(subj)+'&body='+encodeURIComponent(body);
-    notif('Merci pour votre avis ! Il sera publié prochainement.');
-    document.getElementById('avisnom').value='';
-    document.getElementById('avissvc').value='';
-    document.getElementById('avisquart').value='';
-    document.getElementById('avistxt').value='';
-    noteAvis=0;majEtoiles(0);
-  });
+  // [avis géré séparément]
 
 });
 
@@ -1589,6 +1554,61 @@ document.addEventListener('DOMContentLoaded',async function(){
   window.addEventListener('resize', function(){
     buildDots();
     goTo(0);
+  });
+})();
+
+// ============================================================
+// ÉTOILES AVIS — code indépendant, hors Firebase
+// ============================================================
+(function(){
+  var noteAvis = 0;
+  var avises = document.querySelectorAll('.avise');
+  var txts = ['','Très décevant','Décevant','Correct','Bien','Excellent !'];
+
+  function majEtoiles(n){
+    for(var i=0;i<avises.length;i++){
+      avises[i].classList.toggle('on', i<n);
+    }
+    var el = document.getElementById('avisnt');
+    if(el) el.textContent = n>0 ? txts[n]+' ('+n+'/5)' : 'Cliquez pour noter';
+  }
+
+  for(var ai=0;ai<avises.length;ai++){
+    (function(idx){
+      avises[idx].addEventListener('mouseenter', function(){ majEtoiles(idx+1); });
+      avises[idx].addEventListener('click', function(){
+        noteAvis = idx+1;
+        majEtoiles(noteAvis);
+      });
+    })(ai);
+  }
+
+  var aviseg = document.getElementById('aviseg');
+  if(aviseg) aviseg.addEventListener('mouseleave', function(){ majEtoiles(noteAvis); });
+
+  var btnAvis = document.getElementById('bavis');
+  if(btnAvis) btnAvis.addEventListener('click', function(){
+    var nom  = document.getElementById('avisnom').value.trim();
+    var svc  = document.getElementById('avissvc').value.trim();
+    var quart= document.getElementById('avisquart').value.trim();
+    var txt  = document.getElementById('avistxt').value.trim();
+    if(!noteAvis){ alert('Veuillez choisir une note.'); return; }
+    if(!nom)     { alert('Veuillez entrer votre prénom.'); return; }
+    if(!txt)     { alert('Veuillez écrire votre avis.'); return; }
+    var nb   = '★★★★★'.substring(0,noteAvis)+'☆☆☆☆☆'.substring(noteAvis);
+    var em   = 'saboplume@outlook.fr';
+    var subj = 'Avis Saboplume '+nb+' - '+nom;
+    var body = 'Avis Saboplume\n\nNote : '+nb+'\nNom : '+nom
+             +(svc   ? '\nService : '+svc   : '')
+             +(quart ? '\nQuartier : '+quart : '')
+             +'\n\nAvis :\n'+txt+'\n\nVia saboplume.com';
+    window.location.href = 'mailto:'+em+'?subject='+encodeURIComponent(subj)+'&body='+encodeURIComponent(body);
+    document.getElementById('avisnom').value  = '';
+    document.getElementById('avissvc').value  = '';
+    document.getElementById('avisquart').value= '';
+    document.getElementById('avistxt').value  = '';
+    noteAvis = 0;
+    majEtoiles(0);
   });
 })();
 
