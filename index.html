@@ -1553,7 +1553,7 @@ document.addEventListener('DOMContentLoaded',async function(){
     var maxIndex = total - perView;
     current = Math.max(0, Math.min(idx, maxIndex));
     if(cards[0]){
-var cardW = carousel.parentElement.offsetWidth;
+var cardW = carousel.parentElement.offsetWidth + 16;
       carousel.style.transform = 'translateX(-' + (current * cardW) + 'px)';
     }
     var allDots = dotsWrap.querySelectorAll('.carousel-dot');
