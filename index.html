@@ -1,0 +1,1074 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Saboplume</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,500&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Cinzel:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--br:#7B2D00;--brf:#5A1F00;--vt:#3B5E2B;--vtf:#2D4A20;--cr:#F5F2EC;--crl:#FAF8F4;--tx:#2C2C2C;--or:#C8A96E}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:"EB Garamond",Georgia,serif;color:var(--tx);background:#fff;font-size:17px;line-height:1.7}
+/* NAV */
+.nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:#fff;border-bottom:1px solid #e8e2d9;display:flex;align-items:center;justify-content:space-between;padding:0 32px;height:64px}
+.burger{width:44px;height:44px;background:var(--br);border:none;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px}
+.burger span{display:block;width:22px;height:2px;background:#fff}
+.navr{display:flex;gap:12px;align-items:center}
+.nbtn{border:1.5px solid var(--br);background:transparent;color:var(--tx);padding:8px 20px;font-family:"Cinzel",serif;font-size:13px;letter-spacing:.08em;cursor:pointer;display:flex;align-items:center;gap:8px}
+.nbadge{background:var(--br);color:#fff;border-radius:50%;width:22px;height:22px;display:flex;align-items:center;justify-content:center;font-size:11px}
+.ncmd{background:var(--vt);color:#fff;border:none;padding:10px 28px;font-family:"Cinzel",serif;font-size:13px;letter-spacing:.08em;cursor:pointer}
+.ncmd:hover{background:var(--vtf)}
+/* OVERLAY */
+.ovl{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:1100}
+.ovl.on{display:block}
+/* MENU */
+.menu{position:fixed;top:0;left:-300px;width:280px;height:100vh;background:var(--br);z-index:1200;transition:left .3s;padding:70px 36px 40px;overflow-y:auto}
+.menu.on{left:0}
+.menu a{display:block;color:#fff;text-decoration:none;font-family:"Cinzel",serif;font-size:13px;letter-spacing:.1em;padding:13px 0;border-bottom:1px solid rgba(255,255,255,.15)}
+.menu a:hover{color:var(--or)}
+.menu .ext::after{content:" ↗";font-size:11px;opacity:.7}
+.xbtn{position:absolute;top:18px;right:18px;background:none;border:none;color:#fff;font-size:26px;cursor:pointer;line-height:1}
+/* PANIER */
+.pan{position:fixed;top:0;right:-420px;width:380px;height:100vh;background:#fff;z-index:1200;transition:right .3s;box-shadow:-4px 0 20px rgba(0,0,0,.15);display:flex;flex-direction:column}
+.pan.on{right:0}
+.panh{padding:22px 24px;border-bottom:1px solid #e8e2d9;display:flex;justify-content:space-between;align-items:center}
+.panh h3{font-family:"Cinzel",serif;font-size:15px;letter-spacing:.1em}
+.panx{background:none;border:none;font-size:22px;cursor:pointer;color:#999}
+.panb{flex:1;overflow-y:auto;padding:20px 24px}
+.panvide{text-align:center;color:#aaa;font-style:italic;padding:40px 0}
+.panl{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid #f0ece6}
+.panln{font-family:"EB Garamond",serif;font-size:16px}
+.panlq{font-size:13px;color:#999}
+.panlp{font-weight:600;color:var(--vt);margin-right:8px;white-space:nowrap}
+.panlx{background:none;border:none;cursor:pointer;color:#ccc;font-size:16px;padding:2px 6px}
+.panlx:hover{color:#e55}
+.panf{padding:20px 24px;border-top:1px solid #e8e2d9}
+.pantot{display:flex;justify-content:space-between;font-family:"Cormorant Garamond",serif;font-size:22px;margin-bottom:14px}
+.panco{width:100%;background:var(--vt);color:#fff;border:none;padding:15px;font-family:"Cinzel",serif;font-size:13px;letter-spacing:.1em;cursor:pointer}
+.panco:hover{background:var(--vtf)}
+/* MODAL */
+.modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:1300;align-items:center;justify-content:center;padding:16px}
+.modal.on{display:flex}
+.mbox{background:#fff;width:100%;max-width:500px;max-height:92vh;overflow-y:auto;padding:36px;position:relative}
+.mclose{position:absolute;top:14px;right:18px;background:none;border:none;font-size:26px;cursor:pointer;color:#bbb;line-height:1}
+.mclose:hover{color:#333}
+.mbox h2{font-family:"Cormorant Garamond",serif;font-size:34px;color:var(--vt);margin-bottom:6px}
+.msub{font-size:16px;color:#666;margin-bottom:22px}
+.inp{width:100%;padding:12px 15px;border:1.5px solid #ddd;background:var(--cr);font-family:"EB Garamond",serif;font-size:16px;color:#444;margin-bottom:11px;outline:none}
+.inp:focus{border-color:var(--vt);background:#fff}
+.inp::placeholder{color:#bbb}
+textarea.inp{min-height:75px;resize:vertical}
+select.inp{cursor:pointer}
+.setiq{font-family:"Cinzel",serif;font-size:10px;letter-spacing:.15em;color:var(--br);margin:14px 0 8px;display:block;text-transform:uppercase}
+.choix{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:6px}
+.ch{border:2px solid #ddd;padding:13px;cursor:pointer;display:flex;align-items:center;gap:8px;background:var(--cr);transition:border-color .15s,background .15s;user-select:none}
+.ch:hover{border-color:#aaa}
+.ch.on{border-color:var(--vt);background:#eef2e8}
+.chtxt{font-family:"EB Garamond",serif;font-size:15px;flex:1}
+.chck{margin-left:auto;width:20px;height:20px;border-radius:50%;background:var(--vt);color:#fff;font-size:11px;display:none;align-items:center;justify-content:center;flex-shrink:0}
+.ch.on .chck{display:flex}
+.encart{background:#eef2e8;border-left:3px solid var(--vt);padding:10px 13px;font-size:14px;color:var(--vt);margin-bottom:10px}
+.benvoyer{width:100%;background:var(--vt);color:#fff;border:none;padding:15px;font-family:"Cinzel",serif;font-size:12px;letter-spacing:.14em;cursor:pointer;margin-top:10px}
+.benvoyer:hover{background:var(--vtf)}
+.conf{text-align:center;padding:16px 0}
+.confck{font-size:56px;margin-bottom:18px}
+.conf h2{font-family:"Cormorant Garamond",serif;font-size:34px;color:var(--vt);margin-bottom:14px}
+.conf p{font-size:16px;color:#666;line-height:1.8;margin-bottom:24px}
+/* MODAL CONTACT */
+.mctitle{font-family:"Cormorant Garamond",serif;font-size:28px;color:var(--br);margin-bottom:16px}
+.mcopts{display:flex;flex-direction:column;gap:12px;margin-top:8px}
+.mcopt{display:flex;align-items:center;gap:16px;border:2px solid #ddd;padding:16px 20px;cursor:pointer;background:var(--cr);transition:all .15s;text-decoration:none;color:var(--tx)}
+.mcopt:hover{border-color:var(--vt);background:#eef2e8}
+.mcopt-icon{font-size:28px}
+.mcopt-txt strong{display:block;font-family:"Cinzel",serif;font-size:12px;letter-spacing:.08em}
+.mcopt-txt span{font-size:14px;color:#888}
+/* NOTIF */
+.notif{position:fixed;bottom:22px;right:22px;background:var(--vt);color:#fff;padding:12px 20px;font-family:"Cinzel",serif;font-size:11px;letter-spacing:.08em;z-index:9999;opacity:0;transform:translateY(8px);transition:all .25s;pointer-events:none}
+.notif.on{opacity:1;transform:translateY(0)}
+/* HERO */
+.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;background:#fff;text-align:center;padding:100px 40px 60px}
+.hero-logo{width:220px;height:auto;object-fit:contain;margin-bottom:24px}
+.htag{font-family:"Cormorant Garamond",serif;font-style:italic;font-size:22px;color:#888;margin-bottom:6px}
+.hloc{font-family:"Cinzel",serif;font-size:11px;letter-spacing:.25em;color:#aaa;margin-bottom:14px}
+.hdiv{width:100px;height:1px;background:#ccc;margin:0 auto 52px}
+.hcards{display:grid;grid-template-columns:repeat(3,1fr);width:100%;max-width:900px}
+.hcard{background:var(--vt);color:#fff;padding:36px 26px;border:1px solid rgba(255,255,255,.1)}
+.hcard h3{font-family:"EB Garamond",serif;font-size:22px;font-weight:600;margin-bottom:10px}
+.hcard p{font-size:15px;opacity:.9}
+/* LABEL */
+.lbl{display:flex;align-items:center;gap:12px;font-family:"Cinzel",serif;font-size:11px;letter-spacing:.2em;color:#888;margin-bottom:22px}
+.lbl::before{content:"";width:34px;height:1px;background:#bbb}
+/* QUI */
+.squi{background:#eef2e8;padding:90px 80px}
+.quig{display:grid;grid-template-columns:1fr 1fr;gap:70px;max-width:1100px;margin:0 auto}
+.quig h2{font-family:"Cormorant Garamond",serif;font-style:italic;font-size:44px;color:var(--vt);margin-bottom:22px}
+.quig>div>p{font-size:16px;color:#555;margin-bottom:28px}
+.quibtns{display:flex;gap:10px;flex-wrap:wrap}
+.bdk{background:var(--br);color:#fff;border:none;padding:10px 20px;font-family:"Cinzel",serif;font-size:11px;letter-spacing:.1em;cursor:pointer}
+.qi{display:grid;grid-template-columns:68px 1fr;gap:14px;padding:22px 0;border-bottom:1px solid #c8d4b8}
+.qi:first-child{border-top:1px solid #c8d4b8}
+.qin{font-family:"Cormorant Garamond",serif;font-size:44px;color:var(--vt);line-height:1;font-weight:300}
+.qit{font-family:"Cinzel",serif;font-size:12px;letter-spacing:.05em;margin-bottom:4px}
+.qi p{font-size:14px;color:#555}
+/* VALEURS */
+.sval{background:var(--br);padding:90px 80px;color:#fff}
+.valh{max-width:1100px;margin:0 auto 50px}
+.valh .lbl{color:rgba(255,255,255,.5)}
+.valh .lbl::before{background:rgba(255,255,255,.3)}
+.valh h2{font-family:"Cormorant Garamond",serif;font-style:italic;font-size:46px}
+.valg{display:grid;grid-template-columns:repeat(3,1fr);max-width:1100px;margin:0 auto}
+.vc{padding:34px;border:1px solid rgba(255,255,255,.15)}
+.vc h3{font-family:"Cormorant Garamond",serif;font-style:italic;font-size:26px;margin-bottom:11px}
+.vc p{font-size:15px;color:rgba(255,255,255,.85);line-height:1.7}
+/* APROPOS */
+.sapr{background:var(--br);padding:90px 80px;color:#fff}
+.aprg{display:grid;grid-template-columns:1fr auto 1fr;gap:50px;max-width:1200px;margin:0 auto;align-items:center}
+.aprl .lbl{color:rgba(255,255,255,.5)}
+.aprl .lbl::before{background:rgba(255,255,255,.3)}
+.aprl h2{font-family:"Cormorant Garamond",serif;font-style:italic;font-size:46px;margin-bottom:22px}
+.aprl p{font-size:15px;color:rgba(255,255,255,.85);margin-bottom:13px}
+.aprr{display:flex;flex-direction:column;gap:22px}
+.aprs h4{font-family:"Cinzel",serif;font-size:12px;letter-spacing:.1em;color:#fff;margin-bottom:5px}
+.aprs p{font-size:14px;color:rgba(255,255,255,.7)}
+.gerant-col{display:flex;flex-direction:column;align-items:center;text-align:center;flex-shrink:0}
+.gerant-photo{width:220px;height:310px;object-fit:cover;object-position:top center;display:block}
+.gerant-nom{font-family:"Cinzel",serif;font-size:12px;letter-spacing:.1em;color:rgba(255,255,255,.9);margin-top:14px;margin-bottom:4px}
+.gerant-titre{font-size:13px;color:rgba(255,255,255,.55)}
+@media(max-width:800px){.aprg{grid-template-columns:1fr}.gerant-col{order:-1}.gerant-photo{width:200px;height:260px}}
+/* PRODUITS */
+.sprod{background:var(--crl);padding:80px}
+.prodh{text-align:center;margin-bottom:48px}
+.prodh h1{font-family:"Cormorant Garamond",serif;font-size:50px;margin-bottom:11px}
+.prodh p{font-size:16px;color:#666;max-width:580px;margin:0 auto}
+.cattit{font-family:"Cormorant Garamond",serif;font-style:italic;font-size:34px;color:var(--vt);text-align:center;margin:42px 0 22px;display:flex;align-items:center;gap:16px;justify-content:center}
+.cattit::before,.cattit::after{content:"";flex:1;max-width:90px;height:1px;background:#ccc}
+.prodg{display:grid;grid-template-columns:1fr 1fr;gap:18px;max-width:1100px;margin:0 auto}
+.pcard{background:#fff;overflow:hidden}
+.pcard-img{width:100%;height:200px;object-fit:cover;display:block}
+.pcard-imgs{display:grid;grid-template-columns:1fr 1fr;height:200px}
+.pcard-imgs img{width:100%;height:100%;object-fit:cover;display:block}
+.pcb{padding:22px}
+.pcb h3{font-family:"EB Garamond",serif;font-size:22px;margin-bottom:6px}
+.pdesc{font-size:14px;color:#888;margin-bottom:15px}
+.ppied{display:flex;align-items:center;justify-content:space-between}
+.pprix{font-family:"EB Garamond",serif;font-size:20px}
+.badd{background:var(--vt);color:#fff;border:none;padding:10px 20px;font-family:"Cinzel",serif;font-size:11px;letter-spacing:.08em;cursor:pointer}
+.badd:hover{background:var(--vtf)}
+.badge{display:inline-block;background:var(--br);color:#fff;font-family:"Cinzel",serif;font-size:10px;letter-spacing:.1em;padding:3px 10px;margin-bottom:10px}
+.badge.indispo{background:#999}
+.mcard{background:var(--vt);padding:36px;display:flex;flex-direction:column;justify-content:center;min-height:200px}
+.mcard h3{font-family:"Cormorant Garamond",serif;font-size:26px;color:#fff;margin-bottom:11px}
+.mcard p{font-size:15px;color:rgba(255,255,255,.85)}
+/* ENGAGEMENT */
+.seng{background:#fff;padding:80px}
+.engh{text-align:center;margin-bottom:42px}
+.engh h2{font-family:"Cormorant Garamond",serif;font-style:italic;font-size:46px}
+.eng-photos{display:grid;grid-template-columns:1fr 1fr;gap:18px;max-width:1100px;margin:0 auto 42px}
+.eng-photo{width:100%;height:280px;object-fit:cover;display:block}
+.engp{display:grid;grid-template-columns:1fr 1fr;max-width:1000px;margin:0 auto;border:1px solid #e0dbd2}
+.engi{padding:24px 28px;border:1px solid #e0dbd2;display:grid;grid-template-columns:38px 1fr;gap:13px}
+.engin{font-family:"Cormorant Garamond",serif;font-size:30px;color:var(--vt);line-height:1}
+.engit{font-family:"Cinzel",serif;font-size:11px;letter-spacing:.08em;color:var(--vt);margin-bottom:4px}
+.engi p{font-size:14px;color:#666}
+/* TRAITEUR */
+.strait{background:var(--crl);padding:80px}
+.traitc{max-width:1000px;margin:0 auto}
+.traitc h1{font-family:"Cormorant Garamond",serif;font-size:50px;margin-bottom:11px}
+.traitintro{font-size:16px;color:#666;max-width:680px;margin-bottom:38px}
+.traitc h2{font-family:"Cormorant Garamond",serif;font-size:34px;color:var(--vt);margin-bottom:9px}
+.traitsub{font-size:15px;color:#666;max-width:620px;margin-bottom:30px}
+.trait-photos{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:30px;max-width:1000px}
+.trait-photo-wrap{overflow:hidden;position:relative}
+.trait-photo{width:100%;height:280px;object-fit:cover;object-position:center center;display:block}
+.trait-photo.portrait{height:280px;object-fit:cover;object-position:top center;}
+.fdevis{background:#fff;padding:34px;max-width:680px}
+.fdevis h3{font-family:"Cinzel",serif;font-size:12px;letter-spacing:.12em;color:var(--br);margin-bottom:20px}
+.dateg{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:11px}
+.benv{width:100%;background:var(--vt);color:#fff;border:none;padding:15px;font-family:"Cinzel",serif;font-size:12px;letter-spacing:.12em;cursor:pointer}
+.benv:hover{background:var(--vtf)}
+/* LOCATION */
+.sloc{background:var(--crl);padding:80px}
+.locc{max-width:1000px;margin:0 auto}
+.locc h2{font-family:"Cormorant Garamond",serif;font-size:34px;color:var(--vt);margin-bottom:9px}
+.locintro{font-size:15px;color:#666;max-width:660px;margin-bottom:26px}
+.loc-photos{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:26px;max-width:680px}
+.loc-photo{width:100%;height:200px;object-fit:cover;object-position:center;display:block}
+.locong{display:grid;grid-template-columns:repeat(3,1fr);max-width:680px;border:1px solid #ccc;margin-bottom:18px}
+.loco{padding:11px 8px;text-align:center;font-family:"Cinzel",serif;font-size:10px;letter-spacing:.06em;cursor:pointer;border:none;background:#fff;border-right:1px solid #ccc}
+.loco:last-child{border-right:none}
+.loco.on{background:var(--vt);color:#fff}
+.loctarf{background:var(--vt);color:#fff;padding:18px 26px;display:flex;justify-content:space-between;align-items:center;max-width:680px;margin-bottom:26px}
+.loctarl{font-family:"Cinzel",serif;font-size:11px;letter-spacing:.1em}
+.loctarp{font-family:"Cormorant Garamond",serif;font-size:30px}
+.fres{background:#fff;padding:34px;max-width:680px}
+.fres h3{font-family:"Cinzel",serif;font-size:12px;letter-spacing:.12em;color:var(--br);margin-bottom:20px}
+.qrow{display:flex;align-items:center;gap:13px;margin-bottom:11px}
+.qrow label{font-family:"Cinzel",serif;font-size:12px;letter-spacing:.06em;color:#666}
+.qinp{width:88px;padding:9px;border:1.5px solid #ddd;font-family:"EB Garamond",serif;font-size:16px;text-align:center}
+.totline{font-size:17px;color:#555;margin-bottom:16px}
+.totline strong{font-family:"Cormorant Garamond",serif;font-size:23px;color:var(--br)}
+.bres{width:100%;background:var(--vt);color:#fff;border:none;padding:15px;font-family:"Cinzel",serif;font-size:12px;letter-spacing:.12em;cursor:pointer}
+.bres:hover{background:var(--vtf)}
+/* TEMOIGNAGES */
+.stemo{background:#fff;padding:80px}
+.temoh{max-width:1100px;margin:0 auto 38px}
+.temoh h2{font-family:"Cormorant Garamond",serif;font-size:50px;line-height:1.2}
+.temoh h2 em{font-style:italic;color:var(--or)}
+.noteg{display:inline-flex;align-items:center;gap:12px;border:1.5px solid #c8c0b0;padding:12px 20px;margin-top:16px}
+.etoiles{color:var(--or);font-size:18px}
+.temog{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;max-width:1100px;margin:32px auto 0}
+.tcard{background:var(--cr);padding:26px;position:relative}
+.tcard::before{content:"\201C";position:absolute;top:14px;right:18px;font-family:"Cormorant Garamond",serif;font-size:70px;color:#ddd;line-height:1}
+.tet{color:var(--or);margin-bottom:13px}
+.ttxt{font-size:15px;color:#666;font-style:italic;margin-bottom:20px;line-height:1.7}
+.tau{display:flex;align-items:center;gap:12px}
+.av{width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-family:"Cinzel",serif;font-size:12px;font-weight:600;flex-shrink:0}
+.an{font-family:"Cinzel",serif;font-size:11px;letter-spacing:.06em;display:block}
+.ar{font-size:13px;color:#999;display:block}
+.tcard.hidden{display:none}
+.bvoirplus{display:block;margin:28px auto 0;background:transparent;border:1.5px solid var(--vt);color:var(--vt);padding:11px 32px;font-family:"Cinzel",serif;font-size:11px;letter-spacing:.12em;cursor:pointer}
+.bvoirplus:hover{background:var(--vt);color:#fff}
+/* AVIS */
+.savis{background:var(--crl);padding:80px}
+.avisc{max-width:700px;margin:0 auto}
+.avish{text-align:center;margin-bottom:40px}
+.avish h2{font-family:"Cormorant Garamond",serif;font-size:46px;margin-bottom:10px}
+.avish p{font-size:15px;color:#666;max-width:500px;margin:0 auto}
+.avisf{background:#fff;padding:36px}
+.aviseg{display:flex;gap:8px;justify-content:center;margin-bottom:8px}
+.avise{font-size:38px;color:#ddd;cursor:pointer;transition:color .15s;user-select:none;line-height:1}
+.avise.on,.avise.hov{color:var(--or)}
+.avisnt{text-align:center;font-family:"Cinzel",serif;font-size:11px;letter-spacing:.1em;color:#aaa;margin-bottom:20px;min-height:18px}
+.bavis{width:100%;background:var(--br);color:#fff;border:none;padding:15px;font-family:"Cinzel",serif;font-size:12px;letter-spacing:.14em;cursor:pointer;margin-top:6px}
+.bavis:hover{background:var(--brf)}
+/* CONTACT */
+.scont{background:var(--br);padding:80px;color:#fff}
+.contg{display:grid;grid-template-columns:1fr 1fr;gap:70px;max-width:1100px;margin:0 auto}
+.contgl h2{font-family:"Cormorant Garamond",serif;font-size:48px;margin-bottom:34px}
+.contl{display:grid;grid-template-columns:108px 1fr;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.15)}
+.contl:first-of-type{border-top:1px solid rgba(255,255,255,.15)}
+.contll{font-family:"Cinzel",serif;font-size:10px;letter-spacing:.12em;color:rgba(255,255,255,.55);padding-top:2px}
+.contlv{font-size:16px}
+.contlv a{color:#fff;text-decoration:none}
+.contlv a:hover{color:var(--or);text-decoration:underline}
+.socbtns{display:flex;gap:8px;flex-wrap:wrap;margin-top:20px}
+.bsoc{border:1.5px solid rgba(255,255,255,.35);background:transparent;color:#fff;padding:8px 15px;font-family:"Cinzel",serif;font-size:10px;letter-spacing:.08em;cursor:pointer;text-decoration:none;display:inline-block}
+.bsoc:hover{background:rgba(255,255,255,.1)}
+.bct{background:var(--vt);color:#fff;border:none;padding:12px 24px;font-family:"Cinzel",serif;font-size:11px;letter-spacing:.1em;cursor:pointer;margin-top:16px;display:inline-block}
+.contgr h3{font-family:"Cormorant Garamond",serif;font-size:34px;margin-bottom:5px}
+.contgr>p{font-size:15px;color:rgba(255,255,255,.65);margin-bottom:30px}
+.copt{margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid rgba(255,255,255,.12)}
+.copt h4{font-family:"Cormorant Garamond",serif;font-style:italic;font-size:27px;margin-bottom:4px}
+.copt p{font-size:14px;color:rgba(255,255,255,.7)}
+.cnot{background:var(--vt);padding:12px 16px;font-size:14px;margin-top:14px}
+/* PDF SECTION */
+.pdf-section{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap}
+.bpdf{border:1.5px solid rgba(255,255,255,.35);background:transparent;color:#fff;padding:8px 15px;font-family:"Cinzel",serif;font-size:10px;letter-spacing:.08em;cursor:pointer;text-decoration:none;display:inline-block}
+.bpdf:hover{background:rgba(255,255,255,.1)}
+/* FOOTER */
+footer{background:var(--vtf);padding:15px 80px;display:flex;justify-content:space-between;align-items:center}
+footer span{font-family:"Cinzel",serif;font-size:10px;letter-spacing:.06em;color:rgba(255,255,255,.6)}
+.flinks{display:flex;gap:22px}
+.flinks a{color:rgba(255,255,255,.6);text-decoration:none;font-family:"Cinzel",serif;font-size:10px;letter-spacing:.06em}
+.flinks a:hover{color:#fff}
+@media(max-width:900px){
+  .hcards,.quig,.valg,.prodg,.temog,.contg{grid-template-columns:1fr}
+  .aprg{grid-template-columns:1fr;text-align:center}
+  .aprl .lbl{justify-content:center}
+  .aprl h2,.aprl p{text-align:left}
+  .gerant-col{order:0}
+  .gerant-photo{width:180px;height:250px}
+  .engp{grid-template-columns:1fr}
+  .squi,.sval,.sapr,.sprod,.seng,.strait,.sloc,.stemo,.savis,.scont{padding:50px 20px}
+  footer{flex-direction:column;gap:12px;padding:20px;text-align:center}
+  .choix{grid-template-columns:1fr}
+  .nav{padding:0 16px}
+  .locong{grid-template-columns:1fr}
+  .dateg{grid-template-columns:1fr}
+  .trait-photos{grid-template-columns:1fr}
+  .eng-photos{grid-template-columns:1fr}
+  .loc-photos{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div class="notif" id="notif"></div>
+<div class="ovl" id="ovl"></div>
+
+<!-- MENU -->
+<div class="menu" id="menu">
+  <button class="xbtn" id="xmenu">&#x2715;</button>
+  <a href="#accueil" class="int">Accueil</a>
+  <a href="#qui" class="int">Qui sommes-nous</a>
+  <a href="#valeurs" class="int">Nos Valeurs</a>
+  <a href="#produits" class="int">Produits Fermiers</a>
+  <a href="#traiteur" class="int">Traiteur</a>
+  <a href="#location" class="int">Location Événementielle</a>
+  <a href="#temoignages" class="int">Témoignages</a>
+  <a href="https://drive.google.com/file/d/1CldPDFeN7rNIADHHmC-1I9nquE9eiHah/view?usp=sharing" target="_blank" class="ext">Charte de l'entreprise</a>
+  <a href="https://drive.google.com/file/d/1YtWUBT_GFzitVkfCOQWoTE3xaa2Gcsvt/view?usp=sharing" target="_blank" class="ext">Portfolio</a>
+  <a href="#contact" class="int">Contact</a>
+</div>
+
+<!-- PANIER -->
+<div class="pan" id="pan">
+  <div class="panh"><h3>Mon Panier</h3><button class="panx" id="xpan">&#x2715;</button></div>
+  <div class="panb" id="panb"><p class="panvide">Votre panier est vide</p></div>
+  <div class="panf">
+    <div class="pantot"><span>Total</span><span id="pantot">0 FCFA</span></div>
+    <button class="panco" id="bpanco">Commander</button>
+  </div>
+</div>
+
+<!-- MODAL COMMANDE -->
+<div class="modal" id="modal">
+  <div class="mbox">
+    <button class="mclose" id="mclose">&#x2715;</button>
+    <div id="sform">
+      <h2>Commander</h2>
+      <p class="msub">Choisissez comment nous envoyer votre commande</p>
+      <input class="inp" type="text" id="fnom" placeholder="Votre nom *">
+      <input class="inp" type="tel" id="ftel" placeholder="Votre téléphone *">
+      <span class="setiq">Mode de réception</span>
+      <div class="choix">
+        <div class="ch" id="cliv"><span class="chtxt">Me faire livrer</span><span class="chck">✓</span></div>
+        <div class="ch" id="cret"><span class="chtxt">Venir chercher</span><span class="chck">✓</span></div>
+      </div>
+      <div id="badr" style="display:none;margin-top:8px"><input class="inp" type="text" id="fadr" placeholder="Adresse de livraison *" style="margin-bottom:0"></div>
+      <div id="bret" style="display:none;margin-top:8px"><div class="encart">Bimbo — Rue du Général Gambi &nbsp;·&nbsp; 8h–17h tous les jours</div></div>
+      <span class="setiq">Mode de paiement</span>
+      <div class="choix">
+        <div class="ch" id="cesp"><span class="chtxt">Paiement en espèces</span><span class="chck">✓</span></div>
+        <div class="ch" id="cor"><span class="chtxt">Orange Money</span><span class="chck">✓</span></div>
+      </div>
+      <textarea class="inp" id="fnotes" placeholder="Notes (facultatif)..." style="margin-top:11px"></textarea>
+      <span class="setiq" style="margin-top:14px">Envoyer via</span>
+      <div class="choix" style="margin-top:4px">
+        <div class="ch" id="cwa"><span class="chtxt">📱 WhatsApp</span><span class="chck">✓</span></div>
+        <div class="ch" id="cem"><span class="chtxt">✉️ Email</span><span class="chck">✓</span></div>
+      </div>
+      <button class="benvoyer" id="benvoyer">Confirmer ma commande →</button>
+    </div>
+    <div id="sconf" style="display:none">
+      <div class="conf">
+        <div class="confck">✅</div>
+        <h2>Merci pour votre commande&nbsp;!</h2>
+        <p>Votre commande a bien été transmise.<br>Nous vous recontacterons très bientôt.<br><br><strong style="color:var(--vt)">À très bientôt&nbsp;!</strong></p>
+        <button class="benvoyer" id="bconfclose">Fermer</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL CONTACT -->
+<div class="modal" id="modal-contact">
+  <div class="mbox">
+    <button class="mclose" id="mclose-contact">&#x2715;</button>
+    <p class="mctitle">Nous contacter</p>
+    <p style="color:#666;font-size:15px;margin-bottom:20px">Choisissez votre moyen de contact préféré :</p>
+    <div class="mcopts">
+      <a href="https://wa.me/message/RQHOZ2OBRC5QM1" target="_blank" class="mcopt">
+        <span class="mcopt-icon">📱</span>
+        <div class="mcopt-txt"><strong>WhatsApp</strong><span>+236 74 22 57 57</span></div>
+      </a>
+      <a href="mailto:saboplume@outlook.com" class="mcopt">
+        <span class="mcopt-icon">✉️</span>
+        <div class="mcopt-txt"><strong>Email</strong><span>saboplume@outlook.com</span></div>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav class="nav">
+  <button class="burger" id="bmenu"><span></span><span></span><span></span></button>
+  <div class="navr">
+    <button class="nbtn" id="bpan">Panier <span class="nbadge" id="pcnt">0</span></button>
+    <button class="ncmd" id="bcmd">Commander</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="accueil">
+  <img src="https://i.ibb.co/C3NkLpLY/logo-officiel-saboplume.png" alt="Saboplume" class="hero-logo">
+  <p class="htag">« À vos côtés pour chaque occasion »</p>
+  <p class="hloc">BIMBO &nbsp;·&nbsp; RÉPUBLIQUE CENTRAFRICAINE</p>
+  <div class="hdiv"></div>
+  <div class="hcards">
+    <div class="hcard"><h3>Produits Fermiers</h3><p>Volailles, caprins et oeufs frais directement de notre ferme</p></div>
+    <div class="hcard"><h3>Traiteur</h3><p>Conception et réalisation de menus pour tous vos événements</p></div>
+    <div class="hcard"><h3>Location Événementielle</h3><p>Chaises et tentes pour tous vos rassemblements</p></div>
+  </div>
+</section>
+
+<!-- QUI -->
+<section class="squi" id="qui">
+  <div class="quig">
+    <div>
+      <div class="lbl">Qui Sommes-Nous</div>
+      <h2>À vos côtés pour chaque occasion</h2>
+      <p>Saboplume, votre référence à Bimbo, vous accompagne dans l'organisation de vos événements et dans votre quotidien grâce à des produits fermiers soigneusement sélectionnés.</p>
+      <div class="quibtns">
+        <button class="bdk" data-to="produits">Produits Fermiers</button>
+        <button class="bdk" data-to="traiteur">Traiteur</button>
+        <button class="bdk" data-to="location">Location</button>
+      </div>
+    </div>
+    <div>
+      <div class="qi"><div class="qin">1</div><div><div class="qit">Produits Fermiers de Qualité</div><p>Volaille, caprins et oeufs frais issus d'un élevage soigné</p></div></div>
+      <div class="qi"><div class="qin">2</div><div><div class="qit">Service Traiteur Professionnel</div><p>Mariages, baptêmes, anniversaires — chaque événement mérite l'excellence</p></div></div>
+      <div class="qi"><div class="qin">3</div><div><div class="qit">Location Événementielle</div><p>Chaises et tentes de qualité, livrées et reprises selon vos besoins</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- VALEURS -->
+<section class="sval" id="valeurs">
+  <div class="valh"><div class="lbl">Nos Valeurs</div><h2>Ce qui nous guide chaque jour</h2></div>
+  <div class="valg">
+    <div class="vc" style="background:#7B2D00"><h3>Authenticité</h3><p>Des produits naturels, élevés avec respect et sans compromis sur la qualité.</p></div>
+    <div class="vc" style="background:#3B5E2B"><h3>Confiance</h3><p>Des relations durables fondées sur la transparence et le respect de nos engagements.</p></div>
+    <div class="vc" style="background:#5A3520"><h3>Excellence</h3><p>Nous visons la qualité dans tout ce que nous faisons : produits, traiteur, location.</p></div>
+    <div class="vc" style="background:#2D4A20"><h3>Bienveillance</h3><p>Chaque client et animal confié à nos soins est traité avec respect et humanité.</p></div>
+    <div class="vc" style="background:#8B4513"><h3>Engagement Local</h3><p>Fiers d'être centrafricains, nous privilégions les ressources et talents locaux.</p></div>
+    <div class="vc" style="background:#1A3A0F"><h3>Innovation</h3><p>Nous cherchons en permanence à améliorer nos services pour mieux vous servir.</p></div>
+  </div>
+</section>
+
+<!-- APROPOS -->
+<section class="sapr" id="apropos">
+  <div class="aprg">
+    <div class="aprl">
+      <div class="lbl">À Propos</div>
+      <h2>Vision et évolution</h2>
+      <p>Saboplume est une EURL créée à Bimbo par Bélinda Songuet, avec une ambition claire : proposer des produits fermiers de qualité et des services adaptés aux besoins des habitants de Bimbo.</p>
+      <p>Grâce à la confiance de sa clientèle, Saboplume a progressivement élargi ses activités autour de trois pôles complémentaires.</p>
+    </div>
+    <div class="gerant-col">
+      <img src="https://i.ibb.co/sJw0Swdr/IMG-1939.png" alt="Bélinda Songuet" class="gerant-photo">
+      <p class="gerant-nom">Bélinda Songuet</p>
+      <p class="gerant-titre">Gérante de Saboplume</p>
+    </div>
+    <div class="aprr">
+      <div class="aprs"><h4>Produits Fermiers</h4><p>Volailles, caprins et oeufs frais. Production locale contrôlée, disponible 7j/7.</p></div>
+      <div class="aprs"><h4>Saboplume Traiteur</h4><p>Prise en charge complète de la restauration pour vos événements.</p></div>
+      <div class="aprs"><h4>Location Événementielle</h4><p>Chaises et tentes pour toutes vos réceptions, livrées sur place.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUITS -->
+<section class="sprod" id="produits">
+  <div class="prodh"><h1>Produits Fermiers</h1><p>Nourrir avec authenticité — des produits frais et sains directement de notre ferme.</p></div>
+
+  <h2 class="cattit">Oeufs</h2>
+  <div class="prodg">
+    <div class="pcard">
+      <img src="https://i.ibb.co/21SB1QqM/Whats-App-Image-2026-02-21-at-09-40.jpg" alt="Oeufs frais" class="pcard-img">
+      <div class="pcb"><span class="badge">Disponible</span><h3>Palette de 30 oeufs</h3><p class="pdesc">Fraîcheur assurée, production régulière directement de notre élevage.</p><div class="ppied"><span class="pprix">1&nbsp;000 FCFA</span><button class="badd" data-nom="Palette de 30 oeufs" data-prix="1000">+ AJOUTER</button></div></div>
+    </div>
+    <div class="pcard">
+      <img src="https://i.ibb.co/Crv8136/Whats-App-Image-2026-02-21-at-09-40-13.jpg" alt="Oeufs frais dans les mains" class="pcard-img">
+      <div class="pcb"><div class="mcard-inline"><h3 style="font-family:'Cormorant Garamond',serif;font-size:22px;color:var(--vt);margin-bottom:8px">Fraîcheur garantie</h3><p style="font-size:14px;color:#666">Nos oeufs viennent directement de poules élevées à Bimbo, sans intermédiaire.</p></div></div>
+    </div>
+  </div>
+
+  <h2 class="cattit">Volailles</h2>
+  <div class="prodg">
+    <div class="pcard">
+      <img src="https://i.ibb.co/1YDS9Yyp/Whats-App-Image-2026-02-21-at-09-08-05-Copie.jpg" alt="Segue Kondo" class="pcard-img">
+      <div class="pcb"><span class="badge">Disponible</span><h3>Segue Kondo</h3><p class="pdesc">Race résistante, adaptée aux conditions locales.</p><div class="ppied"><span class="pprix">3&nbsp;500 FCFA</span><button class="badd" data-nom="Segue Kondo" data-prix="3500">+ AJOUTER</button></div></div>
+    </div>
+    <div class="pcard">
+      <img src="https://i.ibb.co/99DP49ZM/Whats-App-Image-2026-02-21-at-09-44-24-Copie.jpg" alt="Kondo Ti Kodro" class="pcard-img">
+      <div class="pcb"><span class="badge">Disponible</span><h3>Kondo Ti Kodro</h3><p class="pdesc">Variété robuste, idéale pour reproduction et production.</p><div class="ppied"><span class="pprix">4&nbsp;500 FCFA</span><button class="badd" data-nom="Kondo Ti Kodro" data-prix="4500">+ AJOUTER</button></div></div>
+    </div>
+  </div>
+
+  <h2 class="cattit">Caprins</h2>
+  <div class="prodg">
+    <div class="pcard">
+      <img src="https://i.ibb.co/LzmPdfvr/Whats-App-Image-2026-02-21-at-09-40-18.jpg" alt="Kete Ngassa" class="pcard-img">
+      <div class="pcb"><span class="badge">Disponible</span><h3>Kete Ngassa</h3><p class="pdesc">Jeune chevreau en bonne santé, élevé dans de bonnes conditions.</p><div class="ppied"><span class="pprix">50&nbsp;000 FCFA</span><button class="badd" data-nom="Kete Ngassa" data-prix="50000">+ AJOUTER</button></div></div>
+    </div>
+    <div class="pcard">
+      <img src="https://i.ibb.co/rP7B9Mq/Whats-App-Image-2026-02-21-at-09-40-19-Copie.jpg" alt="Kota Ngassa" class="pcard-img">
+      <div class="pcb"><span class="badge">Disponible</span><h3>Kota Ngassa</h3><p class="pdesc">Chèvres plus développées, robustes et en pleine forme.</p><div class="ppied"><span class="pprix">70&nbsp;000 FCFA</span><button class="badd" data-nom="Kota Ngassa" data-prix="70000">+ AJOUTER</button></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ENGAGEMENT -->
+<section class="seng" id="engagement">
+  <div class="engh"><div class="lbl" style="justify-content:center">Notre Engagement</div><h2>L'élevage autrement</h2></div>
+  <div class="eng-photos">
+    <img src="https://i.ibb.co/CfLj88S/Whats-App-Image-2026-02-23-at-13-05-02.jpg" alt="Élevage Saboplume" class="eng-photo">
+    <img src="https://i.ibb.co/hRmMCHmn/Whats-App-Image-2026-02-22-at-18-35-52.jpg" alt="Élevage Saboplume" class="eng-photo">
+  </div>
+  <div class="engp">
+    <div class="engi"><div class="engin">01</div><div><div class="engit">Qualité sanitaire</div><p>Chaque animal est suivi selon des standards rigoureux.</p></div></div>
+    <div class="engi"><div class="engin">02</div><div><div class="engit">Sélection rigoureuse</div><p>Seuls les meilleurs sujets intègrent notre sélection.</p></div></div>
+    <div class="engi"><div class="engin">03</div><div><div class="engit">Bien-être animal</div><p>Alimentation, eau fraîche, abri propre et soins adaptés.</p></div></div>
+    <div class="engi"><div class="engin">04</div><div><div class="engit">Relation directe</div><p>Du producteur à vous, sans intermédiaire. Transparence garantie.</p></div></div>
+  </div>
+</section>
+
+<!-- TRAITEUR -->
+<section class="strait" id="traiteur">
+  <div class="traitc">
+    <h1>Traiteur &amp; Location Événementielle</h1>
+    <p class="traitintro">Célébrer avec excellence — Saboplume vous accompagne de A à Z : cuisine savoureuse et matériel complet.</p>
+    <h2>Saboplume Traiteur</h2>
+    <p class="traitsub">Mariages, baptêmes, anniversaires, réceptions d'entreprise. Nous gérons tout.</p>
+    <div class="trait-photos">
+      <div class="trait-photo-wrap">
+        <img src="https://i.ibb.co/Jw0zx336/IMG-2099.jpg" alt="Bélinda Songuet Traiteur" class="trait-photo portrait">
+      </div>
+      <div class="trait-photo-wrap">
+        <img src="https://i.ibb.co/LhNXzbkn/Whats-App-Image-2026-02-21-at-11-48-31-Copie.jpg" alt="Service traiteur" class="trait-photo">
+      </div>
+      <div class="trait-photo-wrap">
+        <img src="https://i.ibb.co/N62TKCXS/IMG-2110.png" alt="Cuisine traiteur" class="trait-photo">
+      </div>
+    </div>
+    <div class="fdevis">
+      <h3>Demander un devis Traiteur</h3>
+      <input class="inp" type="text" id="tnom" placeholder="Votre nom">
+      <input class="inp" type="tel" id="ttel" placeholder="Votre téléphone">
+      <input class="inp" type="text" id="tevt" placeholder="Type d'événement (mariage, baptême...)">
+      <div class="dateg">
+        <select class="inp" id="tjour" style="margin-bottom:0"><option value="">Jour</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option><option>13</option><option>14</option><option>15</option><option>16</option><option>17</option><option>18</option><option>19</option><option>20</option><option>21</option><option>22</option><option>23</option><option>24</option><option>25</option><option>26</option><option>27</option><option>28</option><option>29</option><option>30</option><option>31</option></select>
+        <select class="inp" id="tmois" style="margin-bottom:0"><option value="">Mois</option><option>Janvier</option><option>Février</option><option>Mars</option><option>Avril</option><option>Mai</option><option>Juin</option><option>Juillet</option><option>Août</option><option>Septembre</option><option>Octobre</option><option>Novembre</option><option>Décembre</option></select>
+        <select class="inp" id="tannee" style="margin-bottom:0"><option value="">Année</option><option>2025</option><option>2026</option><option>2027</option><option>2028</option></select>
+      </div>
+      <input class="inp" type="number" id="tpers" placeholder="Nombre de personnes">
+      <textarea class="inp" id="tdetails" placeholder="Détails de votre événement..."></textarea>
+      <button class="benv" id="bdevis">Envoyer ma demande</button>
+    </div>
+  </div>
+</section>
+
+<!-- LOCATION -->
+<section class="sloc" id="location">
+  <div class="locc">
+    <h2>Saboplume Location Événementielle</h2>
+    <p class="locintro">Matériel événementiel de qualité : chaises et tentes. Livraison et reprise incluses.</p>
+    <div class="loc-photos">
+      <img src="https://i.ibb.co/kFLqBJ1/Whats-App-Image-2026-02-21-at-12-15-43.jpg" alt="Chaises location" class="loc-photo" style="object-fit:contain;background:#f5f5f5">
+      <img src="https://i.ibb.co/BHV7y0HS/Whats-App-Image-2026-02-22-at-17-28-35.jpg" alt="Tentes location" class="loc-photo">
+    </div>
+    <div class="locong">
+      <button class="loco on" data-px="300" data-lb="Tarif par chaise" data-ti="Réserver des chaises" data-ql="Nombre de chaises :">Chaises</button>
+      <button class="loco" data-px="15000" data-lb="Tarif par tente" data-ti="Réserver des tentes" data-ql="Nombre de tentes :">Tentes</button>
+      <button class="loco" data-px="" data-lb="Pack Chaises + Tentes" data-ti="Réserver le pack" data-ql="Nombre de personnes :">Pack</button>
+    </div>
+    <div class="loctarf"><span class="loctarl" id="tlbl">Tarif par chaise</span><span class="loctarp" id="tprix">300 FCFA / unité</span></div>
+    <div class="fres">
+      <h3 id="ftit">Réserver des chaises</h3>
+      <input class="inp" type="text" id="lnom" placeholder="Votre nom">
+      <input class="inp" type="tel" id="ltel" placeholder="Votre téléphone">
+      <div class="dateg">
+        <select class="inp" id="ljour" style="margin-bottom:0"><option value="">Jour</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option><option>13</option><option>14</option><option>15</option><option>16</option><option>17</option><option>18</option><option>19</option><option>20</option><option>21</option><option>22</option><option>23</option><option>24</option><option>25</option><option>26</option><option>27</option><option>28</option><option>29</option><option>30</option><option>31</option></select>
+        <select class="inp" id="lmois" style="margin-bottom:0"><option value="">Mois</option><option>Janvier</option><option>Février</option><option>Mars</option><option>Avril</option><option>Mai</option><option>Juin</option><option>Juillet</option><option>Août</option><option>Septembre</option><option>Octobre</option><option>Novembre</option><option>Décembre</option></select>
+        <select class="inp" id="lannee" style="margin-bottom:0"><option value="">Année</option><option>2025</option><option>2026</option><option>2027</option><option>2028</option></select>
+      </div>
+      <input class="inp" type="text" id="llieu" placeholder="Lieu de livraison">
+      <div class="qrow"><label id="qlbl">Nombre de chaises :</label><input class="qinp" type="number" id="qinp" value="10" min="1"></div>
+      <p class="totline">Total : <strong id="tot">3&nbsp;000 FCFA</strong></p>
+      <button class="bres" id="bres">Réserver</button>
+    </div>
+  </div>
+</section>
+
+<!-- TEMOIGNAGES -->
+<section class="stemo" id="temoignages">
+  <div class="temoh">
+    <div class="lbl">Témoignages</div>
+    <h2>Ce que disent nos <em>clients</em></h2>
+    <div class="noteg"><span class="etoiles">★★★★★</span><span style="font-family:'EB Garamond',serif;font-size:22px">5.0</span><span style="font-family:'Cinzel',serif;font-size:10px;letter-spacing:.1em;color:#999">Note Globale</span></div>
+  </div>
+  <div class="temog" id="temog">
+    <!-- 3 visibles par défaut -->
+    <div class="tcard"><div class="tet">★★★★★</div><p class="ttxt">J'ai acheté un Kete Ngassa et je suis vraiment ravie. Le chevreau est en parfaite santé. Je recommande Saboplume les yeux fermés&nbsp;!</p><div class="tau"><div class="av" style="background:#3B5E2B">AN</div><div><span class="an">Adèle Nzamba</span><span class="ar">Cliente · Produits Fermiers · Gobongo</span></div></div></div>
+    <div class="tcard"><div class="tet">★★★★★</div><p class="ttxt">Saboplume Traiteur a géré tous les repas de notre mariage. Tout était parfait : qualité, service, ponctualité&nbsp;!</p><div class="tau"><div class="av" style="background:#7B2D00">GN</div><div><span class="an">Gaëlle Ngoundji</span><span class="ar">Cliente · Traiteur · Sica 2</span></div></div></div>
+    <div class="tcard"><div class="tet">★★★★★</div><p class="ttxt">J'ai loué chaises et tentes pour notre conférence. Livraison à l'heure, matériel en parfait état. Service sérieux&nbsp;!</p><div class="tau"><div class="av" style="background:#8B4513">SK</div><div><span class="an">Samuel Koyakoua</span><span class="ar">Client · Location · Lakouanga</span></div></div></div>
+    <!-- 10 supplémentaires cachés -->
+    <div class="tcard hidden"><div class="tet">★★★★★</div><p class="ttxt">Les oeufs sont toujours frais, je commande chaque semaine. Une vraie confiance s'est installée avec Saboplume.</p><div class="tau"><div class="av" style="background:#2D4A20">MK</div><div><span class="an">Martine Kouyidiki</span><span class="ar">Cliente · Produits Fermiers · Castor</span></div></div></div>
+    <div class="tcard hidden"><div class="tet">★★★★★</div><p class="ttxt">Le baptême de mon fils était magnifique. Bélinda et son équipe ont tout géré avec le sourire. Bravo&nbsp;!</p><div class="tau"><div class="av" style="background:#5A3520">CB</div><div><span class="an">Clarisse Boganda</span><span class="ar">Cliente · Traiteur · PK10</span></div></div></div>
+    <div class="tcard hidden"><div class="tet">★★★★★</div><p class="ttxt">J'habite à Samba et la livraison s'est faite sans problème. Très satisfait du service et des produits.</p><div class="tau"><div class="av" style="background:#3B5E2B">JN</div><div><span class="an">Joël Ngaïssona</span><span class="ar">Client · Produits Fermiers · Samba</span></div></div></div>
+    <div class="tcard hidden"><div class="tet">★★★★★</div><p class="ttxt">Nous avons loué 200 chaises pour une réception. Tout était nickel, propre et livré avant l'heure prévue.</p><div class="tau"><div class="av" style="background:#7B2D00">HM</div><div><span class="an">Honorine Mbalanga</span><span class="ar">Cliente · Location · Nzila</span></div></div></div>
+    <div class="tcard hidden"><div class="tet">★★★★★</div><p class="ttxt">La viande de Kondo Ti Kodro était délicieuse pour notre repas de famille. Je reviendrai très bientôt&nbsp;!</p><div class="tau"><div class="av" style="background:#8B4513">PY</div><div><span class="an">Pierre Yamandji</span><span class="ar">Client · Produits Fermiers · Padre Pio</span></div></div></div>
+    <div class="tcard hidden"><div class="tet">★★★★★</div><p class="ttxt">Excellent traiteur pour mon anniversaire. Les plats étaient chauds et savoureux. Toute ma famille a été conquise&nbsp;!</p><div class="tau"><div class="av" style="background:#2D4A20">LK</div><div><span class="an">Léonie Kpata</span><span class="ar">Cliente · Traiteur · Bimbo</span></div></div></div>
+    <div class="tcard hidden"><div class="tet">★★★★★</div><p class="ttxt">Le pack chaises + tentes pour notre événement religieux était parfait. Je recommande à tous mes amis&nbsp;!</p><div class="tau"><div class="av" style="background:#5A3520">FM</div><div><span class="an">Félicien Mandaba</span><span class="ar">Client · Location · Gobongo</span></div></div></div>
+    <div class="tcard hidden"><div class="tet">★★★★★</div><p class="ttxt">Des oeufs très frais, des chèvres en bonne santé. Saboplume c'est la qualité centrafricaine dont on peut être fier.</p><div class="tau"><div class="av" style="background:#3B5E2B">RD</div><div><span class="an">Rose Doumolou</span><span class="ar">Cliente · Produits Fermiers · Lakouanga</span></div></div></div>
+    <div class="tcard hidden"><div class="tet">★★★★★</div><p class="ttxt">Notre séminaire d'entreprise a été un succès grâce au traiteur Saboplume. Ponctuel, professionnel, délicieux.</p><div class="tau"><div class="av" style="background:#7B2D00">AN</div><div><span class="an">Aubin Ngbango</span><span class="ar">Client · Traiteur · Castor</span></div></div></div>
+    <div class="tcard hidden"><div class="tet">★★★★★</div><p class="ttxt">Je suis cliente fidèle depuis plus d'un an. La qualité ne change pas et le service est toujours au top&nbsp;!</p><div class="tau"><div class="av" style="background:#8B4513">VN</div><div><span class="an">Véronique Nganzi</span><span class="ar">Cliente · Produits Fermiers · Sica 2</span></div></div></div>
+  </div>
+  <button class="bvoirplus" id="bvoirplus">Voir plus de témoignages ↓</button>
+</section>
+
+<!-- AVIS -->
+<section class="savis" id="laisser-avis">
+  <div class="avisc">
+    <div class="avish">
+      <div class="lbl" style="justify-content:center">Votre Avis Compte</div>
+      <h2>Laisser un avis</h2>
+      <p>Vous avez utilisé nos services ? Partagez votre expérience et aidez d'autres clients à nous découvrir.</p>
+    </div>
+    <div class="avisf">
+      <div class="aviseg" id="aviseg">
+        <span class="avise" data-v="1">★</span>
+        <span class="avise" data-v="2">★</span>
+        <span class="avise" data-v="3">★</span>
+        <span class="avise" data-v="4">★</span>
+        <span class="avise" data-v="5">★</span>
+      </div>
+      <p class="avisnt" id="avisnt">Cliquez pour noter</p>
+      <input class="inp" type="text" id="avisnom" placeholder="Votre prénom *">
+      <input class="inp" type="text" id="avissvc" placeholder="Service utilisé (ex: Traiteur, Produits Fermiers...)">
+      <input class="inp" type="text" id="avisquart" placeholder="Votre quartier (ex: Gobongo, Castor...)">
+      <textarea class="inp" id="avistxt" placeholder="Partagez votre expérience..." style="min-height:100px"></textarea>
+      <button class="bavis" id="bavis">Publier mon avis</button>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="scont" id="contact">
+  <div class="contg">
+    <div class="contgl">
+      <h2>Nous trouver &amp; commander</h2>
+      <div class="contl"><span class="contll">Adresse</span><span class="contlv"><a href="https://maps.google.com/?q=Bimbo,Rue+du+Général+Gambi,République+Centrafricaine" target="_blank">Bimbo — Rue du Général Gambi</a></span></div>
+      <div class="contl"><span class="contll">Horaires</span><span class="contlv">Tous les jours · 8h — 17h</span></div>
+      <div class="contl"><span class="contll">Téléphone</span><span class="contlv"><a href="tel:+23674225757">+236 74 22 57 57</a></span></div>
+      <div class="contl"><span class="contll">Email</span><span class="contlv"><a href="mailto:saboplume@outlook.com">saboplume@outlook.com</a></span></div>
+      <div class="socbtns">
+        <a href="https://www.facebook.com/share/1ArfaX1XMn/" target="_blank" class="bsoc">Facebook</a>
+        <a href="https://www.tiktok.com/@saboplume" target="_blank" class="bsoc">TikTok</a>
+        <a href="https://www.instagram.com/saboplume" target="_blank" class="bsoc">Instagram</a>
+        <a href="https://wa.me/message/RQHOZ2OBRC5QM1" target="_blank" class="bsoc">WhatsApp</a>
+      </div>
+      <button class="bct" id="btncontacter">Nous contacter</button>
+      <div class="pdf-section">
+        <a href="https://drive.google.com/file/d/1CldPDFeN7rNIADHHmC-1I9nquE9eiHah/view?usp=sharing" target="_blank" class="bpdf">📄 Charte entreprise</a>
+        <a href="https://drive.google.com/file/d/1YtWUBT_GFzitVkfCOQWoTE3xaa2Gcsvt/view?usp=sharing" target="_blank" class="bpdf">📋 Portfolio</a>
+      </div>
+    </div>
+    <div class="contgr">
+      <h3>Comment commander&nbsp;?</h3>
+      <p>Plusieurs façons selon ce qui vous convient.</p>
+      <div class="copt"><h4>En ligne</h4><p>Commandez depuis notre site, via nos réseaux sociaux ou par email</p></div>
+      <div class="copt"><h4>Sur place</h4><p>Bimbo, Rue du Général Gambi — tous les jours de 8h à 17h.</p></div>
+      <div class="copt"><h4>Sur rendez-vous</h4><p>Pour un conseil personnalisé ou une commande spéciale, prenez rendez-vous.</p></div>
+      <div class="cnot">Livraison disponible — tarifs selon la distance</div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span>© 2026 Saboplume EURL · Bimbo, République Centrafricaine</span>
+  <div class="flinks">
+    <a href="#produits">Produits Fermiers</a>
+    <a href="#traiteur">Traiteur</a>
+    <a href="#location">Location Événementielle</a>
+  </div>
+</footer>
+
+<script>
+// ======================= HELPERS SHARED STORAGE =======================
+function getData(key,def){
+  try{var v=localStorage.getItem('sabo_'+key);return v?JSON.parse(v):def;}catch(e){return def;}
+}
+function setData(key,val){
+  try{localStorage.setItem('sabo_'+key,JSON.stringify(val));}catch(e){}
+}
+function addRecord(type,record){
+  var data=getData(type,[]);
+  data.push(record);
+  setData(type,data);
+}
+
+// ======================= UTILITAIRES =======================
+function fp(n){return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g,'\u00A0');}
+
+// ======================= APPLIQUER LES DONNÉES ADMIN AU SITE =======================
+function appliquerAdmin(){
+  // Produits
+  var PRODUITS_DEFAULT=[
+    {id:'oeuf',nom:'Palette de 30 oeufs',desc:'Fraîcheur assurée, production régulière directement de notre élevage.',prix:1000,dispo:true,remise:false},
+    {id:'segue',nom:'Segue Kondo',desc:'Race résistante, adaptée aux conditions locales.',prix:3500,dispo:true,remise:false},
+    {id:'kondo',nom:'Kondo Ti Kodro',desc:'Variété robuste, idéale pour reproduction et production.',prix:4500,dispo:true,remise:false},
+    {id:'kete',nom:'Kete Ngassa',desc:'Jeune chevreau en bonne santé, élevé dans de bonnes conditions.',prix:50000,dispo:true,remise:false},
+    {id:'kota',nom:'Kota Ngassa',desc:'Chèvres plus développées, robustes et en pleine forme.',prix:70000,dispo:true,remise:false}
+  ];
+  var prods=getData('produits',PRODUITS_DEFAULT);
+  var badds=document.querySelectorAll('.badd');
+  badds.forEach(function(btn){
+    var nomOriginal=btn.getAttribute('data-nom');
+    var prod=prods.find(function(p){return p.nom===nomOriginal||p.nom===btn.getAttribute('data-nom-original');});
+    if(!prod){
+      // chercher par nom partiel / id
+      prods.forEach(function(p){
+        if(nomOriginal&&nomOriginal.toLowerCase().indexOf(p.nom.toLowerCase().substring(0,6))>=0)prod=p;
+      });
+    }
+    if(prod){
+      btn.setAttribute('data-nom',prod.nom);
+      btn.setAttribute('data-prix',prod.prix);
+      // Mettre à jour la carte
+      var pcb=btn.closest('.pcb');
+      if(pcb){
+        var h3=pcb.querySelector('h3');if(h3)h3.textContent=prod.nom;
+        var desc=pcb.querySelector('.pdesc');if(desc)desc.textContent=prod.desc;
+        var prix=pcb.querySelector('.pprix');
+        if(prix){
+          if(prod.remise){
+            var prixRemise=Math.round(prod.prix*0.95);
+            prix.innerHTML='<span style="text-decoration:line-through;color:#aaa;font-size:15px">'+fp(prod.prix)+'</span> <span style="color:var(--vt)">'+fp(prixRemise)+' FCFA</span>';
+          } else {
+            prix.textContent=fp(prod.prix)+'\u00A0FCFA';
+          }
+        }
+        var badge=pcb.querySelector('.badge');
+        if(badge){
+          if(prod.dispo){badge.textContent='Disponible';badge.classList.remove('indispo');}
+          else{badge.textContent='Indisponible';badge.classList.add('indispo');btn.disabled=true;btn.style.opacity='.4';}
+        }
+      }
+    }
+  });
+
+  // Textes
+  var textes=getData('textes',{});
+  if(textes.quiTitre){var h=document.querySelector('.quig h2');if(h)h.textContent=textes.quiTitre;}
+  if(textes.quiPara){var ps=document.querySelectorAll('.quig>div>p');if(ps[0])ps[0].textContent=textes.quiPara;}
+  if(textes.visionP1){var vp=document.querySelectorAll('.aprl p');if(vp[0])vp[0].textContent=textes.visionP1;}
+  if(textes.visionP2){var vp2=document.querySelectorAll('.aprl p');if(vp2[1])vp2[1].textContent=textes.visionP2;}
+
+  // Médias
+  var medias=getData('medias',{});
+  if(medias.logo){var logo=document.querySelector('.hero-logo');if(logo)logo.src=medias.logo;}
+  if(medias.oeuf1){var i=document.querySelector('.sprod .pcard-img');if(i)i.src=medias.oeuf1;}
+  if(medias.belinda){var b=document.querySelector('.gerant-photo');if(b)b.src=medias.belinda;}
+  // Photos produits par ordre dans le DOM
+  var pimgs=document.querySelectorAll('.sprod .pcard-img');
+  if(medias.oeuf1&&pimgs[0])pimgs[0].src=medias.oeuf1;
+  if(medias.oeuf2&&pimgs[1])pimgs[1].src=medias.oeuf2;
+  if(medias.vol1&&pimgs[2])pimgs[2].src=medias.vol1;
+  if(medias.vol2&&pimgs[3])pimgs[3].src=medias.vol2;
+  if(medias.cap1&&pimgs[4])pimgs[4].src=medias.cap1;
+  if(medias.cap2&&pimgs[5])pimgs[5].src=medias.cap2;
+  var elevimgs=document.querySelectorAll('.eng-photo');
+  if(medias.elev1&&elevimgs[0])elevimgs[0].src=medias.elev1;
+  if(medias.elev2&&elevimgs[1])elevimgs[1].src=medias.elev2;
+  var traitimgs=document.querySelectorAll('.trait-photo');
+  if(medias.trait1&&traitimgs[0])traitimgs[0].src=medias.trait1;
+  if(medias.trait2&&traitimgs[1])traitimgs[1].src=medias.trait2;
+  if(medias.trait3&&traitimgs[2])traitimgs[2].src=medias.trait3;
+  var locimgs=document.querySelectorAll('.loc-photo');
+  if(medias.chaises&&locimgs[0])locimgs[0].src=medias.chaises;
+  if(medias.tentes&&locimgs[1])locimgs[1].src=medias.tentes;
+  // Liens
+  var liens=getData('liens',{});
+  if(liens.facebook){var fb=document.querySelector('a[href*="facebook"]');if(fb)fb.href=liens.facebook;}
+  if(liens.tiktok){var tt=document.querySelector('a[href*="tiktok"]');if(tt)tt.href=liens.tiktok;}
+  if(liens.instagram){var ig=document.querySelector('a[href*="instagram"]');if(ig)ig.href=liens.instagram;}
+  if(liens.whatsapp){
+    document.querySelectorAll('a[href*="wa.me"]').forEach(function(a){a.href=liens.whatsapp;});
+  }
+  if(liens.tel){
+    var ta=document.querySelector('a[href^="tel:"]');if(ta){ta.href='tel:'+liens.tel.replace(/\s/g,'');ta.textContent=liens.tel;}
+  }
+  if(liens.email){
+    var ea=document.querySelector('a[href^="mailto:"]');if(ea){ea.href='mailto:'+liens.email;ea.textContent=liens.email;}
+  }
+  if(medias.charte){document.querySelectorAll('a[href*="1CldPDF"]').forEach(function(a){a.href=medias.charte;});}
+  if(medias.portfolio){document.querySelectorAll('a[href*="1YtWUBT"]').forEach(function(a){a.href=medias.portfolio;});}
+}
+
+document.addEventListener('DOMContentLoaded',function(){
+  // Appliquer les données admin dès le chargement
+  appliquerAdmin();
+
+  var panier=[],modeR=null,modeP=null,modeEnvoi=null,upx=300,noteAvis=0;
+
+  function notif(m){
+    var e=document.getElementById('notif');
+    e.textContent=m;e.classList.add('on');
+    clearTimeout(e._t);e._t=setTimeout(function(){e.classList.remove('on');},3200);
+  }
+  function aller(id){var e=document.getElementById(id);if(e)e.scrollIntoView({behavior:'smooth'});}
+
+  var ovl=document.getElementById('ovl');
+  var menu=document.getElementById('menu');
+  var pan=document.getElementById('pan');
+  var modal=document.getElementById('modal');
+  var modalContact=document.getElementById('modal-contact');
+
+  function fermerTout(){menu.classList.remove('on');pan.classList.remove('on');ovl.classList.remove('on');}
+  ovl.addEventListener('click',function(){fermerTout();modal.classList.remove('on');modalContact.classList.remove('on');});
+  document.getElementById('bmenu').addEventListener('click',function(){menu.classList.add('on');ovl.classList.add('on');});
+  document.getElementById('xmenu').addEventListener('click',fermerTout);
+
+  var ints=document.querySelectorAll('.menu a.int');
+  for(var i=0;i<ints.length;i++){
+    ints[i].addEventListener('click',function(e){
+      e.preventDefault();
+      aller(this.getAttribute('href').substring(1));
+      fermerTout();
+    });
+  }
+
+  // Panier
+  document.getElementById('bpan').addEventListener('click',function(){
+    if(pan.classList.contains('on')){pan.classList.remove('on');ovl.classList.remove('on');}
+    else{pan.classList.add('on');ovl.classList.add('on');}
+  });
+  document.getElementById('xpan').addEventListener('click',function(){pan.classList.remove('on');ovl.classList.remove('on');});
+
+  function majPan(){
+    var cnt=0,tot=0;
+    for(var i=0;i<panier.length;i++){cnt+=panier[i].q;tot+=panier[i].p*panier[i].q;}
+    document.getElementById('pcnt').textContent=cnt;
+    document.getElementById('pantot').textContent=fp(tot)+' FCFA';
+    var pb=document.getElementById('panb');
+    if(!panier.length){pb.innerHTML='<p class="panvide">Votre panier est vide</p>';return;}
+    var h='';
+    for(var j=0;j<panier.length;j++){
+      var a=panier[j];
+      h+='<div class="panl"><div><div class="panln">'+a.n+'</div><div class="panlq">Qté : '+a.q+'</div></div>'
+       +'<div style="display:flex;align-items:center;gap:6px"><span class="panlp">'+fp(a.p*a.q)+' FCFA</span>'
+       +'<button class="panlx" data-n="'+a.n+'">✕</button></div></div>';
+    }
+    pb.innerHTML=h;
+    var xs=pb.querySelectorAll('.panlx');
+    for(var k=0;k<xs.length;k++){
+      xs[k].addEventListener('click',function(){
+        var n=this.getAttribute('data-n');
+        panier=panier.filter(function(x){return x.n!==n;});
+        majPan();
+      });
+    }
+  }
+
+  var badds=document.querySelectorAll('.badd');
+  for(var bi=0;bi<badds.length;bi++){
+    badds[bi].addEventListener('click',function(){
+      var n=this.getAttribute('data-nom'),p=parseInt(this.getAttribute('data-prix'));
+      var ex=null;
+      for(var ei=0;ei<panier.length;ei++){if(panier[ei].n===n){ex=panier[ei];break;}}
+      if(ex){ex.q++;}else{panier.push({n:n,p:p,q:1});}
+      majPan();
+      notif(n+' ajouté au panier ✓');
+    });
+  }
+
+  // Modal commande
+  function ouvrirModal(){
+    if(!panier.length){notif('Ajoutez des articles au panier d\'abord');return;}
+    pan.classList.remove('on');ovl.classList.remove('on');
+    reinit();modal.classList.add('on');
+  }
+  function fermerModal(){modal.classList.remove('on');setTimeout(reinit,300);}
+  function reinit(){
+    modeR=null;modeP=null;modeEnvoi=null;
+    ['fnom','ftel','fadr','fnotes'].forEach(function(id){document.getElementById(id).value='';});
+    document.getElementById('badr').style.display='none';
+    document.getElementById('bret').style.display='none';
+    ['cliv','cret','cesp','cor','cwa','cem'].forEach(function(id){document.getElementById(id).classList.remove('on');});
+    document.getElementById('sform').style.display='block';
+    document.getElementById('sconf').style.display='none';
+  }
+
+  document.getElementById('bcmd').addEventListener('click',ouvrirModal);
+  document.getElementById('bpanco').addEventListener('click',ouvrirModal);
+  document.getElementById('mclose').addEventListener('click',fermerModal);
+  document.getElementById('bconfclose').addEventListener('click',fermerModal);
+  modal.addEventListener('click',function(e){if(e.target===modal)fermerModal();});
+
+  document.getElementById('cliv').addEventListener('click',function(){
+    modeR='livraison';this.classList.add('on');document.getElementById('cret').classList.remove('on');
+    document.getElementById('badr').style.display='block';document.getElementById('bret').style.display='none';
+  });
+  document.getElementById('cret').addEventListener('click',function(){
+    modeR='retrait';this.classList.add('on');document.getElementById('cliv').classList.remove('on');
+    document.getElementById('badr').style.display='none';document.getElementById('bret').style.display='block';
+  });
+  document.getElementById('cesp').addEventListener('click',function(){
+    modeP='especes';this.classList.add('on');document.getElementById('cor').classList.remove('on');
+  });
+  document.getElementById('cor').addEventListener('click',function(){
+    modeP='orange';this.classList.add('on');document.getElementById('cesp').classList.remove('on');
+  });
+  document.getElementById('cwa').addEventListener('click',function(){
+    modeEnvoi='whatsapp';this.classList.add('on');document.getElementById('cem').classList.remove('on');
+  });
+  document.getElementById('cem').addEventListener('click',function(){
+    modeEnvoi='email';this.classList.add('on');document.getElementById('cwa').classList.remove('on');
+  });
+
+  document.getElementById('benvoyer').addEventListener('click',function(){
+    var nom=document.getElementById('fnom').value.trim();
+    var tel=document.getElementById('ftel').value.trim();
+    var adr=document.getElementById('fadr').value.trim();
+    var notes=document.getElementById('fnotes').value.trim();
+    if(!nom){alert('Veuillez entrer votre nom.');return;}
+    if(!tel){alert('Veuillez entrer votre téléphone.');return;}
+    if(!modeR){alert('Veuillez choisir un mode de réception.');return;}
+    if(modeR==='livraison'&&!adr){alert('Veuillez entrer votre adresse.');return;}
+    if(!modeP){alert('Veuillez choisir un mode de paiement.');return;}
+    if(!modeEnvoi){alert('Veuillez choisir comment envoyer votre commande.');return;}
+    var tot=0,ligs='';
+    for(var i=0;i<panier.length;i++){tot+=panier[i].p*panier[i].q;ligs+='- '+panier[i].n+' x'+panier[i].q+' = '+fp(panier[i].p*panier[i].q)+' FCFA\n';}
+    var rec=modeR==='livraison'?'Livraison à : '+adr:'Retrait sur place (Bimbo)';
+    var pay=modeP==='especes'?'Espèces':'Orange Money';
+    var msg='Nouvelle commande Saboplume\n\nClient : '+nom+'\nTél : '+tel+'\n\nArticles :\n'+ligs+'\nTotal : '+fp(tot)+' FCFA\n\nRéception : '+rec+'\nPaiement : '+pay+(notes?'\n\nNotes : '+notes:'')+'\n\nVia saboplume.com';
+    // === SAUVEGARDER DANS L'ADMIN ===
+    var artResume=panier.map(function(x){return x.n+' x'+x.q;}).join(', ');
+    addRecord('commandes',{
+      date:new Date().toLocaleString('fr-FR',{day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'}),
+      client:nom,tel:tel,articles:artResume,
+      montant:fp(tot)+' FCFA',reception:rec,
+      paiement:pay+(modeEnvoi==='whatsapp'?' · WhatsApp':' · Email')
+    });
+    // ================================
+    if(modeEnvoi==='whatsapp'){
+      window.open('https://wa.me/23674225757?text='+encodeURIComponent(msg),'_blank');
+    } else {
+      var em='saboplume@outlook.com';
+      var subj='Commande Saboplume - '+nom;
+      window.location.href='mailto:'+em+'?subject='+encodeURIComponent(subj)+'&body='+encodeURIComponent(msg);
+    }
+    panier=[];majPan();
+    document.getElementById('sform').style.display='none';
+    document.getElementById('sconf').style.display='block';
+  });
+
+  // Modal contact
+  document.getElementById('btncontacter').addEventListener('click',function(){
+    modalContact.classList.add('on');
+  });
+  document.getElementById('mclose-contact').addEventListener('click',function(){
+    modalContact.classList.remove('on');
+  });
+  modalContact.addEventListener('click',function(e){if(e.target===modalContact)modalContact.classList.remove('on');});
+
+  // Navigation
+  var bdks=document.querySelectorAll('.bdk[data-to]');
+  for(var si=0;si<bdks.length;si++){
+    bdks[si].addEventListener('click',function(){aller(this.getAttribute('data-to'));});
+  }
+
+  // Location onglets
+  var ongl=document.querySelectorAll('.loco');
+  var qinp=document.getElementById('qinp');
+  for(var oi=0;oi<ongl.length;oi++){
+    ongl[oi].addEventListener('click',function(){
+      for(var xi=0;xi<ongl.length;xi++)ongl[xi].classList.remove('on');
+      this.classList.add('on');
+      var px=this.getAttribute('data-px');
+      upx=px?parseInt(px):null;
+      document.getElementById('tlbl').textContent=this.getAttribute('data-lb');
+      document.getElementById('tprix').textContent=px?fp(parseInt(px))+' FCFA / unité':'Sur devis';
+      document.getElementById('ftit').textContent=this.getAttribute('data-ti');
+      document.getElementById('qlbl').textContent=this.getAttribute('data-ql');
+      majTot();
+    });
+  }
+  function majTot(){
+    var q=parseInt(qinp.value)||0;
+    document.getElementById('tot').textContent=upx?fp(q*upx)+' FCFA':'Sur devis';
+  }
+  qinp.addEventListener('input',majTot);
+
+  // Formulaire traiteur → WhatsApp
+  document.getElementById('bdevis').addEventListener('click',function(){
+    var nom=document.getElementById('tnom').value.trim();
+    var tel=document.getElementById('ttel').value.trim();
+    var evt=document.getElementById('tevt').value.trim();
+    var jour=document.getElementById('tjour').value;
+    var mois=document.getElementById('tmois').value;
+    var an=document.getElementById('tannee').value;
+    var pers=document.getElementById('tpers').value.trim();
+    var det=document.getElementById('tdetails').value.trim();
+    if(!nom||!tel){alert('Veuillez entrer votre nom et téléphone.');return;}
+    var date=jour&&mois&&an?jour+' '+mois+' '+an:'à confirmer';
+    var msg='Demande Traiteur Saboplume\n\nNom : '+nom+'\nTél : '+tel+'\nType : '+(evt||'N/A')+'\nDate : '+date+'\nPersonnes : '+(pers||'N/A')+(det?'\n\nDétails : '+det:'')+'\n\nVia saboplume.com';
+    // === SAUVEGARDER DANS L'ADMIN ===
+    addRecord('traiteur',{
+      date:new Date().toLocaleString('fr-FR',{day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'}),
+      nom:nom,tel:tel,evenement:evt||'N/A',personnes:pers||'N/A',dateEvt:date
+    });
+    // ================================
+    window.open('https://wa.me/23674225757?text='+encodeURIComponent(msg),'_blank');
+    notif('Demande envoyée ! Nous vous contacterons très bientôt.');
+  });
+
+  // Formulaire location → WhatsApp
+  document.getElementById('bres').addEventListener('click',function(){
+    var nom=document.getElementById('lnom').value.trim();
+    var tel=document.getElementById('ltel').value.trim();
+    var lieu=document.getElementById('llieu').value.trim();
+    var jour=document.getElementById('ljour').value;
+    var mois=document.getElementById('lmois').value;
+    var an=document.getElementById('lannee').value;
+    var q=parseInt(qinp.value)||0;
+    if(!nom||!tel){alert('Veuillez entrer votre nom et téléphone.');return;}
+    var date=jour&&mois&&an?jour+' '+mois+' '+an:'à confirmer';
+    var type=document.querySelector('.loco.on').textContent;
+    var tot=upx?fp(q*upx)+' FCFA':'Sur devis';
+    var msg='Réservation Location Saboplume\n\nNom : '+nom+'\nTél : '+tel+'\nType : '+type+'\nQuantité : '+q+'\nTotal : '+tot+'\nDate : '+date+(lieu?'\nLieu : '+lieu:'')+'\n\nVia saboplume.com';
+    // === SAUVEGARDER DANS L'ADMIN ===
+    addRecord('locations',{
+      date:new Date().toLocaleString('fr-FR',{day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'}),
+      nom:nom,tel:tel,type:type,quantite:q,lieu:lieu||'N/A',dateEvt:date
+    });
+    // ================================
+    window.open('https://wa.me/23674225757?text='+encodeURIComponent(msg),'_blank');
+    notif('Réservation envoyée ! Nous vous contacterons très bientôt.');
+  });
+
+  // Témoignages : Voir plus
+  document.getElementById('bvoirplus').addEventListener('click',function(){
+    var hidden=document.querySelectorAll('.tcard.hidden');
+    if(hidden.length){
+      for(var i=0;i<hidden.length;i++)hidden[i].classList.remove('hidden');
+      this.style.display='none';
+    }
+  });
+
+  // Avis (via mailto, discret)
+  var avises=document.querySelectorAll('.avise');
+  var txts=['','Très décevant','Décevant','Correct','Bien','Excellent !'];
+  function majEtoiles(n){
+    for(var i=0;i<avises.length;i++){avises[i].classList.toggle('on',i<n);}
+    document.getElementById('avisnt').textContent=n>0?txts[n]+' ('+n+'/5)':'Cliquez pour noter';
+  }
+  for(var ai=0;ai<avises.length;ai++){
+    (function(idx){
+      avises[idx].addEventListener('mouseenter',function(){majEtoiles(idx+1);});
+      avises[idx].addEventListener('click',function(){noteAvis=idx+1;majEtoiles(noteAvis);});
+    })(ai);
+  }
+  document.getElementById('aviseg').addEventListener('mouseleave',function(){majEtoiles(noteAvis);});
+
+  document.getElementById('bavis').addEventListener('click',function(){
+    var nom=document.getElementById('avisnom').value.trim();
+    var svc=document.getElementById('avissvc').value.trim();
+    var quart=document.getElementById('avisquart').value.trim();
+    var txt=document.getElementById('avistxt').value.trim();
+    if(!noteAvis){alert('Veuillez choisir une note.');return;}
+    if(!nom){alert('Veuillez entrer votre prénom.');return;}
+    if(!txt){alert('Veuillez écrire votre avis.');return;}
+    var nb='★★★★★'.substring(0,noteAvis)+'☆☆☆☆☆'.substring(noteAvis);
+    var em='saboplume@outlook.com';
+    var subj='Avis Saboplume '+nb+' - '+nom;
+    var body='Avis Saboplume\n\nNote : '+nb+' ('+noteAvis+'/5)\nPrénom : '+nom+(svc?'\nService : '+svc:'')+(quart?'\nQuartier : '+quart:'')+'\n\nAvis :\n'+txt+'\n\nVia saboplume.com';
+    window.location.href='mailto:'+em+'?subject='+encodeURIComponent(subj)+'&body='+encodeURIComponent(body);
+    notif('Merci pour votre avis ! Il sera examiné très bientôt.');
+  });
+
+});
+</script>
+</body>
+</html>
