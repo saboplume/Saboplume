@@ -337,7 +337,7 @@ footer span{font-family:"Cinzel",serif;font-size:10px;letter-spacing:.06em;color
 .carousel-wrap{position:relative;overflow:hidden;padding-bottom:4px}
 .temog-carousel{display:flex;transition:transform 0.5s cubic-bezier(0.25,0.46,0.45,0.94);will-change:transform}
 .temog-carousel .tcard{min-width:calc(33.333% - 12px);margin-right:16px;flex-shrink:0}
-@media(max-width:800px){.temog-carousel .tcard{min-width:calc(100% - 8px);height:auto;overflow:visible;display:flex;flex-direction:column;box-sizing:border-box}.temog-carousel{align-items:stretch}.ttxt{font-size:14px;line-height:1.6}.tcard{padding:20px}}
+@media(max-width:800px){.temog-carousel .tcard{min-width:calc(100vw - 80px);max-width:calc(100vw - 80px);height:auto;overflow:visible;display:flex;flex-direction:column;box-sizing:border-box}.temog-carousel{align-items:stretch}.ttxt{font-size:14px;line-height:1.6}.tcard{padding:20px}}
 @media(min-width:801px) and (max-width:1100px){.temog-carousel .tcard{min-width:calc(50% - 10px)}}
 .carousel-controls{display:flex;justify-content:center;align-items:center;gap:16px;margin-top:32px}
 .carousel-btn{width:44px;height:44px;border:1.5px solid var(--vt);background:transparent;color:var(--vt);font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background 0.25s,color 0.25s;font-family:serif}
@@ -745,7 +745,7 @@ footer{animation:footerFadeIn 0.6s ease forwards;animation-play-state:paused}
         <span class="mcopt-icon">📱</span>
         <div class="mcopt-txt"><strong>WhatsApp</strong><span>+236 74 22 57 57</span></div>
       </a>
-      <a href="mailto:saboplume@outlook.fr">saboplume@outlook.fr</a>
+      <a href="/cdn-cgi/l/email-protection#205341424f504c554d45604f55544c4f4f4b0e4652"><span class="__cf_email__" data-cfemail="b1c2d0d3dec1ddc4dcd4f1dec4c5dddededa9fd7c3">[email&#160;protected]</span></a>
     </div>
   </div>
 </div>
@@ -1052,7 +1052,7 @@ footer{animation:footerFadeIn 0.6s ease forwards;animation-play-state:paused}
       <div class="contl"><span class="contll">Adresse</span><span class="contlv"><a href="https://maps.google.com/?q=Bimbo,Rue+du+Général+Gambi,République+Centrafricaine" target="_blank">Bimbo — Rue du Général Gambi</a></span></div>
       <div class="contl"><span class="contll">Horaires</span><span class="contlv">Tous les jours · 8h — 17h</span></div>
       <div class="contl"><span class="contll">Téléphone</span><span class="contlv"><a href="tel:+23674225757">+236 74 22 57 57</a></span></div>
-      <div class="contl"><span class="contll">Email</span><span class="contlv"><a href="mailto:saboplume@outlook.fr">saboplume@outlook.fr</a></span></div>
+      <div class="contl"><span class="contll">Email</span><span class="contlv"><a href="/cdn-cgi/l/email-protection#532032313c233f263e36133c26273f3c3c387d3521"><span class="__cf_email__" data-cfemail="443725262b3428312921042b3130282b2b2f6a2236">[email&#160;protected]</span></a></span></div>
       <div class="socbtns">
         <a href="https://www.facebook.com/share/1ArfaX1XMn/" target="_blank" class="bsoc">Facebook</a>
         <a href="https://www.tiktok.com/@saboplume" target="_blank" class="bsoc">TikTok</a>
@@ -1085,7 +1085,7 @@ footer{animation:footerFadeIn 0.6s ease forwards;animation-play-state:paused}
   </div>
 </footer>
 
-<script type="module">
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script type="module">
 // ======================= FIREBASE =======================
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 import { getFirestore, doc, getDoc, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
@@ -1636,16 +1636,4 @@ document.addEventListener('DOMContentLoaded',async function(){
              +(svc   ? '\nService : '+svc   : '')
              +(quart ? '\nQuartier : '+quart : '')
              +'\n\nAvis :\n'+txt+'\n\nVia saboplume.com';
-    window.location.href = 'mailto:'+em+'?subject='+encodeURIComponent(subj)+'&body='+encodeURIComponent(body);
-    document.getElementById('avisnom').value  = '';
-    document.getElementById('avissvc').value  = '';
-    document.getElementById('avisquart').value= '';
-    document.getElementById('avistxt').value  = '';
-    noteAvis = 0;
-    majEtoiles(0);
-  });
-})();
-
-</script>
-</body>
-</html>
+    window.loc
