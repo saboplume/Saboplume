@@ -931,22 +931,23 @@ document.addEventListener('DOMContentLoaded',async function(){
     var rec=modeR==='livraison'?'Livraison à : '+adr:'Retrait sur place (Bimbo)';
     var pay=modeP==='especes'?'Espèces':'Orange Money';
     var msg='Nouvelle commande Saboplume\n\nClient : '+nom+'\nTél : '+tel+'\n\nArticles :\n'+ligs+'\nTotal : '+fp(tot)+' FCFA\n\nRéception : '+rec+'\nPaiement : '+pay+(notes?'\n\nNotes : '+notes:'')+'\n\nVia saboplume.com';
-    // === SAUVEGARDER DANS L'ADMIN ===
+    // === OUVRIR WHATSAPP/EMAIL EN PREMIER (obligatoire pour iPhone/Safari) ===
+    if(modeEnvoi==='whatsapp'){
+      window.location.href='https://wa.me/23674225757?text='+encodeURIComponent(msg);
+    } else {
+      var em='saboplume@outlook.fr';
+      var subj='Commande Saboplume - '+nom;
+      window.location.href='mailto:'+em+'?subject='+encodeURIComponent(subj)+'&body='+encodeURIComponent(msg);
+    }
+    // === SAUVEGARDER DANS FIREBASE ENSUITE ===
     var artResume=panier.map(function(x){return x.n+' x'+x.q;}).join(', ');
-    await addRecord('commandes',{
+    addRecord('commandes',{
       date:new Date().toLocaleString('fr-FR',{day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'}),
       client:nom,tel:tel,articles:artResume,
       montant:fp(tot)+' FCFA',reception:rec,
       paiement:pay+(modeEnvoi==='whatsapp'?' · WhatsApp':' · Email')
     });
-    // ================================
-    if(modeEnvoi==='whatsapp'){
-      window.open('https://wa.me/23674225757?text='+encodeURIComponent(msg),'_blank');
-    } else {
-      var em='saboplume@outlook.fr';
-      var subj='Commande Saboplume - '+nom;
-      window.open('mailto:'+em+'?subject='+encodeURIComponent(subj)+'&body='+encodeURIComponent(msg),'_blank');
-    }
+    // =========================================
     panier=[];majPan();
     document.getElementById('sform').style.display='none';
     document.getElementById('sconf').style.display='block';
