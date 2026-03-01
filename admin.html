@@ -183,7 +183,10 @@ textarea.inp{min-height:80px;resize:vertical}
       </div>
       <div class="card">
         <h3>Photos Produits</h3>
-        <div class="field-group"><label class="lbl-field">Oeufs — Photo</label><input class="inp" type="url" id="m-oeuf1" placeholder="https://i.ibb.co/..."></div>
+        <div class="inp-row">
+          <div class="field-group"><label class="lbl-field">Oeufs — Photo 1</label><input class="inp" type="url" id="m-oeuf1" placeholder="https://i.ibb.co/..."></div>
+          <div class="field-group"><label class="lbl-field">Oeufs — Photo 2</label><input class="inp" type="url" id="m-oeuf2" placeholder="https://i.ibb.co/..."></div>
+        </div>
         <div class="inp-row">
           <div class="field-group"><label class="lbl-field">Volailles — Photo 1</label><input class="inp" type="url" id="m-vol1" placeholder="https://i.ibb.co/..."></div>
           <div class="field-group"><label class="lbl-field">Volailles — Photo 2</label><input class="inp" type="url" id="m-vol2" placeholder="https://i.ibb.co/..."></div>
@@ -197,16 +200,13 @@ textarea.inp{min-height:80px;resize:vertical}
       <div class="card">
         <h3>Section "L'élevage autrement"</h3>
         <div class="inp-row">
-          <div class="field-group"><label class="lbl-field">Photo 1</label><input class="inp" type="url" id="m-elev1" placeholder="https://i.ibb.co/..."></div>
-          <div class="field-group"><label class="lbl-field">Photo 2</label><input class="inp" type="url" id="m-elev2" placeholder="https://i.ibb.co/..."></div>
+          <div class="field-group"><label class="lbl-field">Photo</label><input class="inp" type="url" id="m-elev1" placeholder="https://i.ibb.co/..."></div>
         </div>
         <button class="btn-save" onclick="saveMedia('elevage')">Mettre à jour</button>
       </div>
       <div class="card">
         <h3>Section Traiteur</h3>
-        <div class="field-group"><label class="lbl-field">Photo 1 (portrait Bélinda)</label><input class="inp" type="url" id="m-trait1" placeholder="https://i.ibb.co/..."></div>
-        <div class="field-group"><label class="lbl-field">Photo 2</label><input class="inp" type="url" id="m-trait2" placeholder="https://i.ibb.co/..."></div>
-        <div class="field-group"><label class="lbl-field">Photo 3</label><input class="inp" type="url" id="m-trait3" placeholder="https://i.ibb.co/..."></div>
+        <div class="field-group"><label class="lbl-field">Photo Traiteur</label><input class="inp" type="url" id="m-trait1" placeholder="https://i.ibb.co/..."></div>
         <button class="btn-save" onclick="saveMedia('traiteur')">Mettre à jour</button>
       </div>
       <div class="card">
@@ -519,13 +519,14 @@ window.saveMedia = async function(type) {
   if(type === 'logo') { data.logo = document.getElementById('m-logo').value.trim(); }
   if(type === 'produits') {
     data.oeuf1 = document.getElementById('m-oeuf1').value.trim();
+    data.oeuf2 = document.getElementById('m-oeuf2').value.trim();
     data.vol1 = document.getElementById('m-vol1').value.trim();
     data.vol2 = document.getElementById('m-vol2').value.trim();
     data.cap1 = document.getElementById('m-cap1').value.trim();
     data.cap2 = document.getElementById('m-cap2').value.trim();
   }
-  if(type === 'elevage') { data.elev1 = document.getElementById('m-elev1').value.trim(); data.elev2 = document.getElementById('m-elev2').value.trim(); }
-  if(type === 'traiteur') { data.trait1 = document.getElementById('m-trait1').value.trim(); data.trait2 = document.getElementById('m-trait2').value.trim(); data.trait3 = document.getElementById('m-trait3').value.trim(); }
+  if(type === 'elevage') { data.elev1 = document.getElementById('m-elev1').value.trim(); }
+  if(type === 'traiteur') { data.trait1 = document.getElementById('m-trait1').value.trim(); }
   if(type === 'location') { data.chaises = document.getElementById('m-chaises').value.trim(); data.tentes = document.getElementById('m-tentes').value.trim(); var pc=document.getElementById('m-prix-chaise').value.trim(); var pt=document.getElementById('m-prix-tente').value.trim(); if(pc)data.prixChaise=parseInt(pc); if(pt)data.prixTente=parseInt(pt); }
   if(type === 'belinda') { data.belinda = document.getElementById('m-belinda').value.trim(); }
   if(type === 'pdf') { data.charte = document.getElementById('m-charte').value.trim(); data.portfolio = document.getElementById('m-portfolio').value.trim(); }
@@ -537,7 +538,7 @@ window.saveMedia = async function(type) {
 async function loadMediaFields() {
   var d = await fbGet('config', 'medias');
   if(!d) return;
-  var map = {logo:'m-logo',oeuf1:'m-oeuf1',vol1:'m-vol1',vol2:'m-vol2',cap1:'m-cap1',cap2:'m-cap2',elev1:'m-elev1',elev2:'m-elev2',trait1:'m-trait1',trait2:'m-trait2',trait3:'m-trait3',chaises:'m-chaises',tentes:'m-tentes',belinda:'m-belinda',charte:'m-charte',portfolio:'m-portfolio'};
+  var map = {logo:'m-logo',oeuf1:'m-oeuf1',vol1:'m-vol1',vol2:'m-vol2',cap1:'m-cap1',cap2:'m-cap2',elev1:'m-elev1',trait1:'m-trait1',chaises:'m-chaises',tentes:'m-tentes',belinda:'m-belinda',charte:'m-charte',portfolio:'m-portfolio'};
   Object.keys(map).forEach(function(k){ if(d[k]) document.getElementById(map[k]).value = d[k]; });
   if(d.prixChaise){ document.getElementById('m-prix-chaise').value = d.prixChaise; document.getElementById('loc-prix-chaise').value = d.prixChaise; }
   if(d.prixTente){ document.getElementById('m-prix-tente').value = d.prixTente; document.getElementById('loc-prix-tente').value = d.prixTente; }
