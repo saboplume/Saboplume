@@ -1142,7 +1142,7 @@ footer {
   </div>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script type="module">
+<script type="module">
 // ======================= FIREBASE =======================
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 import { getFirestore, doc, getDoc, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
@@ -1232,6 +1232,7 @@ async function appliquerAdmin(){
 
   // Médias
   var medias = await getData('medias', {});
+  console.log('MEDIAS FIREBASE:', JSON.stringify(medias));
   if(medias.logo){var logo=document.querySelector('.hero-logo');if(logo)logo.src=medias.logo;}
   if(medias.belinda){var b=document.querySelector('.gerant-photo');if(b)b.src=medias.belinda;}
   // Photos produits : pimgs[0]=Oeufs, [1]=Segue Kondo, [2]=Kondo Ti Kodro, [3]=Kete Ngassa, [4]=Kota Ngassa
