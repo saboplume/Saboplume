@@ -183,10 +183,7 @@ textarea.inp{min-height:80px;resize:vertical}
       </div>
       <div class="card">
         <h3>Photos Produits</h3>
-        <div class="inp-row">
-          <div class="field-group"><label class="lbl-field">Oeufs — Photo 1</label><input class="inp" type="url" id="m-oeuf1" placeholder="https://i.ibb.co/..."></div>
-          <div class="field-group"><label class="lbl-field">Oeufs — Photo 2</label><input class="inp" type="url" id="m-oeuf2" placeholder="https://i.ibb.co/..."></div>
-        </div>
+        <div class="field-group"><label class="lbl-field">Oeufs — Photo</label><input class="inp" type="url" id="m-oeuf1" placeholder="https://i.ibb.co/..."></div>
         <div class="inp-row">
           <div class="field-group"><label class="lbl-field">Volailles — Photo 1</label><input class="inp" type="url" id="m-vol1" placeholder="https://i.ibb.co/..."></div>
           <div class="field-group"><label class="lbl-field">Volailles — Photo 2</label><input class="inp" type="url" id="m-vol2" placeholder="https://i.ibb.co/..."></div>
@@ -522,7 +519,6 @@ window.saveMedia = async function(type) {
   if(type === 'logo') { data.logo = document.getElementById('m-logo').value.trim(); }
   if(type === 'produits') {
     data.oeuf1 = document.getElementById('m-oeuf1').value.trim();
-    data.oeuf2 = document.getElementById('m-oeuf2').value.trim();
     data.vol1 = document.getElementById('m-vol1').value.trim();
     data.vol2 = document.getElementById('m-vol2').value.trim();
     data.cap1 = document.getElementById('m-cap1').value.trim();
@@ -541,7 +537,7 @@ window.saveMedia = async function(type) {
 async function loadMediaFields() {
   var d = await fbGet('config', 'medias');
   if(!d) return;
-  var map = {logo:'m-logo',oeuf1:'m-oeuf1',oeuf2:'m-oeuf2',vol1:'m-vol1',vol2:'m-vol2',cap1:'m-cap1',cap2:'m-cap2',elev1:'m-elev1',elev2:'m-elev2',trait1:'m-trait1',trait2:'m-trait2',trait3:'m-trait3',chaises:'m-chaises',tentes:'m-tentes',belinda:'m-belinda',charte:'m-charte',portfolio:'m-portfolio'};
+  var map = {logo:'m-logo',oeuf1:'m-oeuf1',vol1:'m-vol1',vol2:'m-vol2',cap1:'m-cap1',cap2:'m-cap2',elev1:'m-elev1',elev2:'m-elev2',trait1:'m-trait1',trait2:'m-trait2',trait3:'m-trait3',chaises:'m-chaises',tentes:'m-tentes',belinda:'m-belinda',charte:'m-charte',portfolio:'m-portfolio'};
   Object.keys(map).forEach(function(k){ if(d[k]) document.getElementById(map[k]).value = d[k]; });
   if(d.prixChaise){ document.getElementById('m-prix-chaise').value = d.prixChaise; document.getElementById('loc-prix-chaise').value = d.prixChaise; }
   if(d.prixTente){ document.getElementById('m-prix-tente').value = d.prixTente; document.getElementById('loc-prix-tente').value = d.prixTente; }
