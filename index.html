@@ -105,9 +105,9 @@ select.inp{cursor:pointer}
 .quig>div>p{font-size:16px;color:#555;margin-bottom:28px}
 .quibtns{display:flex;gap:10px;flex-wrap:wrap}
 .bdk{background:var(--br);color:#fff;border:none;padding:10px 20px;font-family:"Cinzel",serif;font-size:11px;letter-spacing:.1em;cursor:pointer}
-.qi{display:grid;grid-template-columns:56px 1fr;gap:0;padding:22px 0;border-bottom:1px solid #c8d4b8;align-items:start}
+.qi{display:grid;grid-template-columns:68px 1fr;gap:0;padding:22px 0;border-bottom:1px solid #c8d4b8;align-items:start}
 .qi:first-child{border-top:1px solid #c8d4b8}
-.qin{font-family:"Cormorant Garamond",serif;font-size:54px;color:var(--vt);line-height:1;font-weight:400;font-style:italic}
+.qin{font-family:"Cormorant Garamond",serif;font-size:68px;color:var(--vt);line-height:1;font-weight:400;font-style:italic}
 .qit{font-family:"Cinzel",serif;font-size:11px;letter-spacing:.08em;margin-bottom:5px;color:var(--tx)}
 .qi p{font-size:14px;color:#666;line-height:1.6}
 /* VALEURS */
@@ -297,39 +297,34 @@ footer span{font-family:"Cinzel",serif;font-size:10px;letter-spacing:.06em;color
 /* ============================================================
    ANIMATIONS SCROLL REVEAL
    ============================================================ */
-@keyframes fadeUp{from{opacity:0;transform:translateY(32px)}to{opacity:1;transform:translateY(0)}}
-@keyframes fadeLeft{from{opacity:0;transform:translateX(-32px)}to{opacity:1;transform:translateX(0)}}
-@keyframes fadeRight{from{opacity:0;transform:translateX(32px)}to{opacity:1;transform:translateX(0)}}
-@keyframes zoomIn{from{opacity:0;transform:scale(0.92)}to{opacity:1;transform:scale(1)}}
-@keyframes logoIn{0%{opacity:0;transform:scale(0.75) rotate(-4deg)}70%{transform:scale(1.04) rotate(1deg)}100%{opacity:1;transform:scale(1) rotate(0)}}
-@keyframes traitGrow{from{width:0}to{width:56px}}
+to{width:56px}}
 
 /* Hero */
-.hero-logo{animation:logoIn 1.1s cubic-bezier(.22,1,.36,1) forwards}
-.htag{opacity:0;animation:fadeUp .7s ease .8s forwards}
-.hloc{opacity:0;animation:fadeUp .7s ease 1s forwards}
-.hdiv{opacity:0;animation:fadeUp .7s ease 1.2s forwards}
-.hcard{opacity:0}
-.hcard:nth-child(1){animation:fadeUp .6s ease 1.4s forwards}
-.hcard:nth-child(2){animation:fadeUp .6s ease 1.6s forwards}
-.hcard:nth-child(3){animation:fadeUp .6s ease 1.8s forwards}
+
+
+
+
+
+
+
+
 
 /* Reveal générique */
-.anim-up{opacity:0;transform:translateY(30px);transition:opacity .7s ease,transform .7s ease}
-.anim-up.visible{opacity:1;transform:none}
-.anim-left{opacity:0;transform:translateX(-30px);transition:opacity .7s ease,transform .7s ease}
-.anim-left.visible{opacity:1;transform:none}
-.anim-right{opacity:0;transform:translateX(30px);transition:opacity .7s ease,transform .7s ease}
-.anim-right.visible{opacity:1;transform:none}
-.anim-zoom{opacity:0;transform:scale(0.93);transition:opacity .6s ease,transform .6s ease}
-.anim-zoom.visible{opacity:1;transform:scale(1)}
-.anim-d1{transition-delay:.1s}.anim-d2{transition-delay:.2s}.anim-d3{transition-delay:.3s}
-.anim-d4{transition-delay:.4s}.anim-d5{transition-delay:.5s}.anim-d6{transition-delay:.6s}
+
+
+
+
+
+
+
+
+
+
 
 /* Titres avec trait animé */
 .titre-trait{position:relative;display:inline-block}
 .titre-trait::after{content:'';position:absolute;bottom:-8px;left:0;height:3px;background:var(--or);width:0;transition:width .7s ease .3s}
-.titre-trait.visible::after{width:56px}
+
 
 /* Hover produits */
 .pcard{transition:transform .3s ease,box-shadow .3s ease}
@@ -351,6 +346,422 @@ footer span{font-family:"Cinzel",serif;font-size:10px;letter-spacing:.06em;color
 .badd,.benv,.bres,.benvoyer,.ncmd,.panco,.bdk,.bvoirplus{position:relative;overflow:hidden}
 .badd::after,.benv::after,.bres::after,.benvoyer::after,.ncmd::after,.panco::after,.bdk::after{content:'';position:absolute;top:0;left:-100%;width:60%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.22),transparent);transform:skewX(-20deg);transition:left 0s}
 .badd:hover::after,.benv:hover::after,.bres:hover::after,.benvoyer:hover::after,.ncmd:hover::after,.panco:hover::after,.bdk:hover::after{left:150%;transition:left .5s ease}
+
+/* ============================================================
+   ANIMATIONS SCROLL — IntersectionObserver
+   Tous les éléments sont VISIBLES par défaut (opacity:1)
+   L'animation ne fait qu'embellir l'entrée à l'écran
+   ============================================================ */
+
+/* Keyframes */
+@keyframes saboFadeUp   { from { opacity:0; transform:translateY(40px); } to { opacity:1; transform:none; } }
+@keyframes saboFadeLeft { from { opacity:0; transform:translateX(-40px); } to { opacity:1; transform:none; } }
+@keyframes saboFadeRight{ from { opacity:0; transform:translateX(40px); } to { opacity:1; transform:none; } }
+@keyframes saboZoom     { from { opacity:0; transform:scale(0.88); } to { opacity:1; transform:scale(1); } }
+@keyframes saboSlideUp  { from { opacity:0; transform:translateY(24px); } to { opacity:1; transform:none; } }
+@keyframes saboTraitGrow{ from { width:0; } to { width:56px; } }
+@keyframes saboGlow     { 0%,100% { box-shadow:0 0 0 0 rgba(200,169,110,0); } 50% { box-shadow:0 0 22px 4px rgba(200,169,110,.35); } }
+@keyframes saboFloat    { 0%,100% { transform:translateY(0); } 50% { transform:translateY(-8px); } }
+@keyframes saboCountUp  { from { opacity:0; transform:scale(.6) translateY(10px); } to { opacity:1; transform:scale(1) translateY(0); } }
+@keyframes saboReveal   { from { opacity:0; clip-path:inset(0 100% 0 0); } to { opacity:1; clip-path:inset(0 0% 0 0); } }
+
+/* Classes d'animation — déclenchées par JS via .sabo-run */
+.sabo-fade-up   { animation: saboFadeUp   .7s cubic-bezier(.22,1,.36,1) both; }
+.sabo-fade-left { animation: saboFadeLeft .7s cubic-bezier(.22,1,.36,1) both; }
+.sabo-fade-right{ animation: saboFadeRight .7s cubic-bezier(.22,1,.36,1) both; }
+.sabo-zoom      { animation: saboZoom     .6s cubic-bezier(.22,1,.36,1) both; }
+.sabo-slide-up  { animation: saboSlideUp  .55s cubic-bezier(.22,1,.36,1) both; }
+.sabo-glow      { animation: saboGlow 2.8s ease-in-out infinite; }
+.sabo-float     { animation: saboFloat 3.5s ease-in-out infinite; }
+
+/* Délais en cascade */
+.sabo-d1 { animation-delay:.08s; }
+.sabo-d2 { animation-delay:.18s; }
+.sabo-d3 { animation-delay:.28s; }
+.sabo-d4 { animation-delay:.38s; }
+.sabo-d5 { animation-delay:.48s; }
+.sabo-d6 { animation-delay:.58s; }
+
+/* Trait animé sous les titres */
+.titre-trait::after { transition: width .7s cubic-bezier(.22,1,.36,1) .3s; }
+.titre-trait.sabo-trait-run::after { width:56px; }
+
+/* Hero — animations auto au chargement (pas d'IntersectionObserver) */
+.hero-logo  { animation: saboZoom     1.1s cubic-bezier(.22,1,.36,1) both; }
+.htag       { animation: saboFadeUp   .7s  cubic-bezier(.22,1,.36,1) .5s both; }
+.hloc       { animation: saboFadeUp   .7s  cubic-bezier(.22,1,.36,1) .7s both; }
+.hdiv       { animation: saboFadeUp   .7s  cubic-bezier(.22,1,.36,1) .9s both; }
+.hcard:nth-child(1) { animation: saboFadeUp .6s cubic-bezier(.22,1,.36,1) 1.1s both; }
+.hcard:nth-child(2) { animation: saboFadeUp .6s cubic-bezier(.22,1,.36,1) 1.3s both; }
+.hcard:nth-child(3) { animation: saboFadeUp .6s cubic-bezier(.22,1,.36,1) 1.5s both; }
+
+/* Hover sur les cartes produits et valeurs */
+.pcard { transition: transform .25s, box-shadow .25s; }
+.pcard:hover { transform: translateY(-8px); box-shadow: 0 18px 40px rgba(0,0,0,.13); }
+.vc    { transition: transform .25s, box-shadow .25s, filter .25s; }
+.vc:hover { transform: translateY(-6px) scale(1.03); box-shadow: 0 16px 36px rgba(0,0,0,.18); filter:brightness(1.08); }
+.tcard { transition: transform .25s, box-shadow .25s; }
+.tcard:hover { transform: translateY(-6px); box-shadow: 0 14px 32px rgba(0,0,0,.1); }
+.engi  { transition: transform .25s, box-shadow .25s; }
+.engi:hover { transform: translateY(-5px); box-shadow: 0 10px 24px rgba(0,0,0,.09); }
+
+/* ============================================================
+   DÉCORATIONS VISUELLES — cadres, ornements, typographie riche
+   ============================================================ */
+
+/* ---- ORNEMENTS GLOBAUX ---- */
+
+
+/* Label petite caps avec ornement */
+.lbl { position:relative; }
+.lbl::after { content:''; display:inline-block; width:34px; height:1px; background:#bbb; margin-left:12px; vertical-align:middle; }
+
+/* Titre-trait plus élégant */
+.titre-trait::after {
+  background: linear-gradient(90deg, var(--or) 60%, transparent);
+  height: 2px;
+}
+
+/* ---- HERO ---- */
+.hero {
+  background: linear-gradient(160deg, #fdfbf8 0%, #f5f2ec 60%, #eef2e8 100%);
+  position: relative;
+  overflow: hidden;
+}
+/* Motif de fond subtil */
+.hero::before {
+  content:'';position:absolute;inset:0;
+  background-image: radial-gradient(circle, rgba(200,169,110,.08) 1px, transparent 1px);
+  background-size: 28px 28px;
+  pointer-events:none;
+}
+/* Trait décoratif vertical gauche dans hero */
+.hero::after {
+  content:'';position:absolute;left:60px;top:20%;bottom:20%;
+  width:1px;background:linear-gradient(to bottom, transparent, var(--or), transparent);
+  pointer-events:none;
+}
+/* Logo flottant */
+.hero-logo {
+  filter: drop-shadow(0 8px 32px rgba(123,45,0,.18));
+  position:relative;z-index:1;
+}
+/* Cards hero enrichies */
+.hcard {
+  position:relative;overflow:hidden;
+  background: linear-gradient(135deg, var(--vt) 0%, var(--vtf) 100%);
+  border-left:3px solid rgba(200,169,110,.5);
+  border-bottom:2px solid rgba(200,169,110,.3);
+}
+
+.hcard h3 { font-weight:600; letter-spacing:.02em; }
+.hdiv {
+  width:120px;height:1px;
+  background: linear-gradient(90deg, transparent, var(--or), transparent);
+  margin:0 auto 52px;
+}
+/* Tagline en italique riche */
+.htag { letter-spacing:.04em; color:#7a6a5a; }
+
+/* ---- SECTION QUI ---- */
+.squi {
+  background: linear-gradient(135deg, #eef2e8 0%, #f0f5ea 100%);
+  position:relative;overflow:hidden;
+}
+.squi::after {
+  content:'S';
+  position:absolute;right:-20px;top:50%;transform:translateY(-50%);
+  font-family:'Cormorant Garamond',serif;font-size:320px;font-style:italic;
+  color:rgba(59,94,43,.05);line-height:1;pointer-events:none;user-select:none;
+}
+/* Numéros 1/2/3 avec cercle doré */
+.qin {
+  color: var(--vt);
+  text-shadow: 2px 2px 0 rgba(200,169,110,.2);
+}
+/* Items qi avec barre dorée gauche au hover */
+.qi { transition: padding-left .25s; }
+.qi:hover { padding-left:8px; border-left:2px solid var(--or); }
+.qit { font-weight:600; }
+/* Boutons bdk avec trait hover */
+.bdk { transition: background .2s, letter-spacing .2s, box-shadow .2s; }
+.bdk:hover { background:var(--brf); letter-spacing:.14em; box-shadow:4px 4px 0 rgba(123,45,0,.2); }
+
+/* ---- VALEURS ---- */
+.sval {
+  background: linear-gradient(135deg, #7B2D00 0%, #5A1F00 50%, #3d1000 100%);
+  position:relative;overflow:hidden;
+}
+/* Motif de fond valeurs */
+.sval::after {
+  content:'';position:absolute;inset:0;
+  background-image: repeating-linear-gradient(45deg, rgba(255,255,255,.02) 0px, rgba(255,255,255,.02) 1px, transparent 1px, transparent 20px);
+  pointer-events:none;
+}
+.vc {
+  position:relative;overflow:hidden;
+  border:none;
+  border-bottom:3px solid rgba(200,169,110,.4);
+}
+/* Ornement guillemet dans chaque valeur */
+
+/* Numéro discret en fond */
+.vc h3 { font-size:28px; text-shadow:0 2px 8px rgba(0,0,0,.2); }
+.vc p { font-size:14px; opacity:.9; }
+
+/* ---- APROPOS ---- */
+.sapr {
+  background: linear-gradient(160deg, #7B2D00 0%, #5A1F00 40%, #2D4A20 100%);
+  position:relative;overflow:hidden;
+}
+.sapr::after {
+  content:'';position:absolute;inset:0;
+  background-image: radial-gradient(ellipse at 80% 50%, rgba(59,94,43,.25) 0%, transparent 60%);
+  pointer-events:none;
+}
+/* Photo gérante — sans cadre */
+.gerant-photo {
+  position:relative;
+}
+.gerant-col { position:relative; z-index:1; }
+/* Trait doré décoratif sous le nom */
+.gerant-nom {
+  position:relative;padding-bottom:10px;
+}
+.gerant-nom::after {
+  content:'';position:absolute;bottom:0;left:50%;transform:translateX(-50%);
+  width:36px;height:1px;background:var(--or);
+}
+/* Blocs service avec bord gauche doré */
+.aprs {
+  padding-left:16px;
+  border-left:2px solid rgba(200,169,110,.4);
+  transition:border-left-color .25s;
+}
+.aprs:hover { border-left-color:var(--or); }
+.aprs h4 { font-size:13px; letter-spacing:.1em; text-transform:uppercase; }
+
+/* ---- PRODUITS ---- */
+.sprod { position:relative; }
+/* Séparateur catégorie avec ornement central */
+.cattit {
+  position:relative;
+  font-style:italic;
+}
+.cattit::before,.cattit::after {
+  background: linear-gradient(90deg, transparent, var(--or), transparent);
+  height:1px;
+}
+/* Carte produit enrichie */
+.pcard {
+  box-shadow: 0 2px 12px rgba(0,0,0,.06);
+  border-bottom:3px solid transparent;
+  transition: transform .25s, box-shadow .25s, border-bottom-color .25s;
+}
+.pcard:hover {
+  border-bottom-color: var(--or);
+}
+/* Prix mis en valeur */
+.pprix { font-weight:600; color:var(--vt); }
+.pprix-avant { text-decoration:line-through; color:#bbb; font-size:14px; }
+/* Badge remise stylé */
+.badge { border-radius:0; letter-spacing:.12em; }
+/* Overlay image au hover */
+.pcard-img, .pcard-imgs img {
+  transition: transform .45s cubic-bezier(.22,1,.36,1), filter .45s;
+}
+.pcard:hover .pcard-img,
+.pcard:hover .pcard-imgs img {
+  transform:scale(1.04);
+  filter:brightness(1.05);
+}
+/* Carte mcard verte */
+.mcard {
+  background: linear-gradient(135deg, var(--vt) 0%, var(--vtf) 100%);
+  border-left:4px solid var(--or);
+}
+
+/* ---- ENGAGEMENT ---- */
+.seng { position:relative; }
+/* Photos engagement avec cadre et effet hover */
+.eng-photo-small {
+  border:1px solid rgba(200,169,110,.3);
+  box-shadow: 0 4px 20px rgba(0,0,0,.08);
+  transition: transform .35s, box-shadow .35s;
+  position:relative;
+}
+.eng-photo-small:hover {
+  transform: scale(1.03) rotate(.5deg);
+  box-shadow: 0 12px 36px rgba(0,0,0,.14);
+}
+/* Numéro engagement en fond */
+.engin { font-size:64px; opacity:.2; }
+.engit { font-weight:600; font-size:11px; }
+/* Items engagement avec fond au hover */
+.engi {
+  background:linear-gradient(to bottom, #fff, #faf8f4);
+  transition: transform .25s, box-shadow .25s, background .25s;
+}
+.engi:hover {
+  background:linear-gradient(to bottom, #f0f5ea, #e8f0e0);
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0,0,0,.08);
+}
+
+/* ---- TRAITEUR ---- */
+.strait { position:relative; }
+/* Photo traiteur avec overlay au hover */
+.trait-photo-wrap {
+  overflow:hidden;
+  position:relative;
+}
+.trait-photo-wrap::after {
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(to bottom, transparent 60%, rgba(59,94,43,.35));
+  pointer-events:none;
+  opacity:0;transition:opacity .35s;
+}
+.trait-photo-wrap:hover::after { opacity:1; }
+.trait-photo {
+  transition: transform .5s cubic-bezier(.22,1,.36,1);
+}
+.trait-photo-wrap:hover .trait-photo { transform:scale(1.05); }
+/* Formulaire enrichi */
+.fdevis {
+  border-top:3px solid var(--or);
+  box-shadow:0 4px 24px rgba(0,0,0,.06);
+}
+.fdevis h3 { letter-spacing:.15em; font-size:11px; }
+
+/* ---- LOCATION ---- */
+.sloc { position:relative; }
+/* Photos location */
+.loc-photo {
+  transition: transform .45s cubic-bezier(.22,1,.36,1), filter .45s;
+  border:1px solid rgba(200,169,110,.2);
+}
+.loc-photo:hover {
+  transform:scale(1.03);
+  filter:brightness(1.05);
+}
+/* Bandeau tarif enrichi */
+.loctarf {
+  background: linear-gradient(135deg, var(--vt) 0%, var(--vtf) 100%);
+  border-left:4px solid var(--or);
+  box-shadow: 0 4px 16px rgba(59,94,43,.2);
+}
+.loctarp { font-style:italic; }
+.fres {
+  border-top:3px solid var(--vt);
+  box-shadow:0 4px 24px rgba(0,0,0,.06);
+}
+
+/* ---- TEMOIGNAGES ---- */
+.stemo { position:relative; overflow:hidden; }
+.stemo::before {
+  content:'"';
+  position:absolute;right:5%;top:-30px;
+  font-family:'Cormorant Garamond',serif;font-size:400px;
+  color:rgba(200,169,110,.06);line-height:1;pointer-events:none;user-select:none;
+}
+/* Note globale */
+.noteg {
+  background: linear-gradient(135deg, var(--cr), #fff);
+  border:1px solid rgba(200,169,110,.4);
+  box-shadow:0 2px 12px rgba(200,169,110,.12);
+}
+/* Carte témoignage enrichie */
+.tcard {
+  background: linear-gradient(to bottom right, var(--cr), #fff);
+  border:1px solid rgba(200,169,110,.15);
+  border-bottom:3px solid transparent;
+  transition: transform .25s, box-shadow .25s, border-bottom-color .25s;
+}
+.tcard:hover { border-bottom-color:var(--or); }
+.tcard::before {
+  color:rgba(200,169,110,.35);font-size:80px;
+  top:8px;right:14px;
+}
+/* Avatar enrichi */
+.av { box-shadow:0 2px 8px rgba(0,0,0,.15); }
+.an { letter-spacing:.08em; color:var(--tx); }
+
+/* ---- AVIS ---- */
+.savis { position:relative; }
+.avish h2 { font-style:italic; }
+.avisf {
+  border-top:3px solid var(--or);
+  box-shadow: 0 4px 24px rgba(0,0,0,.07);
+}
+/* Étoiles plus grandes et animées */
+.avise {
+  font-size:42px;
+  transition: transform .15s, color .15s;
+}
+.avise:hover, .avise.on {
+  transform:scale(1.2);
+}
+.avise.on { color:var(--or); text-shadow:0 0 12px rgba(200,169,110,.5); }
+
+/* ---- CONTACT ---- */
+.scont {
+  background: linear-gradient(160deg, var(--br) 0%, var(--brf) 40%, #1a3a0f 100%);
+  position:relative;overflow:hidden;
+}
+.scont::after {
+  content:'';position:absolute;inset:0;
+  background-image: radial-gradient(ellipse at 20% 80%, rgba(59,94,43,.3) 0%, transparent 50%);
+  pointer-events:none;
+}
+/* Infos contact avec icône couleur */
+.contll { color:var(--or); opacity:.8; }
+/* Boutons sociaux enrichis */
+.bsoc {
+  transition: background .2s, border-color .2s, letter-spacing .2s;
+}
+.bsoc:hover { border-color:var(--or); letter-spacing:.12em; }
+/* Section droite avec fond */
+.contgr {
+  background:rgba(255,255,255,.05);
+  padding:28px;
+  border-left:1px solid rgba(255,255,255,.1);
+  border-radius:0;
+}
+
+/* ---- NAV enrichie ---- */
+.nav {
+  box-shadow:0 2px 16px rgba(0,0,0,.06);
+  backdrop-filter:blur(8px);
+  background:rgba(255,255,255,.96);
+}
+.nbtn { transition: border-color .2s, color .2s; }
+.nbtn:hover { border-color:var(--vt); color:var(--vt); }
+
+/* ---- FOOTER enrichi ---- */
+footer {
+  background: linear-gradient(90deg, var(--vtf) 0%, #1a3a0f 100%);
+  border-top:2px solid rgba(200,169,110,.3);
+}
+
+/* ---- INPUTS FOCUS enrichis ---- */
+.inp:focus {
+  border-color:var(--vt);
+  box-shadow:0 0 0 3px rgba(59,94,43,.1);
+}
+
+/* ---- BOUTONS PRINCIPAUX ---- */
+.benv, .bres, .benvoyer, .panco, .bavis {
+  letter-spacing:.14em;
+  position:relative;overflow:hidden;
+}
+/* Shine effect already on .badd etc — extend to others */
+.benv::after,.bres::after,.bavis::after {
+  content:'';position:absolute;top:0;left:-100%;width:60%;height:100%;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.2),transparent);
+  transform:skewX(-20deg);transition:left 0s;
+}
+.benv:hover::after,.bres:hover::after,.bavis:hover::after { left:150%;transition:left .5s ease; }
+
 </style>
 </head>
 <body>
@@ -433,10 +844,9 @@ footer span{font-family:"Cinzel",serif;font-size:10px;letter-spacing:.06em;color
         <span class="mcopt-icon">📱</span>
         <div class="mcopt-txt"><strong>WhatsApp</strong><span>+236 74 22 57 57</span></div>
       </a>
-      <a href="mailto:saboplume@outlook.fr" class="mcopt">
+      <a href="mailto:saboplume@outlook.com" class="mcopt" id="email-modal-link">
         <span class="mcopt-icon">✉️</span>
-        <div class="mcopt-txt"><strong>Email</strong><span>saboplume@outlook.fr</span></div>
-      </a>
+        <div class="mcopt-txt"><strong>Email</strong><span><span id="email-modal-txt">saboplume@outlook.com</span></span></div></a>
     </div>
   </div>
 </div>
@@ -453,6 +863,7 @@ footer span{font-family:"Cinzel",serif;font-size:10px;letter-spacing:.06em;color
 <!-- HERO -->
 <section class="hero" id="accueil">
   <img src="https://i.ibb.co/C3NkLpLY/logo-officiel-saboplume.png" alt="Saboplume" class="hero-logo">
+  <div style="display:flex;align-items:center;justify-content:center;gap:14px;margin-bottom:4px"><span style="height:1px;width:50px;background:linear-gradient(90deg,transparent,var(--or))"></span><span style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:.3em;color:var(--or);opacity:.7">BIMBO · RCA · DEPUIS 2027</span><span style="height:1px;width:50px;background:linear-gradient(90deg,var(--or),transparent)"></span></div>
   <p class="htag">« À vos côtés pour chaque occasion »</p>
   <p class="hloc">BIMBO &nbsp;·&nbsp; RÉPUBLIQUE CENTRAFRICAINE</p>
   <div class="hdiv"></div>
@@ -466,17 +877,17 @@ footer span{font-family:"Cinzel",serif;font-size:10px;letter-spacing:.06em;color
 <!-- QUI -->
 <section class="squi" id="qui">
   <div class="quig">
-    <div class="anim-left">
-      <div class="lbl">Qui Sommes-Nous</div>
-      <h2 class="titre-trait">À vos côtés pour chaque occasion</h2>
+    <div class="sabo-anim" data-anim="sabo-fade-left">
+      <div class="lbl sabo-anim" data-anim="sabo-slide-up">Qui Sommes-Nous</div>
+      <h2 class="titre-trait sabo-trait-anim" style="font-size:48px;font-weight:600;line-height:1.15">À vos côtés<br><em>pour chaque occasion</em></h2>
       <p>Saboplume, votre référence à Bimbo, vous accompagne dans l'organisation de vos événements et dans votre quotidien grâce à des produits fermiers soigneusement sélectionnés.</p>
       <div class="quibtns">
         <button class="bdk" data-to="produits">Produits Fermiers</button>
         <button class="bdk" data-to="traiteur">Traiteur</button>
-        <button class="bdk" data-to="location">Location</button>
+        <button class="bdk" data-to="location">Location Événementielle</button>
       </div>
     </div>
-    <div class="anim-right">
+    <div class="sabo-anim" data-anim="sabo-fade-right">
       <div class="qi"><div class="qin">1</div><div><div class="qit">Produits Fermiers de Qualité</div><p>Volaille, caprins et oeufs frais issus d'un élevage soigné</p></div></div>
       <div class="qi"><div class="qin">2</div><div><div class="qit">Service Traiteur Professionnel</div><p>Mariages, baptêmes, anniversaires — chaque événement mérite l'excellence</p></div></div>
       <div class="qi"><div class="qin">3</div><div><div class="qit">Location Événementielle</div><p>Chaises et tentes de qualité, livrées et reprises selon vos besoins</p></div></div>
@@ -486,32 +897,33 @@ footer span{font-family:"Cinzel",serif;font-size:10px;letter-spacing:.06em;color
 
 <!-- VALEURS -->
 <section class="sval" id="valeurs">
-  <div class="valh anim-up"><div class="lbl">Nos Valeurs</div><h2 class="titre-trait">Ce qui nous guide chaque jour</h2></div>
+  <div class="valh"><div class="lbl sabo-anim" data-anim="sabo-slide-up">Nos Valeurs</div>
+  <div style="display:flex;flex-direction:column;gap:4px;margin-bottom:18px;max-width:120px"><span style="height:1px;background:rgba(200,169,110,.6)"></span><span style="height:1px;background:rgba(200,169,110,.25);margin-left:18px"></span></div><h2 class="titre-trait sabo-trait-anim">Ce qui nous guide chaque jour</h2></div>
   <div class="valg">
-    <div class="vc anim-up anim-d1" style="background:#7B2D00"><h3>Authenticité</h3><p>Des produits naturels, élevés avec respect et sans compromis sur la qualité.</p></div>
-    <div class="vc anim-up anim-d2" style="background:#3B5E2B"><h3>Confiance</h3><p>Des relations durables fondées sur la transparence et le respect de nos engagements.</p></div>
-    <div class="vc anim-up anim-d3" style="background:#5A3520"><h3>Excellence</h3><p>Nous visons la qualité dans tout ce que nous faisons : produits, traiteur, location.</p></div>
-    <div class="vc anim-up anim-d4" style="background:#2D4A20"><h3>Bienveillance</h3><p>Chaque client et animal confié à nos soins est traité avec respect et humanité.</p></div>
-    <div class="vc anim-up anim-d5" style="background:#8B4513"><h3>Engagement Local</h3><p>Fiers d'être centrafricains, nous privilégions les ressources et talents locaux.</p></div>
-    <div class="vc anim-up anim-d6" style="background:#1A3A0F"><h3>Innovation</h3><p>Nous cherchons en permanence à améliorer nos services pour mieux vous servir.</p></div>
+    <div class="vc sabo-anim" data-anim="sabo-fade-up sabo-d1" style="background:#7B2D00"><h3>Authenticité</h3><p>Des produits naturels, élevés avec respect et sans compromis sur la qualité.</p></div>
+    <div class="vc sabo-anim" data-anim="sabo-fade-up sabo-d2" style="background:#3B5E2B"><h3>Confiance</h3><p>Des relations durables fondées sur la transparence et le respect de nos engagements.</p></div>
+    <div class="vc sabo-anim" data-anim="sabo-fade-up sabo-d3" style="background:#5A3520"><h3>Excellence</h3><p>Nous visons la qualité dans tout ce que nous faisons : produits, traiteur, location.</p></div>
+    <div class="vc sabo-anim" data-anim="sabo-fade-up sabo-d4" style="background:#2D4A20"><h3>Bienveillance</h3><p>Chaque client et animal confié à nos soins est traité avec respect et humanité.</p></div>
+    <div class="vc sabo-anim" data-anim="sabo-fade-up sabo-d5" style="background:#8B4513"><h3>Engagement Local</h3><p>Fiers d'être centrafricains, nous privilégions les ressources et talents locaux.</p></div>
+    <div class="vc sabo-anim" data-anim="sabo-fade-up sabo-d6" style="background:#1A3A0F"><h3>Innovation</h3><p>Nous cherchons en permanence à améliorer nos services pour mieux vous servir.</p></div>
   </div>
 </section>
 
 <!-- APROPOS -->
 <section class="sapr" id="apropos">
   <div class="aprg">
-    <div class="aprl anim-left">
+    <div class="aprl sabo-anim" data-anim="sabo-fade-left">
       <div class="lbl">À Propos</div>
       <h2>Vision et évolution</h2>
       <p>Saboplume est une EURL créée à Bimbo en 2027 par Bélinda Songuet, avec une ambition claire : proposer des produits fermiers de qualité et des services adaptés aux besoins des habitants de Bimbo.</p>
       <p>Grâce à la confiance de sa clientèle, Saboplume a progressivement élargi ses activités autour de trois pôles complémentaires.</p>
     </div>
-    <div class="gerant-col anim-up anim-d2">
+    <div class="gerant-col">
       <img src="https://i.ibb.co/sJw0Swdr/IMG-1939.png" alt="Bélinda Songuet" class="gerant-photo">
       <p class="gerant-nom">Bélinda Songuet</p>
       <p class="gerant-titre">Gérante de Saboplume</p>
     </div>
-    <div class="aprr anim-right anim-d3">
+    <div class="aprr sabo-anim" data-anim="sabo-fade-right">
       <div class="aprs"><h4>Produits Fermiers</h4><p>Volailles, caprins et oeufs frais. Production locale contrôlée, disponible 7j/7.</p></div>
       <div class="aprs"><h4>Saboplume Traiteur</h4><p>Prise en charge complète de la restauration pour vos événements.</p></div>
       <div class="aprs"><h4>Location Événementielle</h4><p>Chaises et tentes pour toutes vos réceptions, livrées sur place.</p></div>
@@ -521,7 +933,7 @@ footer span{font-family:"Cinzel",serif;font-size:10px;letter-spacing:.06em;color
 
 <!-- PRODUITS -->
 <section class="sprod" id="produits">
-  <div class="prodh anim-up"><h1 class="titre-trait">Produits Fermiers</h1><p>Nourrir avec authenticité — des produits frais et sains directement de notre ferme.</p></div>
+  <div class="prodh sabo-anim" data-anim="sabo-fade-up"><h1 class="titre-trait sabo-trait-anim">Produits Fermiers</h1><p>Nourrir avec authenticité — des produits frais et sains directement de notre ferme.</p></div>
 
   <h2 class="cattit">Oeufs</h2>
   <div class="prodg" style="max-width:1100px;margin:0 auto">
@@ -564,28 +976,29 @@ footer span{font-family:"Cinzel",serif;font-size:10px;letter-spacing:.06em;color
 
 <!-- ENGAGEMENT -->
 <section class="seng" id="engagement">
-  <div class="engh anim-up"><div class="lbl" style="justify-content:center">Notre Engagement</div><h2 class="titre-trait">L'élevage autrement</h2></div>
-  <div class="eng-photos-small anim-zoom anim-d1">
+  <div class="engh sabo-anim" data-anim="sabo-fade-up"><div class="lbl" style="justify-content:center">Notre Engagement</div><h2 class="titre-trait sabo-trait-anim">L'élevage autrement</h2></div>
+  <div style="text-align:center;margin-bottom:24px"><span style="display:inline-block;width:40px;height:1px;background:var(--or);vertical-align:middle"></span><span style="display:inline-block;width:8px;height:8px;border:1px solid var(--or);transform:rotate(45deg);margin:0 10px;vertical-align:middle"></span><span style="display:inline-block;width:40px;height:1px;background:var(--or);vertical-align:middle"></span></div>
+  <div class="eng-photos-small sabo-anim" data-anim="sabo-zoom">
     <img src="https://i.ibb.co/WNSJxwsf/Whats-App-Image-2026-02-22-at-18-35-52.jpg" alt="Élevage Saboplume" class="eng-photo-small">
     <img src="https://i.ibb.co/CpfCNMGG/Whats-App-Image-2026-02-23-at-13-05-02.jpg" alt="Élevage Saboplume" class="eng-photo-small">
   </div>
   <div class="engp">
-    <div class="engi anim-up anim-d1">
+    <div class="engi sabo-anim" data-anim="sabo-fade-up sabo-d1">
       <div class="engin">1</div>
       <div class="engit">Qualité sanitaire</div>
       <p>Chaque animal est suivi selon des standards rigoureux.</p>
     </div>
-    <div class="engi anim-up anim-d2">
+    <div class="engi sabo-anim" data-anim="sabo-fade-up sabo-d2">
       <div class="engin">2</div>
       <div class="engit">Sélection rigoureuse</div>
       <p>Seuls les meilleurs sujets intègrent notre sélection.</p>
     </div>
-    <div class="engi anim-up anim-d3">
+    <div class="engi sabo-anim" data-anim="sabo-fade-up sabo-d3">
       <div class="engin">3</div>
       <div class="engit">Bien-être animal</div>
       <p>Alimentation, eau fraîche, abri propre et soins adaptés.</p>
     </div>
-    <div class="engi anim-up anim-d4">
+    <div class="engi sabo-anim" data-anim="sabo-fade-up sabo-d4">
       <div class="engin">4</div>
       <div class="engit">Relation directe</div>
       <p>Du producteur à vous, sans intermédiaire. Transparence garantie.</p>
@@ -595,8 +1008,8 @@ footer span{font-family:"Cinzel",serif;font-size:10px;letter-spacing:.06em;color
 
 <!-- TRAITEUR -->
 <section class="strait" id="traiteur">
-  <div class="traitc">
-    <h1 class="anim-up titre-trait">Traiteur &amp; Location Événementielle</h1>
+  <div class="traitc sabo-anim" data-anim="sabo-fade-up">
+    <h1 class="titre-trait sabo-trait-anim">Traiteur &amp; Location Événementielle</h1>
     <p class="traitintro">Célébrer avec excellence — Saboplume vous accompagne de A à Z : cuisine savoureuse et matériel complet.</p>
     <h2>Saboplume Traiteur</h2>
     <p class="traitsub">Mariages, baptêmes, anniversaires, réceptions d'entreprise. Nous gérons tout.</p>
@@ -624,7 +1037,7 @@ footer span{font-family:"Cinzel",serif;font-size:10px;letter-spacing:.06em;color
 
 <!-- LOCATION -->
 <section class="sloc" id="location">
-  <div class="locc">
+  <div class="locc sabo-anim" data-anim="sabo-fade-up">
     <h2>Saboplume Location Événementielle</h2>
     <p class="locintro">Matériel événementiel de qualité : chaises et tentes. Livraison et reprise incluses.</p>
     <div class="loc-photos">
@@ -656,9 +1069,10 @@ footer span{font-family:"Cinzel",serif;font-size:10px;letter-spacing:.06em;color
 
 <!-- TEMOIGNAGES -->
 <section class="stemo" id="temoignages">
-  <div class="temoh anim-up">
+  <div class="temoh sabo-anim" data-anim="sabo-fade-up">
     <div class="lbl">Témoignages</div>
-    <h2 class="titre-trait">Ce que disent nos <em>clients</em></h2>
+    <h2 class="titre-trait sabo-trait-anim">Ce que disent nos <em>clients</em></h2>
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:20px"><span style="width:28px;height:2px;background:var(--or)"></span><span style="width:8px;height:2px;background:rgba(200,169,110,.4)"></span><span style="width:4px;height:2px;background:rgba(200,169,110,.2)"></span></div>
     <div class="noteg"><span class="etoiles">★★★★★</span><span style="font-family:'EB Garamond',serif;font-size:22px">4.8</span><span style="font-family:'Cinzel',serif;font-size:10px;letter-spacing:.1em;color:#999">Note Globale</span></div>
   </div>
   <div class="temog" id="temog">
@@ -690,7 +1104,7 @@ footer span{font-family:"Cinzel",serif;font-size:10px;letter-spacing:.06em;color
       <h2>Laisser un avis</h2>
       <p>Vous avez utilisé nos services ? Partagez votre expérience et aidez d'autres clients à nous découvrir.</p>
     </div>
-    <div class="avisf">
+    <div class="avisf sabo-anim" data-anim="sabo-zoom">
       <div class="aviseg" id="aviseg">
         <span class="avise" data-v="1">★</span>
         <span class="avise" data-v="2">★</span>
@@ -711,12 +1125,12 @@ footer span{font-family:"Cinzel",serif;font-size:10px;letter-spacing:.06em;color
 <!-- CONTACT -->
 <section class="scont" id="contact">
   <div class="contg">
-    <div class="contgl anim-left">
+    <div class="contgl sabo-anim" data-anim="sabo-fade-left" style="position:relative">
       <h2>Nous trouver &amp; commander</h2>
       <div class="contl"><span class="contll">Adresse</span><span class="contlv"><a href="https://maps.google.com/?q=Bimbo,Rue+du+Général+Gambi,République+Centrafricaine" target="_blank">Bimbo — Rue du Général Gambi</a></span></div>
       <div class="contl"><span class="contll">Horaires</span><span class="contlv">Tous les jours · 8h — 17h</span></div>
       <div class="contl"><span class="contll">Téléphone</span><span class="contlv"><a href="tel:+23674225757">+236 74 22 57 57</a></span></div>
-      <div class="contl"><span class="contll">Email</span><span class="contlv"><a href="mailto:saboplume@outlook.fr">saboplume@outlook.fr</a></span></div>
+      <div class="contl"><span class="contll">Email</span><span class="contlv"><a href="mailto:saboplume@outlook.com" id="email-footer-link"><span id="email-footer-txt">saboplume@outlook.com</span></a></span></div>
       <div class="socbtns">
         <a href="https://www.facebook.com/share/1ArfaX1XMn/" target="_blank" class="bsoc">Facebook</a>
         <a href="https://www.tiktok.com/@saboplume" target="_blank" class="bsoc">TikTok</a>
@@ -729,7 +1143,7 @@ footer span{font-family:"Cinzel",serif;font-size:10px;letter-spacing:.06em;color
         <a href="https://drive.google.com/file/d/1YtWUBT_GFzitVkfCOQWoTE3xaa2Gcsvt/view?usp=sharing" target="_blank" class="bpdf">📋 Portfolio</a>
       </div>
     </div>
-    <div class="contgr">
+    <div class="contgr sabo-anim" data-anim="sabo-fade-right">
       <h3>Comment commander&nbsp;?</h3>
       <p>Plusieurs façons selon ce qui vous convient.</p>
       <div class="copt"><h4>En ligne</h4><p>Commandez depuis notre site, via nos réseaux sociaux ou par email</p></div>
@@ -749,7 +1163,7 @@ footer span{font-family:"Cinzel",serif;font-size:10px;letter-spacing:.06em;color
   </div>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script type="module">
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script type="module">
 // ======================= FIREBASE =======================
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 import { getFirestore, doc, getDoc, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
@@ -813,8 +1227,9 @@ async function appliquerAdmin(){
         var desc=pcb.querySelector('.pdesc');if(desc)desc.textContent=prod.desc;
         var prix=pcb.querySelector('.pprix');
         if(prix){
-          if(prod.remise){
-            var prixRemise=Math.round(prod.prix*0.95);
+          var remVal=(typeof prod.remise==='number')?prod.remise:(prod.remise?5:0);
+          if(remVal>0){
+            var prixRemise=Math.round(prod.prix*(1-remVal/100));
             prix.innerHTML='<span style="text-decoration:line-through;color:#aaa;font-size:15px">'+fp(prod.prix)+'</span> <span style="color:var(--vt)">'+fp(prixRemise)+' FCFA</span>';
           } else {
             prix.textContent=fp(prod.prix)+'\u00A0FCFA';
@@ -859,6 +1274,8 @@ async function appliquerAdmin(){
   var locimgs=document.querySelectorAll('.loc-photo');
   if(medias.chaises&&locimgs[0])locimgs[0].src=medias.chaises;
   if(medias.tentes&&locimgs[1])locimgs[1].src=medias.tentes;
+  if(medias.prixChaise){document.querySelectorAll('.loco').forEach(function(btn){if(btn.textContent.trim()==='Chaises'){btn.setAttribute('data-px',medias.prixChaise);if(btn.classList.contains('on')){document.getElementById('tprix').textContent=fp(parseInt(medias.prixChaise))+' FCFA / unité';}}});}
+  if(medias.prixTente){document.querySelectorAll('.loco').forEach(function(btn){if(btn.textContent.trim()==='Tentes')btn.setAttribute('data-px',medias.prixTente);});}
   // Liens
   var liens = await getData('liens', {});
   if(liens.facebook){var fb=document.querySelector('a[href*="facebook"]');if(fb)fb.href=liens.facebook;}
@@ -871,7 +1288,10 @@ async function appliquerAdmin(){
     var ta=document.querySelector('a[href^="tel:"]');if(ta){ta.href='tel:'+liens.tel.replace(/\s/g,'');ta.textContent=liens.tel;}
   }
   if(liens.email){
-    var ea=document.querySelector('a[href^="mailto:"]');if(ea){ea.href='mailto:'+liens.email;ea.textContent=liens.email;}
+    var em1=document.getElementById('email-modal-link');if(em1)em1.href='mailto:'+liens.email;
+    var em1t=document.getElementById('email-modal-txt');if(em1t)em1t.textContent=liens.email;
+    var em2=document.getElementById('email-footer-link');if(em2)em2.href='mailto:'+liens.email;
+    var em2t=document.getElementById('email-footer-txt');if(em2t)em2t.textContent=liens.email;
   }
   if(medias.charte){document.querySelectorAll('a[href*="1CldPDF"]').forEach(function(a){a.href=medias.charte;});}
   if(medias.portfolio){document.querySelectorAll('a[href*="1YtWUBT"]').forEach(function(a){a.href=medias.portfolio;});}
@@ -881,7 +1301,8 @@ document.addEventListener('DOMContentLoaded',async function(){
   // Appliquer les données admin dès le chargement
   await appliquerAdmin();
 
-  var panier=[],modeR=null,modeP=null,modeEnvoi=null,upx=300,noteAvis=0;
+  var activeLocoBtn=document.querySelector('.loco.on');var initPx=activeLocoBtn?activeLocoBtn.getAttribute('data-px'):null;
+  var panier=[],modeR=null,modeP=null,modeEnvoi=null,upx=initPx?parseInt(initPx):300,noteAvis=0;
 
   function notif(m){
     var e=document.getElementById('notif');
@@ -1159,36 +1580,153 @@ document.addEventListener('DOMContentLoaded',async function(){
   }
   document.getElementById('aviseg').addEventListener('mouseleave',function(){majEtoiles(noteAvis);});
 
-  document.getElementById('bavis').addEventListener('click',function(){
-    var nom=document.getElementById('avisnom').value.trim();
-    var svc=document.getElementById('avissvc').value.trim();
-    var quart=document.getElementById('avisquart').value.trim();
-    var txt=document.getElementById('avistxt').value.trim();
-    if(!noteAvis){alert('Veuillez choisir une note.');return;}
-    if(!nom){alert('Veuillez entrer votre prénom.');return;}
-    if(!txt){alert('Veuillez écrire votre avis.');return;}
-    var nb='★★★★★'.substring(0,noteAvis)+'☆☆☆☆☆'.substring(noteAvis);
-    var em='saboplume@outlook.fr';
-    var subj='Avis Saboplume '+nb+' - '+nom;
-    var body='Avis Saboplume\n\nNote : '+nb+'\nNom : '+nom+(svc?'\nService : '+svc:'')+(quart?'\nQuartier : '+quart:'')+'\n\nAvis :\n'+txt+'\n\nVia saboplume.com';
-    window.open('mailto:'+em+'?subject='+encodeURIComponent(subj)+'&body='+encodeURIComponent(body),'_blank');
-    notif('Merci ! Votre avis a bien été envoyé.');
-  });
+}); // fin DOMContentLoaded
+</script>
 
 }); // fin DOMContentLoaded
 </script>
 
-<!-- ANIMATIONS SCROLL - indépendant de Firebase -->
+
+<!-- ANIMATIONS SCROLL — IntersectionObserver fiable -->
 <script>
 (function(){
-  var els = document.querySelectorAll('.anim-up,.anim-left,.anim-right,.anim-zoom,.titre-trait');
-  if(!els.length) return;
-  var obs = new IntersectionObserver(function(entries){
-    entries.forEach(function(e){
-      if(e.isIntersecting){ e.target.classList.add('visible'); obs.unobserve(e.target); }
-    });
-  },{threshold:0.15});
-  els.forEach(function(el){ obs.observe(el); });
+  // Les éléments ont opacity:1 par défaut dans leur CSS normal
+  // On prépare l'animation SEULEMENT si le navigateur supporte IntersectionObserver
+  if(!('IntersectionObserver' in window)) return;
+
+  // Éléments scroll-reveal
+  var els = document.querySelectorAll('.sabo-anim');
+  els.forEach(function(el){
+    var anims = el.getAttribute('data-anim') || 'sabo-fade-up';
+    // On cache l'élément maintenant qu'on sait que l'Observer est dispo
+    el.style.opacity = '0';
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){
+          e.target.style.opacity = '';
+          anims.split(' ').forEach(function(cls){ if(cls) e.target.classList.add(cls); });
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin:'0px 0px -40px 0px' });
+    io.observe(el);
+  });
+
+  // Traits animés sous les titres
+  var traits = document.querySelectorAll('.sabo-trait-anim');
+  traits.forEach(function(el){
+    var io2 = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){ e.target.classList.add('sabo-trait-run'); io2.unobserve(e.target); }
+      });
+    }, { threshold: 0.3 });
+    io2.observe(el);
+  });
+
+  // Numéros 1/2/3 dans Qui section — animation spéciale
+  var nums = document.querySelectorAll('.qin');
+  nums.forEach(function(el, i){
+    el.style.opacity = '0';
+    el.style.transform = 'scale(.5)';
+    var io3 = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){
+          setTimeout(function(){
+            e.target.style.transition = 'opacity .5s cubic-bezier(.22,1,.36,1), transform .5s cubic-bezier(.22,1,.36,1)';
+            e.target.style.opacity = '1';
+            e.target.style.transform = 'scale(1)';
+          }, i * 120);
+          io3.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.3 });
+    io3.observe(el);
+  });
+
+  // Cartes produits — apparition en cascade
+  var pcards = document.querySelectorAll('.pcard');
+  pcards.forEach(function(el, i){
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(30px)';
+    var io4 = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){
+          setTimeout(function(){
+            e.target.style.transition = 'opacity .6s cubic-bezier(.22,1,.36,1), transform .6s cubic-bezier(.22,1,.36,1), box-shadow .25s';
+            e.target.style.opacity = '1';
+            e.target.style.transform = 'translateY(0)';
+          }, (i % 3) * 100);
+          io4.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    io4.observe(el);
+  });
+
+  // Témoignages — apparition décalée
+  var tcards = document.querySelectorAll('.tcard:not(.hidden)');
+  tcards.forEach(function(el, i){
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(24px)';
+    var io5 = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){
+          setTimeout(function(){
+            e.target.style.transition = 'opacity .55s ease, transform .55s ease, box-shadow .25s';
+            e.target.style.opacity = '1';
+            e.target.style.transform = 'translateY(0)';
+          }, i * 80);
+          io5.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    io5.observe(el);
+  });
+
+})();
+</script>
+
+<!-- ETOILES : script indépendant, zéro dépendance -->
+<script>
+(function(){
+  var _note = 0;
+  var txts = ['','Très décevant','Décevant','Correct','Bien','Excellent !'];
+  function init(){
+    var stars = document.querySelectorAll('.avise');
+    var lbl   = document.getElementById('avisnt');
+    if(!stars.length || !lbl) return;
+    function color(n){
+      for(var i=0;i<stars.length;i++) stars[i].classList.toggle('on', i<n);
+      lbl.textContent = n ? txts[n]+' ('+n+'/5)' : 'Cliquez pour noter';
+    }
+    for(var i=0;i<stars.length;i++){
+      (function(n){
+        stars[n].addEventListener('click',     function(){ _note=n+1; color(_note); });
+        stars[n].addEventListener('touchend',  function(e){ e.preventDefault(); _note=n+1; color(_note); });
+        stars[n].addEventListener('mouseenter',function(){ color(n+1); });
+      })(i);
+    }
+    document.getElementById('aviseg').addEventListener('mouseleave', function(){ color(_note); });
+    // Patch bavis pour lire _note
+    var btn = document.getElementById('bavis');
+    if(btn){
+      btn.addEventListener('click', function(){
+        var nom = document.getElementById('avisnom').value.trim();
+        var svc = document.getElementById('avissvc').value.trim();
+        var quart = document.getElementById('avisquart').value.trim();
+        var txt = document.getElementById('avistxt').value.trim();
+        if(!_note){ alert('Veuillez choisir une note.'); return; }
+        if(!nom){   alert('Veuillez entrer votre prénom.'); return; }
+        if(!txt){   alert('Veuillez écrire votre avis.'); return; }
+        var nb  = '★★★★★'.substring(0,_note)+'☆☆☆☆☆'.substring(_note);
+        var em  = 'saboplume@outlook.fr';
+        var subj= 'Avis Saboplume '+nb+' - '+nom;
+        var body= 'Avis Saboplume\n\nNote : '+nb+'\nNom : '+nom+(svc?'\nService : '+svc:'')+(quart?'\nQuartier : '+quart:'')+'\n\nAvis :\n'+txt+'\n\nVia saboplume.com';
+        window.open('mailto:'+em+'?subject='+encodeURIComponent(subj)+'&body='+encodeURIComponent(body),'_blank');
+      });
+    }
+  }
+  document.readyState==='loading' ? document.addEventListener('DOMContentLoaded',init) : init();
 })();
 </script>
 </body>

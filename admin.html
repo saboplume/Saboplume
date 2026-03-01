@@ -72,15 +72,33 @@ textarea.inp{min-height:80px;resize:vertical}
 .stat-l{font-family:"Cinzel",serif;font-size:10px;letter-spacing:.1em;color:#999;margin-top:4px}
 .firebase-badge{background:#FFA000;color:#fff;font-family:"Cinzel",serif;font-size:9px;letter-spacing:.06em;padding:2px 8px;margin-left:8px;vertical-align:middle}
 @media(max-width:768px){
-  .sidebar{position:relative;width:100%;height:auto}
-  .main{margin-left:0;padding:20px}
-  .stats-grid{grid-template-columns:1fr}
+  .sidebar{position:fixed;top:0;left:-260px;width:240px;height:100vh;z-index:200;transition:left .25s;box-shadow:none}
+  .sidebar.open{left:0;box-shadow:6px 0 24px rgba(0,0,0,.35)}
+  .sidebar-overlay{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:199;display:none}
+  .sidebar-overlay.on{display:block}
+  .main{margin-left:0;padding:16px;padding-top:66px}
+  .stats-grid{grid-template-columns:1fr 1fr;gap:10px}
   .inp-row{grid-template-columns:1fr}
+  .prod-admin-top{flex-direction:column;align-items:flex-start;gap:8px}
+  .prod-ctrl{flex-wrap:wrap;gap:8px}
+  .topbar{flex-direction:column;align-items:flex-start;gap:4px;margin-bottom:16px}
+  .topbar h1{font-size:22px}
+  .hamburger{display:flex}
 }
+@media(min-width:769px){
+  .hamburger{display:none}
+}
+.hamburger{position:fixed;top:10px;left:10px;z-index:300;background:var(--br);border:none;border-radius:5px;width:46px;height:46px;cursor:pointer;flex-direction:column;align-items:center;justify-content:center;gap:6px;padding:0;box-shadow:0 2px 8px rgba(0,0,0,.25)}
+.hamburger span{display:block;width:22px;height:2px;background:#fff;border-radius:2px;transition:all .2s}
+.hamburger.active span:nth-child(1){transform:translateY(8px) rotate(45deg)}
+.hamburger.active span:nth-child(2){opacity:0}
+.hamburger.active span:nth-child(3){transform:translateY(-8px) rotate(-45deg)}
 </style>
 </head>
 <body>
 <div class="notif" id="notif"></div>
+<div class="sidebar-overlay" id="sbo" onclick="closeSB()"></div>
+<button class="hamburger" id="hbg" onclick="toggleSB()"><span></span><span></span><span></span></button>
 
 <!-- LOGIN -->
 <div class="login-wrap" id="login-wrap">
@@ -103,14 +121,14 @@ textarea.inp{min-height:80px;resize:vertical}
       <p style="text-align:center">ADMIN PANEL</p>
     </div>
     <nav class="sidenav">
-      <a href="#" class="active" onclick="showSection('dashboard',this)">📊 Tableau de bord</a>
-      <a href="#" onclick="showSection('produits',this)">🛒 Produits</a>
-      <a href="#" onclick="showSection('medias',this)">📷 Médias</a>
-      <a href="#" onclick="showSection('textes',this)">📝 Textes</a>
-      <a href="#" onclick="showSection('liens',this)">🔗 Liens & Contact</a>
-      <a href="#" onclick="showSection('commandes',this)">📦 Commandes</a>
-      <a href="#" onclick="showSection('traiteur',this)">🍽️ Traiteur</a>
-      <a href="#" onclick="showSection('locations',this)">🪑 Locations</a>
+      <a href="#" class="active" onclick="showSection('dashboard',this);closeSB()">📊 Tableau de bord</a>
+      <a href="#" onclick="showSection('produits',this);closeSB()">🛒 Produits</a>
+      <a href="#" onclick="showSection('medias',this);closeSB()">📷 Médias</a>
+      <a href="#" onclick="showSection('textes',this);closeSB()">📝 Textes</a>
+      <a href="#" onclick="showSection('liens',this);closeSB()">🔗 Liens & Contact</a>
+      <a href="#" onclick="showSection('commandes',this);closeSB()">📦 Commandes</a>
+      <a href="#" onclick="showSection('traiteur',this);closeSB()">🍽️ Traiteur</a>
+      <a href="#" onclick="showSection('locations',this);closeSB()">🪑 Locations</a>
     </nav>
     <div style="padding:16px 24px;margin-top:20px">
       <button class="btn-logout" onclick="logout()">Déconnexion</button>
@@ -195,10 +213,14 @@ textarea.inp{min-height:80px;resize:vertical}
         <button class="btn-save" onclick="saveMedia('traiteur')">Mettre à jour</button>
       </div>
       <div class="card">
-        <h3>Section Location</h3>
+        <h3>Section Location — Photos & Prix</h3>
         <div class="inp-row">
           <div class="field-group"><label class="lbl-field">Photo Chaises</label><input class="inp" type="url" id="m-chaises" placeholder="https://i.ibb.co/..."></div>
           <div class="field-group"><label class="lbl-field">Photo Tentes</label><input class="inp" type="url" id="m-tentes" placeholder="https://i.ibb.co/..."></div>
+        </div>
+        <div class="inp-row">
+          <div class="field-group"><label class="lbl-field">💰 Prix par chaise (FCFA)</label><input class="inp" type="number" id="m-prix-chaise" placeholder="ex: 300"></div>
+          <div class="field-group"><label class="lbl-field">💰 Prix par tente (FCFA)</label><input class="inp" type="number" id="m-prix-tente" placeholder="ex: 15000"></div>
         </div>
         <button class="btn-save" onclick="saveMedia('location')">Mettre à jour</button>
       </div>
@@ -291,6 +313,21 @@ textarea.inp{min-height:80px;resize:vertical}
     <div class="section" id="sec-locations">
       <div class="topbar"><h1>Réservations Location</h1></div>
       <div class="card">
+        <h3>💰 Tarifs Location</h3>
+        <p style="font-size:14px;color:#888;margin-bottom:16px;font-family:'EB Garamond',serif">Modifiez ici les prix affichés sur le site. Le total se calcule automatiquement selon la quantité saisie par le client.</p>
+        <div class="inp-row">
+          <div class="field-group">
+            <label class="lbl-field">Prix par chaise (FCFA)</label>
+            <input class="inp" type="number" id="loc-prix-chaise" placeholder="ex: 300" style="font-size:20px;font-weight:bold">
+          </div>
+          <div class="field-group">
+            <label class="lbl-field">Prix par tente (FCFA)</label>
+            <input class="inp" type="number" id="loc-prix-tente" placeholder="ex: 15000" style="font-size:20px;font-weight:bold">
+          </div>
+        </div>
+        <button class="btn-save" onclick="saveTarifsLocation()">💾 Sauvegarder les tarifs</button>
+      </div>
+      <div class="card">
         <h3>Réservations reçues</h3>
         <div style="margin-bottom:14px;display:flex;gap:10px;flex-wrap:wrap">
           <button class="btn-sm" onclick="exportCSV('locations')">📥 Exporter CSV</button>
@@ -376,7 +413,7 @@ window.showSection = function(id, el) {
   }
   if(id === 'commandes') renderTable('commandes');
   if(id === 'traiteur') renderTable('traiteur');
-  if(id === 'locations') renderTable('locations');
+  if(id === 'locations') { renderTable('locations'); loadTarifsLocation(); }
   if(id === 'dashboard') renderDashboard();
 };
 
@@ -421,14 +458,24 @@ async function loadProduits() {
   renderProduits();
 }
 
+function remiseOptions(idx, remActuelle) {
+  return [0,5,10,25].map(function(v){
+    var sel = (remActuelle === v);
+    return '<label style="cursor:pointer;padding:5px 11px;border:1.5px solid '+(sel?'var(--br)':'#ccc')+';font-family:\'Cinzel\',serif;font-size:10px;letter-spacing:.06em;background:'+(sel?'var(--br)':'#fff')+';color:'+(sel?'#fff':'#666')+';display:inline-block;margin:2px">'
+      + '<input type="radio" name="rem'+idx+'" value="'+v+'" '+(sel?'checked':'')+' onchange="updateProduit('+idx+')" style="display:none">'+v+'%</label>';
+  }).join('');
+}
+
 function renderProduits() {
   var html = '';
   produitsData.forEach(function(p, idx) {
+    var rem = (typeof p.remise === 'number') ? p.remise : (p.remise ? 5 : 0);
+    var prixApres = rem > 0 ? Math.round(p.prix * (1 - rem/100)) : 0;
     html += '<div class="prod-admin">'
       + '<div class="prod-admin-top">'
       + '<span class="prod-admin-name">' + p.nom + '</span>'
       + '<div class="prod-ctrl">'
-      + '<div class="remise-ctrl"><label>Remise 5% <input type="checkbox" id="remise-' + idx + '" ' + (p.remise ? 'checked' : '') + ' onchange="updateProduit(' + idx + ')"></label></div>'
+      + '<div class="remise-ctrl"><span style="font-family:\'Cinzel\',serif;font-size:10px;color:#999;margin-right:6px">REMISE :</span>' + remiseOptions(idx, rem) + '</div>'
       + '<div class="toggle-wrap"><label class="toggle"><input type="checkbox" id="dispo-' + idx + '" ' + (p.dispo ? 'checked' : '') + ' onchange="updateProduit(' + idx + ')"><span class="toggle-slider"></span></label>'
       + '<span style="font-family:\'Cinzel\',serif;font-size:10px;letter-spacing:.06em;color:#666" id="dlbl-' + idx + '">' + (p.dispo ? 'Disponible' : 'Indisponible') + '</span></div>'
       + '</div></div>'
@@ -439,7 +486,7 @@ function renderProduits() {
       + '<div class="field-group" style="margin-top:10px"><label class="lbl-field">Description</label>'
       + '<textarea class="inp" id="pdesc-' + idx + '" style="min-height:55px;margin-bottom:0">' + p.desc + '</textarea>'
       + '</div>'
-      + (p.remise ? '<div style="margin-top:8px;padding:8px 12px;background:#eef2e8;font-size:14px;color:var(--vt)">Prix avec remise : <strong>' + Math.round(p.prix * 0.95).toLocaleString('fr-FR') + ' FCFA</strong></div>' : '')
+      + (rem > 0 ? '<div style="margin-top:8px;padding:8px 12px;background:#eef2e8;font-size:14px;color:var(--vt)">Remise <strong>' + rem + '%</strong> \u2192 <strong>' + prixApres.toLocaleString('fr-FR') + ' FCFA</strong> <span style="color:#bbb;text-decoration:line-through;font-size:13px">' + p.prix.toLocaleString('fr-FR') + ' FCFA</span></div>' : '')
       + '</div>';
   });
   document.getElementById('produits-list').innerHTML = html;
@@ -447,7 +494,8 @@ function renderProduits() {
 
 window.updateProduit = function(idx) {
   var d = document.getElementById('dispo-' + idx).checked;
-  var r = document.getElementById('remise-' + idx).checked;
+  var rEl = document.querySelector('input[name="rem' + idx + '"]:checked');
+  var r = rEl ? parseInt(rEl.value) : 0;
   produitsData[idx].dispo = d;
   produitsData[idx].remise = r;
   document.getElementById('dlbl-' + idx).textContent = d ? 'Disponible' : 'Indisponible';
@@ -460,11 +508,12 @@ window.sauvegarderProduits = async function() {
     p.prix = parseInt(document.getElementById('pprix-' + idx).value) || p.prix;
     p.desc = document.getElementById('pdesc-' + idx).value.trim() || p.desc;
     p.dispo = document.getElementById('dispo-' + idx).checked;
-    p.remise = document.getElementById('remise-' + idx).checked;
+    var rEl = document.querySelector('input[name="rem' + idx + '"]:checked');
+    p.remise = rEl ? parseInt(rEl.value) : 0;
   });
   var ok = await fbSet('config', 'produits', {liste: produitsData});
-  if(ok) { notif('Produits sauvegardés dans Firebase ✓'); renderProduits(); }
-  else notif('Erreur de sauvegarde ✗');
+  if(ok) { notif('Produits sauvegard\u00e9s dans Firebase \u2713'); renderProduits(); }
+  else notif('Erreur de sauvegarde \u2717');
 };
 
 // ======================= MEDIAS =======================
@@ -481,7 +530,7 @@ window.saveMedia = async function(type) {
   }
   if(type === 'elevage') { data.elev1 = document.getElementById('m-elev1').value.trim(); data.elev2 = document.getElementById('m-elev2').value.trim(); }
   if(type === 'traiteur') { data.trait1 = document.getElementById('m-trait1').value.trim(); data.trait2 = document.getElementById('m-trait2').value.trim(); data.trait3 = document.getElementById('m-trait3').value.trim(); }
-  if(type === 'location') { data.chaises = document.getElementById('m-chaises').value.trim(); data.tentes = document.getElementById('m-tentes').value.trim(); }
+  if(type === 'location') { data.chaises = document.getElementById('m-chaises').value.trim(); data.tentes = document.getElementById('m-tentes').value.trim(); var pc=document.getElementById('m-prix-chaise').value.trim(); var pt=document.getElementById('m-prix-tente').value.trim(); if(pc)data.prixChaise=parseInt(pc); if(pt)data.prixTente=parseInt(pt); }
   if(type === 'belinda') { data.belinda = document.getElementById('m-belinda').value.trim(); }
   if(type === 'pdf') { data.charte = document.getElementById('m-charte').value.trim(); data.portfolio = document.getElementById('m-portfolio').value.trim(); }
   var ok = await fbSet('config', 'medias', data);
@@ -494,7 +543,28 @@ async function loadMediaFields() {
   if(!d) return;
   var map = {logo:'m-logo',oeuf1:'m-oeuf1',oeuf2:'m-oeuf2',vol1:'m-vol1',vol2:'m-vol2',cap1:'m-cap1',cap2:'m-cap2',elev1:'m-elev1',elev2:'m-elev2',trait1:'m-trait1',trait2:'m-trait2',trait3:'m-trait3',chaises:'m-chaises',tentes:'m-tentes',belinda:'m-belinda',charte:'m-charte',portfolio:'m-portfolio'};
   Object.keys(map).forEach(function(k){ if(d[k]) document.getElementById(map[k]).value = d[k]; });
+  if(d.prixChaise){ document.getElementById('m-prix-chaise').value = d.prixChaise; document.getElementById('loc-prix-chaise').value = d.prixChaise; }
+  if(d.prixTente){ document.getElementById('m-prix-tente').value = d.prixTente; document.getElementById('loc-prix-tente').value = d.prixTente; }
 }
+
+async function loadTarifsLocation() {
+  var d = await fbGet('config', 'medias');
+  if(!d) return;
+  if(d.prixChaise) document.getElementById('loc-prix-chaise').value = d.prixChaise;
+  if(d.prixTente) document.getElementById('loc-prix-tente').value = d.prixTente;
+}
+
+window.saveTarifsLocation = async function() {
+  var pc = document.getElementById('loc-prix-chaise').value.trim();
+  var pt = document.getElementById('loc-prix-tente').value.trim();
+  if(!pc && !pt){ notif('Entrez au moins un prix à sauvegarder.'); return; }
+  var data = await fbGet('config', 'medias') || {};
+  if(pc){ data.prixChaise = parseInt(pc); document.getElementById('m-prix-chaise').value = pc; }
+  if(pt){ data.prixTente = parseInt(pt); document.getElementById('m-prix-tente').value = pt; }
+  var ok = await fbSet('config', 'medias', data);
+  if(ok) notif('Tarifs sauvegardés ✓ — Chaise : ' + (pc||'—') + ' FCFA · Tente : ' + (pt||'—') + ' FCFA');
+  else notif('Erreur de sauvegarde ✗');
+};
 
 // ======================= TEXTES =======================
 window.saveTexte = async function(type) {
@@ -642,6 +712,21 @@ async function init() {
   ]);
   notif('Firebase connecté ✓');
 }
+
+// ======================= MOBILE SIDEBAR =======================
+window.toggleSB = function() {
+  var sb = document.querySelector('.sidebar');
+  var ov = document.getElementById('sbo');
+  var hb = document.getElementById('hbg');
+  var open = sb.classList.toggle('open');
+  ov.classList.toggle('on', open);
+  hb.classList.toggle('active', open);
+};
+window.closeSB = function() {
+  document.querySelector('.sidebar').classList.remove('open');
+  document.getElementById('sbo').classList.remove('on');
+  document.getElementById('hbg').classList.remove('active');
+};
 
 </script>
 </body>
