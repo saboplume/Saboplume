@@ -184,8 +184,7 @@ textarea.inp{min-height:80px;resize:vertical}
       <div class="card">
         <h3>Photos Produits</h3>
         <div class="inp-row">
-          <div class="field-group"><label class="lbl-field">Oeufs — Photo 1</label><input class="inp" type="url" id="m-oeuf1" placeholder="https://i.ibb.co/..."></div>
-          <div class="field-group"><label class="lbl-field">Oeufs — Photo 2</label><input class="inp" type="url" id="m-oeuf2" placeholder="https://i.ibb.co/..."></div>
+          <div class="field-group"><label class="lbl-field">Oeufs — Photo</label><input class="inp" type="url" id="m-oeuf1" placeholder="https://i.ibb.co/..."></div>
         </div>
         <div class="inp-row">
           <div class="field-group"><label class="lbl-field">Volailles — Photo 1</label><input class="inp" type="url" id="m-vol1" placeholder="https://i.ibb.co/..."></div>
@@ -519,7 +518,6 @@ window.saveMedia = async function(type) {
   if(type === 'logo') { data.logo = document.getElementById('m-logo').value.trim(); }
   if(type === 'produits') {
     data.oeuf1 = document.getElementById('m-oeuf1').value.trim();
-    data.oeuf2 = document.getElementById('m-oeuf2').value.trim();
     data.vol1 = document.getElementById('m-vol1').value.trim();
     data.vol2 = document.getElementById('m-vol2').value.trim();
     data.cap1 = document.getElementById('m-cap1').value.trim();
