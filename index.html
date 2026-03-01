@@ -90,7 +90,7 @@ select.inp{cursor:pointer}
 .hero-logo{width:220px;height:auto;object-fit:contain;margin-bottom:24px}
 .htag{font-family:"Cormorant Garamond",serif;font-style:italic;font-size:22px;color:#888;margin-bottom:6px}
 .hloc{font-family:"Cinzel",serif;font-size:11px;letter-spacing:.25em;color:#aaa;margin-bottom:14px}
-.hdiv{width:100px;height:1px;background:#ccc;margin:0 auto 52px}
+.hdiv{width:100px;height:1px;background:#ccc;margin:0 auto 28px}
 .hcards{display:grid;grid-template-columns:repeat(3,1fr);width:100%;max-width:900px}
 .hcard{background:var(--vt);color:#fff;padding:36px 26px;border:1px solid rgba(255,255,255,.1)}
 .hcard h3{font-family:"EB Garamond",serif;font-size:22px;font-weight:600;margin-bottom:10px}
@@ -105,7 +105,7 @@ select.inp{cursor:pointer}
 .quig>div>p{font-size:16px;color:#555;margin-bottom:28px}
 .quibtns{display:flex;gap:10px;flex-wrap:wrap}
 .bdk{background:var(--br);color:#fff;border:none;padding:10px 20px;font-family:"Cinzel",serif;font-size:11px;letter-spacing:.1em;cursor:pointer}
-.qi{display:grid;grid-template-columns:68px 1fr;gap:0;padding:22px 0;border-bottom:1px solid #c8d4b8;align-items:start}
+.qi{display:grid;grid-template-columns:52px 1fr;gap:0;padding:22px 0;border-bottom:1px solid #c8d4b8;align-items:start}
 .qi:first-child{border-top:1px solid #c8d4b8}
 .qin{font-family:"Cormorant Garamond",serif;font-size:68px;color:var(--vt);line-height:1;font-weight:400;font-style:italic}
 .qit{font-family:"Cinzel",serif;font-size:11px;letter-spacing:.08em;margin-bottom:5px;color:var(--tx)}
@@ -141,7 +141,7 @@ select.inp{cursor:pointer}
 .prodh h1{font-family:"Cormorant Garamond",serif;font-size:50px;margin-bottom:11px}
 .prodh p{font-size:16px;color:#666;max-width:580px;margin:0 auto}
 .cattit{font-family:"Cormorant Garamond",serif;font-style:italic;font-size:34px;color:var(--vt);text-align:center;margin:42px 0 22px;display:flex;align-items:center;gap:16px;justify-content:center}
-.cattit::before,.cattit::after{content:"";flex:1;max-width:90px;height:1px;background:#ccc}
+.cattit::before,.cattit::after{content:"";flex:1;max-width:90px;height:1px;background:linear-gradient(90deg,transparent,#c8c0b0,transparent)}
 .prodg{display:grid;grid-template-columns:1fr 1fr;gap:18px;max-width:1100px;margin:0 auto}
 .pcard{background:#fff;overflow:hidden}
 .pcard-img{width:100%;height:200px;object-fit:cover;display:block}
@@ -164,15 +164,15 @@ select.inp{cursor:pointer}
 .engh{text-align:center;margin-bottom:42px}
 .engh h2{font-family:"Cormorant Garamond",serif;font-style:italic;font-size:46px}
 .eng-photos-small{display:flex;justify-content:center;gap:16px;margin:0 auto 42px;max-width:680px}
-.eng-photo-small{width:220px;height:160px;object-fit:cover;display:block;border:1px solid #e8e2d9}
+.eng-photo-small{width:220px;height:160px;object-fit:cover;display:block;border:3px solid var(--vt);box-shadow:4px 4px 0 rgba(59,94,43,.25),0 8px 24px rgba(0,0,0,.1);outline:1px solid rgba(59,94,43,.15);outline-offset:5px}
 .eng-photos{display:grid;grid-template-columns:1fr 1fr;gap:18px;max-width:1100px;margin:0 auto 42px}
 .eng-photo{width:100%;height:280px;object-fit:cover;display:block}
 .engp{display:grid;grid-template-columns:repeat(4,1fr);max-width:1100px;margin:0 auto;border:1px solid #e0dbd2}
 .engi{padding:28px 22px;border-right:1px solid #e0dbd2;display:flex;flex-direction:column;gap:10px;position:relative;overflow:hidden}
 .engi:last-child{border-right:none}
 .engin{font-family:"Cormorant Garamond",serif;font-size:58px;color:var(--vt);line-height:1;font-style:italic;opacity:.25;position:absolute;top:10px;right:14px}
-.engit{font-family:"Cinzel",serif;font-size:10px;letter-spacing:.12em;color:var(--vt);text-transform:uppercase;margin-top:38px}
-.engi p{font-size:14px;color:#666;line-height:1.6}
+.engit{font-family:"Cinzel",serif;font-size:13px;letter-spacing:.1em;color:var(--vt);text-transform:uppercase;margin-top:38px;font-weight:600}
+.engi p{font-size:16px;color:#555;line-height:1.7}
 @media(max-width:800px){.engp{grid-template-columns:1fr 1fr}.engi{border-right:1px solid #e0dbd2;border-bottom:1px solid #e0dbd2}.eng-photos-small{flex-direction:column;align-items:center}.eng-photo-small{width:100%;max-width:320px;height:180px}}
 /* TRAITEUR */
 .strait{background:var(--crl);padding:80px}
@@ -414,7 +414,7 @@ to{width:56px}}
 
 /* Label petite caps avec ornement */
 .lbl { position:relative; }
-.lbl::after { content:''; display:inline-block; width:34px; height:1px; background:#bbb; margin-left:12px; vertical-align:middle; }
+
 
 /* Titre-trait plus élégant */
 .titre-trait::after {
@@ -435,12 +435,7 @@ to{width:56px}}
   background-size: 28px 28px;
   pointer-events:none;
 }
-/* Trait décoratif vertical gauche dans hero */
-.hero::after {
-  content:'';position:absolute;left:60px;top:20%;bottom:20%;
-  width:1px;background:linear-gradient(to bottom, transparent, var(--or), transparent);
-  pointer-events:none;
-}
+
 /* Logo flottant */
 .hero-logo {
   filter: drop-shadow(0 8px 32px rgba(123,45,0,.18));
@@ -468,12 +463,7 @@ to{width:56px}}
   background: linear-gradient(135deg, #eef2e8 0%, #f0f5ea 100%);
   position:relative;overflow:hidden;
 }
-.squi::after {
-  content:'S';
-  position:absolute;right:-20px;top:50%;transform:translateY(-50%);
-  font-family:'Cormorant Garamond',serif;font-size:320px;font-style:italic;
-  color:rgba(59,94,43,.05);line-height:1;pointer-events:none;user-select:none;
-}
+
 /* Numéros 1/2/3 avec cercle doré */
 .qin {
   color: var(--vt);
@@ -532,13 +522,10 @@ to{width:56px}}
   content:'';position:absolute;bottom:0;left:50%;transform:translateX(-50%);
   width:36px;height:1px;background:var(--or);
 }
-/* Blocs service avec bord gauche doré */
 .aprs {
-  padding-left:16px;
-  border-left:2px solid rgba(200,169,110,.4);
-  transition:border-left-color .25s;
+  padding-left:0;
+  transition:none;
 }
-.aprs:hover { border-left-color:var(--or); }
 .aprs h4 { font-size:13px; letter-spacing:.1em; text-transform:uppercase; }
 
 /* ---- PRODUITS ---- */
@@ -549,7 +536,7 @@ to{width:56px}}
   font-style:italic;
 }
 .cattit::before,.cattit::after {
-  background: linear-gradient(90deg, transparent, var(--or), transparent);
+  background: linear-gradient(90deg, transparent, #ccc, transparent);
   height:1px;
 }
 /* Carte produit enrichie */
@@ -585,18 +572,15 @@ to{width:56px}}
 .seng { position:relative; }
 /* Photos engagement avec cadre et effet hover */
 .eng-photo-small {
-  border:1px solid rgba(200,169,110,.3);
-  box-shadow: 0 4px 20px rgba(0,0,0,.08);
   transition: transform .35s, box-shadow .35s;
-  position:relative;
 }
 .eng-photo-small:hover {
-  transform: scale(1.03) rotate(.5deg);
-  box-shadow: 0 12px 36px rgba(0,0,0,.14);
+  transform: scale(1.03);
+  box-shadow: 6px 6px 0 rgba(59,94,43,.3), 0 16px 40px rgba(0,0,0,.15);
 }
 /* Numéro engagement en fond */
 .engin { font-size:64px; opacity:.2; }
-.engit { font-weight:600; font-size:11px; }
+.engit { font-size:14px; }
 /* Items engagement avec fond au hover */
 .engi {
   background:linear-gradient(to bottom, #fff, #faf8f4);
@@ -863,7 +847,6 @@ footer {
 <!-- HERO -->
 <section class="hero" id="accueil">
   <img src="https://i.ibb.co/C3NkLpLY/logo-officiel-saboplume.png" alt="Saboplume" class="hero-logo">
-  <div style="display:flex;align-items:center;justify-content:center;gap:14px;margin-bottom:4px"><span style="height:1px;width:50px;background:linear-gradient(90deg,transparent,var(--or))"></span><span style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:.3em;color:var(--or);opacity:.7">BIMBO · RCA · DEPUIS 2027</span><span style="height:1px;width:50px;background:linear-gradient(90deg,var(--or),transparent)"></span></div>
   <p class="htag">« À vos côtés pour chaque occasion »</p>
   <p class="hloc">BIMBO &nbsp;·&nbsp; RÉPUBLIQUE CENTRAFRICAINE</p>
   <div class="hdiv"></div>
@@ -897,8 +880,7 @@ footer {
 
 <!-- VALEURS -->
 <section class="sval" id="valeurs">
-  <div class="valh"><div class="lbl sabo-anim" data-anim="sabo-slide-up">Nos Valeurs</div>
-  <div style="display:flex;flex-direction:column;gap:4px;margin-bottom:18px;max-width:120px"><span style="height:1px;background:rgba(200,169,110,.6)"></span><span style="height:1px;background:rgba(200,169,110,.25);margin-left:18px"></span></div><h2 class="titre-trait sabo-trait-anim">Ce qui nous guide chaque jour</h2></div>
+  <div class="valh"><div class="lbl sabo-anim" data-anim="sabo-slide-up">Nos Valeurs</div><h2 class="titre-trait sabo-trait-anim">Ce qui nous guide chaque jour</h2></div>
   <div class="valg">
     <div class="vc sabo-anim" data-anim="sabo-fade-up sabo-d1" style="background:#7B2D00"><h3>Authenticité</h3><p>Des produits naturels, élevés avec respect et sans compromis sur la qualité.</p></div>
     <div class="vc sabo-anim" data-anim="sabo-fade-up sabo-d2" style="background:#3B5E2B"><h3>Confiance</h3><p>Des relations durables fondées sur la transparence et le respect de nos engagements.</p></div>
@@ -977,7 +959,6 @@ footer {
 <!-- ENGAGEMENT -->
 <section class="seng" id="engagement">
   <div class="engh sabo-anim" data-anim="sabo-fade-up"><div class="lbl" style="justify-content:center">Notre Engagement</div><h2 class="titre-trait sabo-trait-anim">L'élevage autrement</h2></div>
-  <div style="text-align:center;margin-bottom:24px"><span style="display:inline-block;width:40px;height:1px;background:var(--or);vertical-align:middle"></span><span style="display:inline-block;width:8px;height:8px;border:1px solid var(--or);transform:rotate(45deg);margin:0 10px;vertical-align:middle"></span><span style="display:inline-block;width:40px;height:1px;background:var(--or);vertical-align:middle"></span></div>
   <div class="eng-photos-small sabo-anim" data-anim="sabo-zoom">
     <img src="https://i.ibb.co/WNSJxwsf/Whats-App-Image-2026-02-22-at-18-35-52.jpg" alt="Élevage Saboplume" class="eng-photo-small">
     <img src="https://i.ibb.co/CpfCNMGG/Whats-App-Image-2026-02-23-at-13-05-02.jpg" alt="Élevage Saboplume" class="eng-photo-small">
@@ -1163,7 +1144,7 @@ footer {
   </div>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script type="module">
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script type="module">
 // ======================= FIREBASE =======================
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 import { getFirestore, doc, getDoc, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
@@ -1579,9 +1560,6 @@ document.addEventListener('DOMContentLoaded',async function(){
     })(ai);
   }
   document.getElementById('aviseg').addEventListener('mouseleave',function(){majEtoiles(noteAvis);});
-
-}); // fin DOMContentLoaded
-</script>
 
 }); // fin DOMContentLoaded
 </script>
