@@ -1145,7 +1145,7 @@ footer {
 <script type="module">
 // ======================= FIREBASE =======================
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-import { getFirestore, doc, getDoc, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+import { getFirestore, doc, getDoc, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyACg587ve8fA4VYhA6Xe022TzQ4VPR7xuk",
@@ -1169,7 +1169,16 @@ async function addRecord(type, record) {
   try {
     await addDoc(collection(db, type), record);
   } catch(e) { console.error('Firebase addRecord error:', e); }
-}
+}window.addRecord = addRecord;
+```
+
+---
+
+### 🟡 CORRECTION 2 — Importer `serverTimestamp` (pour que la date s'affiche bien dans l'admin)
+
+Cherchez avec **Ctrl+F** cette ligne (tout en haut du script) :
+```
+import { getFirestore, doc, getDoc, collection, addDoc } from
 
 // ======================= UTILITAIRES =======================
 function fp(n){return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g,'\u00A0');}
@@ -1699,7 +1708,7 @@ document.addEventListener('DOMContentLoaded',async function(){
             quartier: quart || '',
             comment: txt,
             rating: _note,
-            createdAt: new Date()
+            createdAt: serverTimestamp()
           });
           // Reset formulaire
           document.getElementById('avisnom').value = '';
