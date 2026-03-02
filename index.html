@@ -827,9 +827,9 @@ footer {
         <span class="mcopt-icon">📱</span>
         <div class="mcopt-txt"><strong>WhatsApp</strong><span>+236 74 22 57 57</span></div>
       </a>
-      <a href="mailto:saboplume@outlook.fr" class="mcopt" id="email-modal-link">
+      <a href="/cdn-cgi/l/email-protection#780b191a1708140d151d38170d0c14171713561e0a" class="mcopt" id="email-modal-link">
         <span class="mcopt-icon">✉️</span>
-        <div class="mcopt-txt"><strong>Email</strong><span><span id="email-modal-txt">saboplume@outlook.fr</span></span></div></a>
+        <div class="mcopt-txt"><strong>Email</strong><span><span id="email-modal-txt"><span class="__cf_email__" data-cfemail="91e2f0f3fee1fde4fcf4d1fee4e5fdfefefabff7e3">[email&#160;protected]</span></span></span></div></a>
     </div>
   </div>
 </div>
@@ -1109,7 +1109,7 @@ footer {
       <div class="contl"><span class="contll">Adresse</span><span class="contlv"><a href="https://maps.google.com/?q=Bimbo,Rue+du+Général+Gambi,République+Centrafricaine" target="_blank">Bimbo — Rue du Général Gambi</a></span></div>
       <div class="contl"><span class="contll">Horaires</span><span class="contlv">Tous les jours · 8h — 17h</span></div>
       <div class="contl"><span class="contll">Téléphone</span><span class="contlv"><a href="tel:+23674225757">+236 74 22 57 57</a></span></div>
-      <div class="contl"><span class="contll">Email</span><span class="contlv"><a href="mailto:saboplume@outlook.fr" id="email-footer-link"><span id="email-footer-txt">saboplume@outlook.fr</span></a></span></div>
+      <div class="contl"><span class="contll">Email</span><span class="contlv"><a href="/cdn-cgi/l/email-protection#97e4f6f5f8e7fbe2faf2d7f8e2e3fbf8f8fcb9f1e5" id="email-footer-link"><span id="email-footer-txt"><span class="__cf_email__" data-cfemail="b1c2d0d3dec1ddc4dcd4f1dec4c5dddededa9fd7c3">[email&#160;protected]</span></span></a></span></div>
       <div class="socbtns">
         <a href="https://www.facebook.com/share/1ArfaX1XMn/" target="_blank" class="bsoc">Facebook</a>
         <a href="https://www.tiktok.com/@saboplume" target="_blank" class="bsoc">TikTok</a>
@@ -1142,10 +1142,10 @@ footer {
   </div>
 </footer>
 
-<script type="module">
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script type="module">
 // ======================= FIREBASE =======================
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-import { getFirestore, doc, getDoc, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+import { getFirestore, doc, getDoc, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyACg587ve8fA4VYhA6Xe022TzQ4VPR7xuk",
@@ -1170,6 +1170,7 @@ async function addRecord(type, record) {
     await addDoc(collection(db, type), record);
   } catch(e) { console.error('Firebase addRecord error:', e); }
 }
+window.addRecord = addRecord;
 
 // ======================= UTILITAIRES =======================
 function fp(n){return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g,'\u00A0');}
@@ -1679,18 +1680,69 @@ document.addEventListener('DOMContentLoaded',async function(){
       })(i);
     }
     document.getElementById('aviseg').addEventListener('mouseleave', function(){ color(_note); });
-    // Patch bavis pour lire _note
+
     var btn = document.getElementById('bavis');
     if(btn){
-      btn.addEventListener('click', function(){
-        var nom = document.getElementById('avisnom').value.trim();
-        var svc = document.getElementById('avissvc').value.trim();
+      btn.addEventListener('click', async function(){
+        var nom   = document.getElementById('avisnom').value.trim();
+        var svc   = document.getElementById('avissvc').value.trim();
         var quart = document.getElementById('avisquart').value.trim();
-        var txt = document.getElementById('avistxt').value.trim();
+        var txt   = document.getElementById('avistxt').value.trim();
         if(!_note){ alert('Veuillez choisir une note.'); return; }
         if(!nom){   alert('Veuillez entrer votre prénom.'); return; }
         if(!txt){   alert('Veuillez écrire votre avis.'); return; }
-        var nb  = '★★★★★'.substring(0,_note)+'☆☆☆☆☆'.substring(_note);
-        var em  = 'saboplume@outlook.fr';
-        var subj= 'Avis Saboplume '+nb+' - '+nom;
-        var body= 'Avis Saboplume\n\nNote : '+
+        btn.disabled = true;
+        btn.textContent = 'Envoi en cours...';
+        try {
+          if(typeof window.addRecord === 'function'){
+            await window.addRecord('reviews_pending', {
+              name: nom,
+              service: svc || '',
+              quartier: quart || '',
+              comment: txt,
+              rating: _note,
+              createdAt: new Date()
+            });
+          }
+          // Reset formulaire
+          document.getElementById('avisnom').value = '';
+          document.getElementById('avissvc').value = '';
+          document.getElementById('avisquart').value = '';
+          document.getElementById('avistxt').value = '';
+          _note = 0;
+          color(0);
+          // Message de confirmation visible sur la page
+          var avisf = document.querySelector('.avisf');
+          if(avisf){
+            avisf.innerHTML = '<div style="text-align:center;padding:40px 20px">'
+              + '<div style="font-size:52px;margin-bottom:16px">✅</div>'
+              + '<h3 style="font-family:\'Cormorant Garamond\',serif;font-size:28px;color:var(--vt);margin-bottom:12px">Merci pour votre avis !</h3>'
+              + '<p style="font-size:16px;color:#666;line-height:1.7">Votre témoignage a bien été reçu.<br>Il sera publié après validation par notre équipe.</p>'
+              + '</div>';
+          }
+          // Notif en bas de page
+          var notifEl = document.getElementById('notif');
+          if(notifEl){
+            notifEl.textContent = 'Merci ! Votre avis a été envoyé ✓';
+            notifEl.classList.add('on');
+            clearTimeout(notifEl._t);
+            notifEl._t = setTimeout(function(){ notifEl.classList.remove('on'); }, 4000);
+          }
+        } catch(e) {
+          alert('Erreur lors de l\'envoi. Veuillez réessayer.');
+          console.error(e);
+          btn.disabled = false;
+          btn.textContent = 'Publier mon avis';
+        }
+      });
+    }
+  }
+  if(document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
+</script>
+</body>
+</html>
