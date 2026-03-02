@@ -1680,17 +1680,44 @@ document.addEventListener('DOMContentLoaded',async function(){
     }
     document.getElementById('aviseg').addEventListener('mouseleave', function(){ color(_note); });
     // Patch bavis pour lire _note
-    var btn = document.getElementById('bavis');
+   var btn = document.getElementById('bavis');
     if(btn){
-      btn.addEventListener('click', function(){
-        var nom = document.getElementById('avisnom').value.trim();
-        var svc = document.getElementById('avissvc').value.trim();
+      btn.addEventListener('click', async function(){
+        var nom   = document.getElementById('avisnom').value.trim();
+        var svc   = document.getElementById('avissvc').value.trim();
         var quart = document.getElementById('avisquart').value.trim();
-        var txt = document.getElementById('avistxt').value.trim();
+        var txt   = document.getElementById('avistxt').value.trim();
         if(!_note){ alert('Veuillez choisir une note.'); return; }
         if(!nom){   alert('Veuillez entrer votre prénom.'); return; }
         if(!txt){   alert('Veuillez écrire votre avis.'); return; }
-        var nb  = '★★★★★'.substring(0,_note)+'☆☆☆☆☆'.substring(_note);
-        var em  = 'saboplume@outlook.fr';
-        var subj= 'Avis Saboplume '+nb+' - '+nom;
-        var body= 'Avis Saboplume\n\nNote : '+
+        btn.disabled = true;
+        btn.textContent = 'Envoi en cours...';
+        try {
+          await addRecord('reviews_pending', {
+            name: nom,
+            service: svc || '',
+            quartier: quart || '',
+            comment: txt,
+            rating: _note,
+            createdAt: new Date()
+          });
+          // Reset formulaire
+          document.getElementById('avisnom').value = '';
+          document.getElementById('avissvc').value = '';
+          document.getElementById('avisquart').value = '';
+          document.getElementById('avistxt').value = '';
+          _note = 0;
+          color(0);
+          // Notif succès
+          var notifEl = document.getElementById('notif');
+          notifEl.textContent = 'Merci ! Votre avis a été soumis et sera publié après modération ✓';
+          notifEl.classList.add('on');
+          clearTimeout(notifEl._t);
+          notifEl._t = setTimeout(function(){ notifEl.classList.remove('on'); }, 4000);
+        } catch(e) {
+          alert('Erreur lors de l\'envoi. Veuillez réessayer.');
+          console.error(e);
+        }
+        btn.disabled = false;
+        btn.textContent = 'Publier mon avis';
+      });
