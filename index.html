@@ -9,998 +9,6 @@
 :root{--br:#7B2D00;--brf:#5A1F00;--vt:#3B5E2B;--vtf:#2D4A20;--cr:#F5F2EC;--crl:#FAF8F4;--tx:#2C2C2C;--or:#C8A96E}
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:"EB Garamond",Georgia,serif;color:var(--tx);background:#fff;font-size:17px;line-height:1.7}
-
-/* NAV */
-.nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(255,255,255,.96);border-bottom:1px solid #e8e2d9;display:flex;align-items:center;justify-content:space-between;padding:0 32px;height:64px;box-shadow:0 2px 16px rgba(0,0,0,.06);backdrop-filter:blur(8px)}
-.burger{width:44px;height:44px;background:var(--br);border:none;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px}
-.burger span{display:block;width:22px;height:2px;background:#fff}
-.navr{display:flex;gap:12px;align-items:center}
-.nbtn{border:1.5px solid var(--br);background:transparent;color:var(--tx);padding:8px 20px;font-family:"Cinzel",serif;font-size:13px;letter-spacing:.08em;cursor:pointer;display:flex;align-items:center;gap:8px;transition:border-color .2s,color .2s}
-.nbtn:hover{border-color:var(--vt);color:var(--vt)}
-.nbadge{background:var(--br);color:#fff;border-radius:50%;width:22px;height:22px;display:flex;align-items:center;justify-content:center;font-size:11px}
-.ncmd{background:var(--vt);color:#fff;border:none;padding:10px 28px;font-family:"Cinzel",serif;font-size:13px;letter-spacing:.08em;cursor:pointer}
-.ncmd:hover{background:var(--vtf)}
-
-/* OVERLAY / MENU / PANIER */
-.ovl{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:1100}
-.ovl.on{display:block}
-.menu{position:fixed;top:0;left:-300px;width:280px;height:100vh;background:var(--br);z-index:1200;transition:left .3s;padding:70px 36px 40px;overflow-y:auto}
-.menu.on{left:0}
-.menu a{display:block;color:#fff;text-decoration:none;font-family:"Cinzel",serif;font-size:13px;letter-spacing:.1em;padding:13px 0;border-bottom:1px solid rgba(255,255,255,.15)}
-.menu a:hover{color:var(--or)}
-.xbtn{position:absolute;top:18px;right:18px;background:none;border:none;color:#fff;font-size:26px;cursor:pointer;line-height:1}
-.pan{position:fixed;top:0;right:-420px;width:380px;height:100vh;background:#fff;z-index:1200;transition:right .3s;box-shadow:-4px 0 20px rgba(0,0,0,.15);display:flex;flex-direction:column}
-.pan.on{right:0}
-.panh{padding:22px 24px;border-bottom:1px solid #e8e2d9;display:flex;justify-content:space-between;align-items:center}
-.panh h3{font-family:"Cinzel",serif;font-size:15px;letter-spacing:.1em}
-.panx{background:none;border:none;font-size:22px;cursor:pointer;color:#999}
-.panb{flex:1;overflow-y:auto;padding:20px 24px}
-.panvide{text-align:center;color:#aaa;font-style:italic;padding:40px 0}
-.panl{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid #f0ece6}
-.panln{font-family:"EB Garamond",serif;font-size:16px}
-.panlq{font-size:13px;color:#999}
-.panlp{font-weight:600;color:var(--vt);margin-right:8px;white-space:nowrap}
-.panlx{background:none;border:none;cursor:pointer;color:#ccc;font-size:16px;padding:2px 6px}
-.panlx:hover{color:#e55}
-.panf{padding:20px 24px;border-top:1px solid #e8e2d9}
-.pantot{display:flex;justify-content:space-between;font-family:"Cormorant Garamond",serif;font-size:22px;margin-bottom:14px}
-.panco{width:100%;background:var(--vt);color:#fff;border:none;padding:15px;font-family:"Cinzel",serif;font-size:13px;letter-spacing:.1em;cursor:pointer}
-.panco:hover{background:var(--vtf)}
-
-/* MODALS */
-.modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:1300;align-items:center;justify-content:center;padding:16px}
-.modal.on{display:flex}
-.mbox{background:#fff;width:100%;max-width:500px;max-height:92vh;overflow-y:auto;padding:36px;position:relative}
-.mclose{position:absolute;top:14px;right:18px;background:none;border:none;font-size:26px;cursor:pointer;color:#bbb;line-height:1}
-.mclose:hover{color:#333}
-.mbox h2{font-family:"Cormorant Garamond",serif;font-size:34px;color:var(--vt);margin-bottom:6px}
-.msub{font-size:16px;color:#666;margin-bottom:22px}
-.inp{width:100%;padding:12px 15px;border:1.5px solid #ddd;background:var(--cr);font-family:"EB Garamond",serif;font-size:16px;color:#444;margin-bottom:11px;outline:none}
-.inp:focus{border-color:var(--vt);background:#fff;box-shadow:0 0 0 3px rgba(59,94,43,.1)}
-.inp::placeholder{color:#bbb}
-textarea.inp{min-height:75px;resize:vertical}
-select.inp{cursor:pointer}
-.setiq{font-family:"Cinzel",serif;font-size:10px;letter-spacing:.15em;color:var(--br);margin:14px 0 8px;display:block;text-transform:uppercase}
-.choix{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:6px}
-.ch{border:2px solid #ddd;padding:13px;cursor:pointer;display:flex;align-items:center;gap:8px;background:var(--cr);transition:border-color .15s,background .15s;user-select:none}
-.ch:hover{border-color:#aaa}
-.ch.on{border-color:var(--vt);background:#eef2e8}
-.chtxt{font-family:"EB Garamond",serif;font-size:15px;flex:1}
-.chck{margin-left:auto;width:20px;height:20px;border-radius:50%;background:var(--vt);color:#fff;font-size:11px;display:none;align-items:center;justify-content:center;flex-shrink:0}
-.ch.on .chck{display:flex}
-.encart{background:#eef2e8;border-left:3px solid var(--vt);padding:10px 13px;font-size:14px;color:var(--vt);margin-bottom:10px}
-.benvoyer{width:100%;background:var(--vt);color:#fff;border:none;padding:15px;font-family:"Cinzel",serif;font-size:12px;letter-spacing:.14em;cursor:pointer;margin-top:10px}
-.benvoyer:hover{background:var(--vtf)}
-.conf{text-align:center;padding:16px 0}
-.confck{font-size:56px;margin-bottom:18px}
-.conf h2{font-family:"Cormorant Garamond",serif;font-size:34px;color:var(--vt);margin-bottom:14px}
-.conf p{font-size:16px;color:#666;line-height:1.8;margin-bottom:24px}
-.mctitle{font-family:"Cormorant Garamond",serif;font-size:28px;color:var(--br);margin-bottom:16px}
-.mcopts{display:flex;flex-direction:column;gap:12px;margin-top:8px}
-.mcopt{display:flex;align-items:center;gap:16px;border:2px solid #ddd;padding:16px 20px;cursor:pointer;background:var(--cr);transition:all .15s;text-decoration:none;color:var(--tx)}
-.mcopt:hover{border-color:var(--vt);background:#eef2e8}
-.mcopt-icon{font-size:28px}
-.mcopt-txt strong{display:block;font-family:"Cinzel",serif;font-size:12px;letter-spacing:.08em}
-.mcopt-txt span{font-size:14px;color:#888}
-
-/* NOTIF */
-.notif{position:fixed;bottom:22px;right:22px;background:var(--vt);color:#fff;padding:12px 20px;font-family:"Cinzel",serif;font-size:11px;letter-spacing:.08em;z-index:9999;opacity:0;transform:translateY(8px);transition:all .25s;pointer-events:none}
-.notif.on{opacity:1;transform:translateY(0)}
-
-/* HERO */
-.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;background:linear-gradient(160deg,#fdfbf8 0%,#f5f2ec 60%,#eef2e8 100%);text-align:center;padding:100px 40px 60px;position:relative;overflow:hidden}
-.hero::before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle,rgba(200,169,110,.08) 1px,transparent 1px);background-size:28px 28px;pointer-events:none}
-.hero-logo{width:220px;height:auto;object-fit:contain;margin-bottom:24px;filter:drop-shadow(0 8px 32px rgba(123,45,0,.18));position:relative;z-index:1;animation:saboZoom 1.1s cubic-bezier(.22,1,.36,1) both}
-.htag{font-family:"Cormorant Garamond",serif;font-style:italic;font-size:22px;color:#7a6a5a;margin-bottom:6px;animation:saboFadeUp .7s cubic-bezier(.22,1,.36,1) .5s both}
-.hloc{font-family:"Cinzel",serif;font-size:11px;letter-spacing:.25em;color:#aaa;margin-bottom:14px;animation:saboFadeUp .7s cubic-bezier(.22,1,.36,1) .7s both}
-.hdiv{width:120px;height:1px;background:linear-gradient(90deg,transparent,var(--or),transparent);margin:0 auto 52px;animation:saboFadeUp .7s cubic-bezier(.22,1,.36,1) .9s both}
-.hcards{display:grid;grid-template-columns:repeat(3,1fr);width:100%;max-width:900px}
-.hcard{background:linear-gradient(135deg,var(--vt) 0%,var(--vtf) 100%);color:#fff;padding:36px 26px;border:1px solid rgba(255,255,255,.1);border-left:3px solid rgba(200,169,110,.5);border-bottom:2px solid rgba(200,169,110,.3)}
-.hcard:nth-child(1){animation:saboFadeUp .6s cubic-bezier(.22,1,.36,1) 1.1s both}
-.hcard:nth-child(2){animation:saboFadeUp .6s cubic-bezier(.22,1,.36,1) 1.3s both}
-.hcard:nth-child(3){animation:saboFadeUp .6s cubic-bezier(.22,1,.36,1) 1.5s both}
-.hcard h3{font-family:"EB Garamond",serif;font-size:22px;font-weight:600;margin-bottom:10px}
-.hcard p{font-size:15px;opacity:.9}
-
-/* LABEL */
-.lbl{display:flex;align-items:center;gap:12px;font-family:"Cinzel",serif;font-size:11px;letter-spacing:.2em;color:#888;margin-bottom:22px}
-.lbl::before{content:"";width:34px;height:1px;background:#bbb}
-
-/* SECTIONS — centrage général */
-.squi{background:linear-gradient(135deg,#eef2e8 0%,#f0f5ea 100%);padding:90px 80px}
-.quig{display:grid;grid-template-columns:1fr 1fr;gap:70px;max-width:1100px;margin:0 auto}
-.quig h2{font-family:"Cormorant Garamond",serif;font-style:italic;font-size:44px;color:var(--vt);margin-bottom:22px}
-.quig>div>p{font-size:16px;color:#555;margin-bottom:28px}
-.quibtns{display:flex;gap:10px;flex-wrap:wrap}
-.bdk{background:var(--br);color:#fff;border:none;padding:10px 20px;font-family:"Cinzel",serif;font-size:11px;letter-spacing:.1em;cursor:pointer;transition:background .2s}
-.bdk:hover{background:var(--brf)}
-.qi{display:grid;grid-template-columns:52px 1fr;gap:0;padding:22px 0;border-bottom:1px solid #c8d4b8;align-items:start}
-.qi:first-child{border-top:1px solid #c8d4b8}
-.qi:hover{padding-left:8px;border-left:2px solid var(--or)}
-.qin{font-family:"Cormorant Garamond",serif;font-size:68px;color:var(--vt);line-height:1;font-weight:400;font-style:italic}
-.qit{font-family:"Cinzel",serif;font-size:11px;letter-spacing:.08em;margin-bottom:5px;color:var(--tx);font-weight:600}
-.qi p{font-size:14px;color:#666;line-height:1.6}
-
-.sval{background:linear-gradient(135deg,#7B2D00 0%,#5A1F00 50%,#3d1000 100%);padding:90px 80px;color:#fff}
-.valh{max-width:1100px;margin:0 auto 50px}
-.valh .lbl{color:rgba(255,255,255,.5)}
-.valh .lbl::before{background:rgba(255,255,255,.3)}
-.valh h2{font-family:"Cormorant Garamond",serif;font-style:italic;font-size:46px}
-.valg{display:grid;grid-template-columns:repeat(3,1fr);max-width:1100px;margin:0 auto}
-.vc{padding:34px;border:1px solid rgba(255,255,255,.15);border-bottom:3px solid rgba(200,169,110,.4);transition:transform .25s,box-shadow .25s}
-.vc:hover{transform:translateY(-6px);box-shadow:0 16px 36px rgba(0,0,0,.18)}
-.vc h3{font-family:"Cormorant Garamond",serif;font-style:italic;font-size:28px;margin-bottom:11px}
-.vc p{font-size:14px;color:rgba(255,255,255,.9);line-height:1.7}
-
-.sapr{background:linear-gradient(160deg,#7B2D00 0%,#5A1F00 40%,#2D4A20 100%);padding:90px 80px;color:#fff}
-.aprg{display:grid;grid-template-columns:1fr auto 1fr;gap:50px;max-width:1200px;margin:0 auto;align-items:center}
-.aprl .lbl{color:rgba(255,255,255,.5)}
-.aprl .lbl::before{background:rgba(255,255,255,.3)}
-.aprl h2{font-family:"Cormorant Garamond",serif;font-style:italic;font-size:46px;margin-bottom:22px}
-.aprl p{font-size:15px;color:rgba(255,255,255,.85);margin-bottom:13px}
-.aprr{display:flex;flex-direction:column;gap:22px}
-.aprs h4{font-family:"Cinzel",serif;font-size:13px;letter-spacing:.1em;text-transform:uppercase}
-.aprs p{font-size:14px;color:rgba(255,255,255,.7)}
-.gerant-col{display:flex;flex-direction:column;align-items:center;text-align:center;flex-shrink:0}
-.gerant-photo{width:220px;height:310px;object-fit:cover;object-position:top center;display:block}
-.gerant-nom{font-family:"Cinzel",serif;font-size:12px;letter-spacing:.1em;color:rgba(255,255,255,.9);margin-top:14px;margin-bottom:4px;position:relative;padding-bottom:10px}
-.gerant-nom::after{content:'';position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:36px;height:1px;background:var(--or)}
-.gerant-titre{font-size:13px;color:rgba(255,255,255,.55)}
-
-/* PRODUITS */
-.sprod{background:var(--crl);padding:80px}
-.prodh{text-align:center;margin-bottom:48px}
-.prodh h1{font-family:"Cormorant Garamond",serif;font-size:50px;margin-bottom:11px}
-.prodh p{font-size:16px;color:#666;max-width:580px;margin:0 auto}
-.cattit{font-family:"Cormorant Garamond",serif;font-style:italic;font-size:34px;color:var(--vt);text-align:center;margin:42px 0 22px;display:flex;align-items:center;gap:16px;justify-content:center}
-.cattit::before,.cattit::after{content:"";flex:1;max-width:90px;height:1px;background:linear-gradient(90deg,transparent,#ccc,transparent)}
-.prodg{display:grid;grid-template-columns:1fr 1fr;gap:18px;max-width:1100px;margin:0 auto}
-.pcard{background:#fff;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.06);border-bottom:3px solid transparent;transition:transform .25s,box-shadow .25s,border-bottom-color .25s}
-.pcard:hover{transform:translateY(-8px);box-shadow:0 18px 40px rgba(0,0,0,.13);border-bottom-color:var(--or)}
-.pcard-img{width:100%;height:200px;object-fit:cover;display:block;transition:transform .45s,filter .45s}
-.pcard:hover .pcard-img{transform:scale(1.04);filter:brightness(1.05)}
-.pcb{padding:22px}
-.pcb h3{font-family:"EB Garamond",serif;font-size:22px;margin-bottom:6px}
-.pdesc{font-size:14px;color:#888;margin-bottom:15px}
-.ppied{display:flex;align-items:center;justify-content:space-between}
-.pprix{font-family:"EB Garamond",serif;font-size:20px;font-weight:600;color:var(--vt)}
-.badd{background:var(--vt);color:#fff;border:none;padding:10px 20px;font-family:"Cinzel",serif;font-size:11px;letter-spacing:.08em;cursor:pointer}
-.badd:hover{background:var(--vtf)}
-.badge{display:inline-block;background:var(--br);color:#fff;font-family:"Cinzel",serif;font-size:10px;letter-spacing:.1em;padding:3px 10px;margin-bottom:10px}
-.badge.indispo{background:#999}
-.mcard{background:linear-gradient(135deg,var(--vt) 0%,var(--vtf) 100%);padding:36px;display:flex;flex-direction:column;justify-content:center;min-height:200px;border-left:4px solid var(--or)}
-.mcard h3{font-family:"Cormorant Garamond",serif;font-size:26px;color:#fff;margin-bottom:11px}
-.mcard p{font-size:15px;color:rgba(255,255,255,.85)}
-
-/* ENGAGEMENT — carrés moyens */
-.seng{background:#fff;padding:80px 0}
-.engh{text-align:center;margin-bottom:32px;padding:0 80px}
-.engh h2{font-family:"Cormorant Garamond",serif;font-style:italic;font-size:46px}
-.eng-photo-wrap{display:flex;justify-content:center;margin-bottom:36px}
-.eng-photo-main{width:100%;max-width:700px;height:340px;object-fit:cover;object-position:center;display:block}
-.engp{display:grid;grid-template-columns:repeat(4,1fr);max-width:1000px;margin:0 auto;gap:14px;padding:0 80px}
-.engi{padding:22px 18px;border:1px solid #e0dbd2;display:flex;flex-direction:column;gap:8px;position:relative;overflow:hidden;background:linear-gradient(to bottom,#fff,#faf8f4);transition:transform .25s,box-shadow .25s,background .25s}
-.engi:hover{background:linear-gradient(to bottom,#f0f5ea,#e8f0e0);transform:translateY(-4px);box-shadow:0 8px 24px rgba(0,0,0,.08)}
-.engin{font-family:"Cormorant Garamond",serif;font-size:48px;color:var(--vt);line-height:1;font-style:italic;opacity:.18;position:absolute;top:6px;right:10px}
-.engit{font-family:"Cinzel",serif;font-size:11px;letter-spacing:.08em;color:var(--vt);text-transform:uppercase;margin-top:32px;font-weight:600}
-.engi p{font-size:14px;color:#555;line-height:1.6}
-
-/* TRAITEUR */
-.strait{background:var(--crl);padding:80px}
-.traitc{max-width:1000px;margin:0 auto}
-.traitc h1{font-family:"Cormorant Garamond",serif;font-size:50px;margin-bottom:11px}
-.traitintro{font-size:16px;color:#666;max-width:680px;margin-bottom:38px}
-.traitc h2{font-family:"Cormorant Garamond",serif;font-size:34px;color:var(--vt);margin-bottom:9px}
-.traitsub{font-size:15px;color:#666;max-width:620px;margin-bottom:30px}
-.trait-photo-wrap{overflow:hidden;margin-bottom:30px}
-.trait-photo{width:100%;max-width:460px;height:320px;display:block;object-fit:cover;object-position:center;transition:transform .5s}
-.trait-photo-wrap:hover .trait-photo{transform:scale(1.04)}
-.fdevis{background:#fff;padding:34px;max-width:680px;border-top:3px solid var(--or);box-shadow:0 4px 24px rgba(0,0,0,.06)}
-.fdevis h3{font-family:"Cinzel",serif;font-size:12px;letter-spacing:.12em;color:var(--br);margin-bottom:20px}
-.dateg{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:11px}
-.benv{width:100%;background:var(--vt);color:#fff;border:none;padding:15px;font-family:"Cinzel",serif;font-size:12px;letter-spacing:.12em;cursor:pointer}
-.benv:hover{background:var(--vtf)}
-
-/* LOCATION */
-.sloc{background:var(--crl);padding:80px}
-.locc{max-width:1000px;margin:0 auto}
-.locc h2{font-family:"Cormorant Garamond",serif;font-size:34px;color:var(--vt);margin-bottom:9px}
-.locintro{font-size:15px;color:#666;max-width:660px;margin-bottom:26px}
-.loc-photos{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:26px;max-width:680px}
-.loc-photo{width:100%;height:200px;object-fit:cover;object-position:center;display:block;transition:transform .45s,filter .45s}
-.loc-photo:hover{transform:scale(1.03);filter:brightness(1.05)}
-.locong{display:grid;grid-template-columns:repeat(3,1fr);max-width:680px;border:1px solid #ccc;margin-bottom:18px}
-.loco{padding:11px 8px;text-align:center;font-family:"Cinzel",serif;font-size:10px;letter-spacing:.06em;cursor:pointer;border:none;background:#fff;border-right:1px solid #ccc}
-.loco:last-child{border-right:none}
-.loco.on{background:var(--vt);color:#fff}
-.loctarf{background:linear-gradient(135deg,var(--vt) 0%,var(--vtf) 100%);color:#fff;padding:18px 26px;display:flex;justify-content:space-between;align-items:center;max-width:680px;margin-bottom:26px;border-left:4px solid var(--or)}
-.loctarl{font-family:"Cinzel",serif;font-size:11px;letter-spacing:.1em}
-.loctarp{font-family:"Cormorant Garamond",serif;font-size:30px;font-style:italic}
-.fres{background:#fff;padding:34px;max-width:680px;border-top:3px solid var(--vt);box-shadow:0 4px 24px rgba(0,0,0,.06)}
-.fres h3{font-family:"Cinzel",serif;font-size:12px;letter-spacing:.12em;color:var(--br);margin-bottom:20px}
-.qrow{display:flex;align-items:center;gap:13px;margin-bottom:11px}
-.qrow label{font-family:"Cinzel",serif;font-size:12px;letter-spacing:.06em;color:#666}
-.qinp{width:88px;padding:9px;border:1.5px solid #ddd;font-family:"EB Garamond",serif;font-size:16px;text-align:center}
-.totline{font-size:17px;color:#555;margin-bottom:16px}
-.totline strong{font-family:"Cormorant Garamond",serif;font-size:23px;color:var(--br)}
-.bres{width:100%;background:var(--vt);color:#fff;border:none;padding:15px;font-family:"Cinzel",serif;font-size:12px;letter-spacing:.12em;cursor:pointer}
-.bres:hover{background:var(--vtf)}
-
-/* TEMOIGNAGES */
-.stemo{background:#fff;padding:80px;position:relative;overflow:hidden}
-.stemo::before{content:'"';position:absolute;right:5%;top:-30px;font-family:'Cormorant Garamond',serif;font-size:400px;color:rgba(200,169,110,.06);line-height:1;pointer-events:none;user-select:none}
-.temoh{max-width:1100px;margin:0 auto 38px}
-.temoh h2{font-family:"Cormorant Garamond",serif;font-size:50px;line-height:1.2}
-.temoh h2 em{font-style:italic;color:var(--or)}
-.noteg{display:inline-flex;align-items:center;gap:12px;border:1px solid rgba(200,169,110,.4);padding:12px 20px;margin-top:16px;background:linear-gradient(135deg,var(--cr),#fff);box-shadow:0 2px 12px rgba(200,169,110,.12)}
-.etoiles{color:var(--or);font-size:18px}
-.temog{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;max-width:1100px;margin:32px auto 0}
-.tcard{background:linear-gradient(to bottom right,var(--cr),#fff);padding:26px;position:relative;border:1px solid rgba(200,169,110,.15);border-bottom:3px solid transparent;transition:transform .25s,box-shadow .25s,border-bottom-color .25s}
-.tcard:hover{border-bottom-color:var(--or);transform:translateY(-6px);box-shadow:0 14px 32px rgba(0,0,0,.1)}
-.tcard::before{content:"\201C";position:absolute;top:8px;right:14px;font-family:"Cormorant Garamond",serif;font-size:80px;color:rgba(200,169,110,.35);line-height:1}
-.tet{color:var(--or);margin-bottom:13px}
-.ttxt{font-size:15px;color:#666;font-style:italic;margin-bottom:20px;line-height:1.7}
-.tau{display:flex;align-items:center;gap:12px}
-.av{width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-family:"Cinzel",serif;font-size:12px;font-weight:600;flex-shrink:0;box-shadow:0 2px 8px rgba(0,0,0,.15)}
-.an{font-family:"Cinzel",serif;font-size:11px;letter-spacing:.08em;display:block;color:var(--tx)}
-.ar{font-size:13px;color:#999;display:block}
-.tcard.hidden{display:none}
-.temo-compteur{text-align:center;font-family:"Cinzel",serif;font-size:11px;letter-spacing:.1em;color:#aaa;margin-top:20px}
-.bvoirplus{display:block;margin:18px auto 0;background:transparent;border:1.5px solid var(--vt);color:var(--vt);padding:11px 32px;font-family:"Cinzel",serif;font-size:11px;letter-spacing:.12em;cursor:pointer}
-.bvoirplus:hover{background:var(--vt);color:#fff}
-
-/* AVIS */
-.savis{background:var(--crl);padding:80px}
-.avisc{max-width:700px;margin:0 auto}
-.avish{text-align:center;margin-bottom:40px}
-.avish h2{font-family:"Cormorant Garamond",serif;font-size:46px;margin-bottom:10px;font-style:italic}
-.avish p{font-size:15px;color:#666;max-width:500px;margin:0 auto}
-.avisf{background:#fff;padding:36px;border-top:3px solid var(--or);box-shadow:0 4px 24px rgba(0,0,0,.07)}
-.aviseg{display:flex;gap:8px;justify-content:center;margin-bottom:8px}
-.avise{font-size:42px;color:#ddd;cursor:pointer;transition:transform .15s,color .15s;user-select:none;line-height:1}
-.avise:hover,.avise.on{transform:scale(1.2)}
-.avise.on{color:var(--or);text-shadow:0 0 12px rgba(200,169,110,.5)}
-.avisnt{text-align:center;font-family:"Cinzel",serif;font-size:11px;letter-spacing:.1em;color:#aaa;margin-bottom:20px;min-height:18px}
-.bavis{width:100%;background:var(--br);color:#fff;border:none;padding:15px;font-family:"Cinzel",serif;font-size:12px;letter-spacing:.14em;cursor:pointer;margin-top:6px}
-.bavis:hover{background:var(--brf)}
-
-/* CONTACT */
-.scont{background:linear-gradient(160deg,var(--br) 0%,var(--brf) 40%,#1a3a0f 100%);padding:80px;color:#fff}
-.contg{display:grid;grid-template-columns:1fr 1fr;gap:70px;max-width:1100px;margin:0 auto}
-.contgl h2{font-family:"Cormorant Garamond",serif;font-size:48px;margin-bottom:34px}
-.contl{display:grid;grid-template-columns:108px 1fr;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.15)}
-.contl:first-of-type{border-top:1px solid rgba(255,255,255,.15)}
-.contll{font-family:"Cinzel",serif;font-size:10px;letter-spacing:.12em;color:var(--or);opacity:.8;padding-top:2px}
-.contlv{font-size:16px}
-.contlv a{color:#fff;text-decoration:none}
-.contlv a:hover{color:var(--or);text-decoration:underline}
-.socbtns{display:flex;gap:8px;flex-wrap:wrap;margin-top:20px}
-.bsoc{border:1.5px solid rgba(255,255,255,.35);background:transparent;color:#fff;padding:8px 15px;font-family:"Cinzel",serif;font-size:10px;letter-spacing:.08em;cursor:pointer;text-decoration:none;display:inline-block;transition:background .2s,border-color .2s}
-.bsoc:hover{background:rgba(255,255,255,.1);border-color:var(--or)}
-.bct{background:var(--vt);color:#fff;border:none;padding:12px 24px;font-family:"Cinzel",serif;font-size:11px;letter-spacing:.1em;cursor:pointer;margin-top:16px;display:inline-block}
-.contgr{background:rgba(255,255,255,.05);padding:28px;border-left:1px solid rgba(255,255,255,.1)}
-.contgr h3{font-family:"Cormorant Garamond",serif;font-size:34px;margin-bottom:5px}
-.contgr>p{font-size:15px;color:rgba(255,255,255,.65);margin-bottom:30px}
-.copt{margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid rgba(255,255,255,.12)}
-.copt h4{font-family:"Cormorant Garamond",serif;font-style:italic;font-size:27px;margin-bottom:4px}
-.copt p{font-size:14px;color:rgba(255,255,255,.7)}
-.btn-rdv{background:var(--or);color:#fff;border:none;padding:10px 22px;font-family:"Cinzel",serif;font-size:11px;letter-spacing:.1em;cursor:pointer;margin-top:10px;transition:background .2s}
-.btn-rdv:hover{background:#b8965a}
-.cnot{background:var(--vt);padding:12px 16px;font-size:14px;margin-top:14px}
-.pdf-section{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap}
-.bpdf{border:1.5px solid rgba(255,255,255,.35);background:transparent;color:#fff;padding:8px 15px;font-family:"Cinzel",serif;font-size:10px;letter-spacing:.08em;cursor:pointer;text-decoration:none;display:inline-block}
-.bpdf:hover{background:rgba(255,255,255,.1)}
-
-/* FOOTER */
-footer{background:linear-gradient(90deg,var(--vtf) 0%,#1a3a0f 100%);padding:15px 80px;display:flex;justify-content:space-between;align-items:center;border-top:2px solid rgba(200,169,110,.3)}
-footer span{font-family:"Cinzel",serif;font-size:10px;letter-spacing:.06em;color:rgba(255,255,255,.6)}
-.flinks{display:flex;gap:22px}
-.flinks a{color:rgba(255,255,255,.6);text-decoration:none;font-family:"Cinzel",serif;font-size:10px;letter-spacing:.06em}
-.flinks a:hover{color:#fff}
-
-/* ANIMATIONS */
-.titre-trait{position:relative;display:inline-block}
-.titre-trait::after{content:'';position:absolute;bottom:-8px;left:0;height:2px;background:linear-gradient(90deg,var(--or) 60%,transparent);width:0;transition:width .7s cubic-bezier(.22,1,.36,1) .3s}
-.titre-trait.sabo-trait-run::after{width:56px}
-@keyframes saboFadeUp{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:none}}
-@keyframes saboFadeLeft{from{opacity:0;transform:translateX(-40px)}to{opacity:1;transform:none}}
-@keyframes saboFadeRight{from{opacity:0;transform:translateX(40px)}to{opacity:1;transform:none}}
-@keyframes saboZoom{from{opacity:0;transform:scale(0.88)}to{opacity:1;transform:scale(1)}}
-@keyframes saboSlideUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
-.sabo-fade-up{animation:saboFadeUp .7s cubic-bezier(.22,1,.36,1) both}
-.sabo-fade-left{animation:saboFadeLeft .7s cubic-bezier(.22,1,.36,1) both}
-.sabo-fade-right{animation:saboFadeRight .7s cubic-bezier(.22,1,.36,1) both}
-.sabo-zoom{animation:saboZoom .6s cubic-bezier(.22,1,.36,1) both}
-.sabo-slide-up{animation:saboSlideUp .55s cubic-bezier(.22,1,.36,1) both}
-.sabo-d1{animation-delay:.08s}.sabo-d2{animation-delay:.18s}.sabo-d3{animation-delay:.28s}
-.sabo-d4{animation-delay:.38s}.sabo-d5{animation-delay:.48s}.sabo-d6{animation-delay:.58s}
-
-/* RESPONSIVE */
-@media(max-width:900px){
-  .hcards,.quig,.valg,.prodg,.temog,.contg{grid-template-columns:1fr}
-  .aprg{grid-template-columns:1fr;text-align:center}
-  .aprl .lbl{justify-content:center}
-  .gerant-col{order:0}
-  .gerant-photo{width:180px;height:250px}
-  .engp{grid-template-columns:1fr 1fr;gap:10px;padding:0 20px}
-  .engh{padding:0 20px}
-  .squi,.sval,.sapr,.sprod,.strait,.sloc,.stemo,.savis,.scont{padding:50px 20px}
-  .seng{padding:50px 0}
-  footer{flex-direction:column;gap:12px;padding:20px;text-align:center}
-  .choix{grid-template-columns:1fr}
-  .nav{padding:0 16px}
-  .locong{grid-template-columns:1fr}
-  .dateg{grid-template-columns:1fr}
-  .eng-photo-main{height:220px}
-}
-</style>
-</head>
-<body>
-<div class="notif" id="notif"></div>
-<div class="ovl" id="ovl"></div>
-
-<!-- MENU -->
-<div class="menu" id="menu">
-  <button class="xbtn" id="xmenu">&#x2715;</button>
-  <a href="#accueil" class="int">Accueil</a>
-  <a href="#qui" class="int">Qui sommes-nous</a>
-  <a href="#valeurs" class="int">Nos Valeurs</a>
-  <a href="#produits" class="int">Produits Fermiers</a>
-  <a href="#traiteur" class="int">Traiteur</a>
-  <a href="#location" class="int">Location Événementielle</a>
-  <a href="#temoignages" class="int">Témoignages</a>
-  <a href="https://drive.google.com/file/d/1CldPDFeN7rNIADHHmC-1I9nquE9eiHah/view?usp=sharing" target="_blank">Charte de l'entreprise</a>
-  <a href="https://drive.google.com/file/d/1YtWUBT_GFzitVkfCOQWoTE3xaa2Gcsvt/view?usp=sharing" target="_blank">Portfolio</a>
-  <a href="#contact" class="int">Contact</a>
-</div>
-
-<!-- PANIER -->
-<div class="pan" id="pan">
-  <div class="panh"><h3>Mon Panier</h3><button class="panx" id="xpan">&#x2715;</button></div>
-  <div class="panb" id="panb"><p class="panvide">Votre panier est vide</p></div>
-  <div class="panf">
-    <div class="pantot"><span>Total</span><span id="pantot">0 FCFA</span></div>
-    <button class="panco" id="bpanco">Commander</button>
-  </div>
-</div>
-
-<!-- MODAL COMMANDE -->
-<div class="modal" id="modal">
-  <div class="mbox">
-    <button class="mclose" id="mclose">&#x2715;</button>
-    <div id="sform">
-      <h2>Commander</h2>
-      <p class="msub">Choisissez comment nous envoyer votre commande</p>
-      <input class="inp" type="text" id="fnom" placeholder="Votre nom *">
-      <input class="inp" type="tel" id="ftel" placeholder="Votre téléphone *">
-      <span class="setiq">Mode de réception</span>
-      <div class="choix">
-        <div class="ch" id="cliv"><span class="chtxt">Me faire livrer</span><span class="chck">✓</span></div>
-        <div class="ch" id="cret"><span class="chtxt">Venir chercher</span><span class="chck">✓</span></div>
-      </div>
-      <div id="badr" style="display:none;margin-top:8px"><input class="inp" type="text" id="fadr" placeholder="Adresse de livraison *" style="margin-bottom:0"></div>
-      <div id="bret" style="display:none;margin-top:8px"><div class="encart">Bimbo — Rue du Général Gambi &nbsp;·&nbsp; 8h–17h tous les jours</div></div>
-      <span class="setiq">Mode de paiement</span>
-      <div class="choix">
-        <div class="ch" id="cesp"><span class="chtxt">Paiement en espèces</span><span class="chck">✓</span></div>
-        <div class="ch" id="cor"><span class="chtxt">Orange Money</span><span class="chck">✓</span></div>
-      </div>
-      <textarea class="inp" id="fnotes" placeholder="Notes (facultatif)..." style="margin-top:11px"></textarea>
-      <span class="setiq" style="margin-top:14px">Envoyer via</span>
-      <div class="choix" style="margin-top:4px">
-        <div class="ch" id="cwa"><span class="chtxt">WhatsApp</span><span class="chck">✓</span></div>
-        <div class="ch" id="cem"><span class="chtxt">Email</span><span class="chck">✓</span></div>
-      </div>
-      <button class="benvoyer" id="benvoyer">Confirmer ma commande</button>
-    </div>
-    <div id="sconf" style="display:none">
-      <div class="conf">
-        <div class="confck">&#10003;</div>
-        <h2>Merci pour votre commande&nbsp;!</h2>
-        <p>Votre commande a bien été transmise.<br>Nous vous recontacterons très bientôt.<br><br><strong style="color:var(--vt)">À très bientôt&nbsp;!</strong></p>
-        <button class="benvoyer" id="bconfclose">Fermer</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- MODAL CONTACT -->
-<div class="modal" id="modal-contact">
-  <div class="mbox">
-    <button class="mclose" id="mclose-contact">&#x2715;</button>
-    <p class="mctitle">Nous contacter</p>
-    <p style="color:#666;font-size:15px;margin-bottom:20px">Choisissez votre moyen de contact préféré :</p>
-    <div class="mcopts">
-      <a href="https://wa.me/message/RQHOZ2OBRC5QM1" target="_blank" class="mcopt">
-        <span class="mcopt-icon">&#9742;</span>
-        <div class="mcopt-txt"><strong>WhatsApp</strong><span>+236 74 22 57 57</span></div>
-      </a>
-      <a href="mailto:saboplume@outlook.fr" class="mcopt">
-        <span class="mcopt-icon">&#9993;</span>
-        <div class="mcopt-txt"><strong>Email</strong><span>saboplume@outlook.fr</span></div>
-      </a>
-    </div>
-  </div>
-</div>
-
-<!-- MODAL RENDEZ-VOUS -->
-<div class="modal" id="modal-rdv">
-  <div class="mbox">
-    <button class="mclose" id="mclose-rdv">&#x2715;</button>
-    <h2 style="color:var(--br)">Prendre rendez-vous</h2>
-    <p class="msub">Remplissez ce formulaire, nous confirmerons par WhatsApp.</p>
-    <input class="inp" type="text" id="rnom" placeholder="Votre nom *">
-    <input class="inp" type="tel" id="rtel" placeholder="Votre téléphone *">
-    <input class="inp" type="text" id="robjet" placeholder="Objet du rendez-vous *">
-    <span class="setiq">Date souhaitée</span>
-    <div class="dateg" style="margin-bottom:11px">
-      <select class="inp" id="rjour" style="margin-bottom:0"><option value="">Jour</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option><option>13</option><option>14</option><option>15</option><option>16</option><option>17</option><option>18</option><option>19</option><option>20</option><option>21</option><option>22</option><option>23</option><option>24</option><option>25</option><option>26</option><option>27</option><option>28</option><option>29</option><option>30</option><option>31</option></select>
-      <select class="inp" id="rmois" style="margin-bottom:0"><option value="">Mois</option><option>Janvier</option><option>Février</option><option>Mars</option><option>Avril</option><option>Mai</option><option>Juin</option><option>Juillet</option><option>Août</option><option>Septembre</option><option>Octobre</option><option>Novembre</option><option>Décembre</option></select>
-      <select class="inp" id="rannee" style="margin-bottom:0"><option value="">Année</option><option>2026</option><option>2027</option><option>2028</option></select>
-    </div>
-    <span class="setiq">Heure souhaitée</span>
-    <select class="inp" id="rheure"><option value="">Choisir une heure</option><option>8h00</option><option>8h30</option><option>9h00</option><option>9h30</option><option>10h00</option><option>10h30</option><option>11h00</option><option>11h30</option><option>12h00</option><option>13h00</option><option>13h30</option><option>14h00</option><option>14h30</option><option>15h00</option><option>15h30</option><option>16h00</option><option>16h30</option></select>
-    <textarea class="inp" id="rmessage" placeholder="Message ou précisions (facultatif)..."></textarea>
-    <button class="benvoyer" id="brdv-envoyer">Envoyer via WhatsApp</button>
-  </div>
-</div>
-
-<!-- NAV -->
-<nav class="nav">
-  <button class="burger" id="bmenu"><span></span><span></span><span></span></button>
-  <div class="navr">
-    <button class="nbtn" id="bpan">Panier <span class="nbadge" id="pcnt">0</span></button>
-    <button class="ncmd" id="bcmd">Commander</button>
-  </div>
-</nav>
-
-<!-- HERO -->
-<section class="hero" id="accueil">
-  <img src="https://i.ibb.co/C3NkLpLY/logo-officiel-saboplume.png" alt="Saboplume" class="hero-logo">
-  <p class="htag">« À vos côtés pour chaque occasion »</p>
-  <p class="hloc">BIMBO &nbsp;·&nbsp; RÉPUBLIQUE CENTRAFRICAINE</p>
-  <div class="hdiv"></div>
-  <div class="hcards">
-    <div class="hcard"><h3>Produits Fermiers</h3><p>Volailles, caprins et oeufs frais directement de notre ferme</p></div>
-    <div class="hcard"><h3>Traiteur</h3><p>Conception et réalisation de menus pour tous vos événements</p></div>
-    <div class="hcard"><h3>Location Événementielle</h3><p>Chaises et tentes pour tous vos rassemblements</p></div>
-  </div>
-</section>
-
-<!-- QUI -->
-<section class="squi" id="qui">
-  <div class="quig">
-    <div class="sabo-anim" data-anim="sabo-fade-left">
-      <div class="lbl sabo-anim" data-anim="sabo-slide-up">Qui Sommes-Nous</div>
-      <h2 class="titre-trait sabo-trait-anim" style="font-size:48px;font-weight:600;line-height:1.15">À vos côtés<br><em>pour chaque occasion</em></h2>
-      <p>Saboplume, votre référence à Bimbo, vous accompagne dans l'organisation de vos événements et dans votre quotidien grâce à des produits fermiers soigneusement sélectionnés.</p>
-      <div class="quibtns">
-        <button class="bdk" data-to="produits">Produits Fermiers</button>
-        <button class="bdk" data-to="traiteur">Traiteur</button>
-        <button class="bdk" data-to="location">Location Événementielle</button>
-      </div>
-    </div>
-    <div class="sabo-anim" data-anim="sabo-fade-right">
-      <div class="qi"><div class="qin">1</div><div><div class="qit">Produits Fermiers de Qualité</div><p>Volaille, caprins et oeufs frais issus d'un élevage soigné</p></div></div>
-      <div class="qi"><div class="qin">2</div><div><div class="qit">Service Traiteur Professionnel</div><p>Mariages, baptêmes, anniversaires — chaque événement mérite l'excellence</p></div></div>
-      <div class="qi"><div class="qin">3</div><div><div class="qit">Location Événementielle</div><p>Chaises et tentes de qualité, livrées et reprises selon vos besoins</p></div></div>
-    </div>
-  </div>
-</section>
-
-<!-- VALEURS -->
-<section class="sval" id="valeurs">
-  <div class="valh"><div class="lbl sabo-anim" data-anim="sabo-slide-up">Nos Valeurs</div><h2 class="titre-trait sabo-trait-anim">Ce qui nous guide chaque jour</h2></div>
-  <div class="valg">
-    <div class="vc sabo-anim" data-anim="sabo-fade-up sabo-d1" style="background:#7B2D00"><h3>Authenticité</h3><p>Des produits naturels, élevés avec respect et sans compromis sur la qualité.</p></div>
-    <div class="vc sabo-anim" data-anim="sabo-fade-up sabo-d2" style="background:#3B5E2B"><h3>Confiance</h3><p>Des relations durables fondées sur la transparence et le respect de nos engagements.</p></div>
-    <div class="vc sabo-anim" data-anim="sabo-fade-up sabo-d3" style="background:#5A3520"><h3>Excellence</h3><p>Nous visons la qualité dans tout ce que nous faisons : produits, traiteur, location.</p></div>
-    <div class="vc sabo-anim" data-anim="sabo-fade-up sabo-d4" style="background:#2D4A20"><h3>Bienveillance</h3><p>Chaque client et animal confié à nos soins est traité avec respect et humanité.</p></div>
-    <div class="vc sabo-anim" data-anim="sabo-fade-up sabo-d5" style="background:#8B4513"><h3>Engagement Local</h3><p>Fiers d'être centrafricains, nous privilégions les ressources et talents locaux.</p></div>
-    <div class="vc sabo-anim" data-anim="sabo-fade-up sabo-d6" style="background:#1A3A0F"><h3>Innovation</h3><p>Nous cherchons en permanence à améliorer nos services pour mieux vous servir.</p></div>
-  </div>
-</section>
-
-<!-- APROPOS -->
-<section class="sapr" id="apropos">
-  <div class="aprg">
-    <div class="aprl sabo-anim" data-anim="sabo-fade-left">
-      <div class="lbl">À Propos</div>
-      <h2>Vision et évolution</h2>
-      <p>Saboplume est une EURL créée à Bimbo en 2027 par Bélinda Songuet, avec une ambition claire : proposer des produits fermiers de qualité et des services adaptés aux besoins des habitants de Bimbo.</p>
-      <p>Grâce à la confiance de sa clientèle, Saboplume a progressivement élargi ses activités autour de trois pôles complémentaires.</p>
-    </div>
-    <div class="gerant-col">
-      <img src="https://i.ibb.co/sJw0Swdr/IMG-1939.png" alt="Bélinda Songuet" class="gerant-photo">
-      <p class="gerant-nom">Bélinda Songuet</p>
-      <p class="gerant-titre">Gérante de Saboplume</p>
-    </div>
-    <div class="aprr sabo-anim" data-anim="sabo-fade-right">
-      <div class="aprs"><h4>Produits Fermiers</h4><p>Volailles, caprins et oeufs frais. Production locale contrôlée, disponible 7j/7.</p></div>
-      <div class="aprs"><h4>Saboplume Traiteur</h4><p>Prise en charge complète de la restauration pour vos événements.</p></div>
-      <div class="aprs"><h4>Location Événementielle</h4><p>Chaises et tentes pour toutes vos réceptions, livrées sur place.</p></div>
-    </div>
-  </div>
-</section>
-
-<!-- PRODUITS -->
-<section class="sprod" id="produits">
-  <div class="prodh sabo-anim" data-anim="sabo-fade-up"><h1 class="titre-trait sabo-trait-anim">Produits Fermiers</h1><p>Nourrir avec authenticité — des produits frais et sains directement de notre ferme.</p></div>
-  <h2 class="cattit">Oeufs</h2>
-  <div class="prodg" style="max-width:1100px;margin:0 auto">
-    <div class="pcard" style="grid-column:1/-1">
-      <img src="https://i.ibb.co/7N0YkPLf/IMG-2132-JPG.jpg" alt="Oeufs frais" class="pcard-img" style="width:100%;max-width:900px;height:480px;display:block;object-fit:contain;object-position:center;margin:0 auto;background:#f5f2ec">
-      <div class="pcb" style="border-left:4px solid var(--vt)">
-        <span class="badge">Disponible</span>
-        <h3>Palette de 30 oeufs</h3>
-        <p class="pdesc">Production régulière directement de notre élevage, disponible tous les jours.</p>
-        <div class="ppied"><span class="pprix">1&nbsp;000 FCFA</span><button class="badd" data-nom="Palette de 30 oeufs" data-prix="1000">+ AJOUTER</button></div>
-      </div>
-    </div>
-  </div>
-  <h2 class="cattit">Volailles</h2>
-  <div class="prodg">
-    <div class="pcard"><img src="https://i.ibb.co/1YDS9Yyp/Whats-App-Image-2026-02-21-at-09-08-05-Copie.jpg" alt="Segue Kondo" class="pcard-img"><div class="pcb"><span class="badge">Disponible</span><h3>Segue Kondo</h3><p class="pdesc">Race résistante, adaptée aux conditions locales.</p><div class="ppied"><span class="pprix">3&nbsp;500 FCFA</span><button class="badd" data-nom="Segue Kondo" data-prix="3500">+ AJOUTER</button></div></div></div>
-    <div class="pcard"><img src="https://i.ibb.co/99DP49ZM/Whats-App-Image-2026-02-21-at-09-44-24-Copie.jpg" alt="Kondo Ti Kodro" class="pcard-img"><div class="pcb"><span class="badge">Disponible</span><h3>Kondo Ti Kodro</h3><p class="pdesc">Variété robuste, idéale pour reproduction et production.</p><div class="ppied"><span class="pprix">4&nbsp;500 FCFA</span><button class="badd" data-nom="Kondo Ti Kodro" data-prix="4500">+ AJOUTER</button></div></div></div>
-  </div>
-  <h2 class="cattit">Caprins</h2>
-  <div class="prodg">
-    <div class="pcard"><img src="https://i.ibb.co/LzmPdfvr/Whats-App-Image-2026-02-21-at-09-40-18.jpg" alt="Kete Ngassa" class="pcard-img" style="height:260px;object-fit:contain;background:#f5f2ec"><div class="pcb"><span class="badge">Disponible</span><h3>Kete Ngassa</h3><p class="pdesc">Jeune chevreau en bonne santé, élevé dans de bonnes conditions.</p><div class="ppied"><span class="pprix">50&nbsp;000 FCFA</span><button class="badd" data-nom="Kete Ngassa" data-prix="50000">+ AJOUTER</button></div></div></div>
-    <div class="pcard"><img src="https://i.ibb.co/rP7B9Mq/Whats-App-Image-2026-02-21-at-09-40-19-Copie.jpg" alt="Kota Ngassa" class="pcard-img" style="height:260px;object-fit:cover;object-position:center 30%"><div class="pcb"><span class="badge">Disponible</span><h3>Kota Ngassa</h3><p class="pdesc">Chèvres plus développées, robustes et en pleine forme.</p><div class="ppied"><span class="pprix">70&nbsp;000 FCFA</span><button class="badd" data-nom="Kota Ngassa" data-prix="70000">+ AJOUTER</button></div></div></div>
-  </div>
-</section>
-
-<!-- ENGAGEMENT -->
-<section class="seng" id="engagement">
-  <div class="engh sabo-anim" data-anim="sabo-fade-up">
-    <div class="lbl" style="justify-content:center">Notre Engagement</div>
-    <h2 class="titre-trait sabo-trait-anim">L'élevage autrement</h2>
-  </div>
-  <div class="eng-photo-wrap sabo-anim" data-anim="sabo-zoom">
-    <img src="https://i.ibb.co/WNSJxwsf/Whats-App-Image-2026-02-22-at-18-35-52.jpg" alt="Élevage Saboplume" class="eng-photo-main">
-  </div>
-  <div class="engp">
-    <div class="engi sabo-anim" data-anim="sabo-fade-up sabo-d1"><div class="engin">1</div><div class="engit">Qualité sanitaire</div><p>Chaque animal est suivi selon des standards rigoureux.</p></div>
-    <div class="engi sabo-anim" data-anim="sabo-fade-up sabo-d2"><div class="engin">2</div><div class="engit">Sélection rigoureuse</div><p>Seuls les meilleurs sujets intègrent notre sélection.</p></div>
-    <div class="engi sabo-anim" data-anim="sabo-fade-up sabo-d3"><div class="engin">3</div><div class="engit">Bien-être animal</div><p>Alimentation, eau fraîche, abri propre et soins adaptés.</p></div>
-    <div class="engi sabo-anim" data-anim="sabo-fade-up sabo-d4"><div class="engin">4</div><div class="engit">Relation directe</div><p>Du producteur à vous, sans intermédiaire. Transparence garantie.</p></div>
-  </div>
-</section>
-
-<!-- TRAITEUR -->
-<section class="strait" id="traiteur">
-  <div class="traitc sabo-anim" data-anim="sabo-fade-up">
-    <h1 class="titre-trait sabo-trait-anim">Traiteur &amp; Location Événementielle</h1>
-    <p class="traitintro">Célébrer avec excellence — Saboplume vous accompagne de A à Z : cuisine savoureuse et matériel complet.</p>
-    <h2>Saboplume Traiteur</h2>
-    <p class="traitsub">Mariages, baptêmes, anniversaires, réceptions d'entreprise. Nous gérons tout.</p>
-    <div class="trait-photo-wrap">
-      <img src="https://i.ibb.co/HD9jRr17/IMG-2130-JPG.jpg" alt="Traiteur Saboplume" class="trait-photo">
-    </div>
-    <div class="fdevis">
-      <h3>Demander un devis Traiteur</h3>
-      <input class="inp" type="text" id="tnom" placeholder="Votre nom">
-      <input class="inp" type="tel" id="ttel" placeholder="Votre téléphone">
-      <input class="inp" type="text" id="tevt" placeholder="Type d'événement (mariage, baptême...)">
-      <div class="dateg">
-        <select class="inp" id="tjour" style="margin-bottom:0"><option value="">Jour</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option><option>13</option><option>14</option><option>15</option><option>16</option><option>17</option><option>18</option><option>19</option><option>20</option><option>21</option><option>22</option><option>23</option><option>24</option><option>25</option><option>26</option><option>27</option><option>28</option><option>29</option><option>30</option><option>31</option></select>
-        <select class="inp" id="tmois" style="margin-bottom:0"><option value="">Mois</option><option>Janvier</option><option>Février</option><option>Mars</option><option>Avril</option><option>Mai</option><option>Juin</option><option>Juillet</option><option>Août</option><option>Septembre</option><option>Octobre</option><option>Novembre</option><option>Décembre</option></select>
-        <select class="inp" id="tannee" style="margin-bottom:0"><option value="">Année</option><option>2025</option><option>2026</option><option>2027</option><option>2028</option></select>
-      </div>
-      <input class="inp" type="number" id="tpers" placeholder="Nombre de personnes">
-      <textarea class="inp" id="tdetails" placeholder="Détails de votre événement..."></textarea>
-      <button class="benv" id="bdevis">Envoyer ma demande</button>
-    </div>
-  </div>
-</section>
-
-<!-- LOCATION -->
-<section class="sloc" id="location">
-  <div class="locc sabo-anim" data-anim="sabo-fade-up">
-    <h2>Saboplume Location Événementielle</h2>
-    <p class="locintro">Matériel événementiel de qualité : chaises et tentes. Livraison et reprise incluses.</p>
-    <div class="loc-photos">
-      <img src="https://i.ibb.co/kFLqBJ1/Whats-App-Image-2026-02-21-at-12-15-43.jpg" alt="Chaises location" class="loc-photo" style="object-fit:contain;background:#f5f5f5">
-      <img src="https://i.ibb.co/BHV7y0HS/Whats-App-Image-2026-02-22-at-17-28-35.jpg" alt="Tentes location" class="loc-photo">
-    </div>
-    <div class="locong">
-      <button class="loco on" data-px="300" data-lb="Tarif par chaise" data-ti="Réserver des chaises" data-ql="Nombre de chaises :">Chaises</button>
-      <button class="loco" data-px="15000" data-lb="Tarif par tente" data-ti="Réserver des tentes" data-ql="Nombre de tentes :">Tentes</button>
-      <button class="loco" data-px="" data-lb="Pack Chaises + Tentes" data-ti="Réserver le pack" data-ql="Nombre de personnes :">Pack</button>
-    </div>
-    <div class="loctarf"><span class="loctarl" id="tlbl">Tarif par chaise</span><span class="loctarp" id="tprix">300 FCFA / unité</span></div>
-    <div class="fres">
-      <h3 id="ftit">Réserver des chaises</h3>
-      <input class="inp" type="text" id="lnom" placeholder="Votre nom">
-      <input class="inp" type="tel" id="ltel" placeholder="Votre téléphone">
-      <div class="dateg">
-        <select class="inp" id="ljour" style="margin-bottom:0"><option value="">Jour</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option><option>13</option><option>14</option><option>15</option><option>16</option><option>17</option><option>18</option><option>19</option><option>20</option><option>21</option><option>22</option><option>23</option><option>24</option><option>25</option><option>26</option><option>27</option><option>28</option><option>29</option><option>30</option><option>31</option></select>
-        <select class="inp" id="lmois" style="margin-bottom:0"><option value="">Mois</option><option>Janvier</option><option>Février</option><option>Mars</option><option>Avril</option><option>Mai</option><option>Juin</option><option>Juillet</option><option>Août</option><option>Septembre</option><option>Octobre</option><option>Novembre</option><option>Décembre</option></select>
-        <select class="inp" id="lannee" style="margin-bottom:0"><option value="">Année</option><option>2025</option><option>2026</option><option>2027</option><option>2028</option></select>
-      </div>
-      <input class="inp" type="text" id="llieu" placeholder="Lieu de livraison">
-      <div class="qrow"><label id="qlbl">Nombre de chaises :</label><input class="qinp" type="number" id="qinp" value="10" min="1"></div>
-      <p class="totline">Total : <strong id="tot">3&nbsp;000 FCFA</strong></p>
-      <button class="bres" id="bres">Réserver</button>
-    </div>
-  </div>
-</section>
-
-<!-- TEMOIGNAGES -->
-<section class="stemo" id="temoignages">
-  <div class="temoh sabo-anim" data-anim="sabo-fade-up">
-    <div class="lbl">Témoignages</div>
-    <h2 class="titre-trait sabo-trait-anim">Ce que disent nos <em>clients</em></h2>
-    <div style="display:flex;align-items:center;gap:8px;margin-bottom:20px"><span style="width:28px;height:2px;background:var(--or)"></span><span style="width:8px;height:2px;background:rgba(200,169,110,.4)"></span><span style="width:4px;height:2px;background:rgba(200,169,110,.2)"></span></div>
-    <div class="noteg"><span class="etoiles">&#9733;&#9733;&#9733;&#9733;&#9733;</span><span style="font-family:'EB Garamond',serif;font-size:22px">4.8</span><span style="font-family:'Cinzel',serif;font-size:10px;letter-spacing:.1em;color:#999">Note Globale</span></div>
-  </div>
-  <div class="temog" id="temog">
-    <div class="tcard"><div class="tet">&#9733;&#9733;&#9733;&#9733;&#9733;</div><p class="ttxt">J'ai acheté un Kete Ngassa et je suis vraiment ravie. Le chevreau est en parfaite santé. Je recommande Saboplume les yeux fermés&nbsp;!</p><div class="tau"><div class="av" style="background:#3B5E2B">AN</div><div><span class="an">Adèle Nzamba</span><span class="ar">Cliente · Produits Fermiers · Gobongo</span></div></div></div>
-    <div class="tcard"><div class="tet">&#9733;&#9733;&#9733;&#9733;&#9733;</div><p class="ttxt">Saboplume Traiteur a géré tous les repas de notre mariage. Tout était parfait : qualité, service, ponctualité&nbsp;!</p><div class="tau"><div class="av" style="background:#7B2D00">GN</div><div><span class="an">Gaëlle Ngoundji</span><span class="ar">Cliente · Traiteur · Sica 2</span></div></div></div>
-    <div class="tcard"><div class="tet">&#9733;&#9733;&#9733;&#9733;&#9733;</div><p class="ttxt">J'ai loué chaises et tentes pour notre conférence. Livraison à l'heure, matériel en parfait état. Service sérieux&nbsp;!</p><div class="tau"><div class="av" style="background:#8B4513">SK</div><div><span class="an">Samuel Koyakoua</span><span class="ar">Client · Location · Lakouanga</span></div></div></div>
-    <div class="tcard hidden"><div class="tet">&#9733;&#9733;&#9733;&#9733;&#9733;</div><p class="ttxt">Les oeufs sont toujours frais, je commande chaque semaine. Une vraie confiance s'est installée avec Saboplume.</p><div class="tau"><div class="av" style="background:#2D4A20">MK</div><div><span class="an">Martine Kouyidiki</span><span class="ar">Cliente · Produits Fermiers · Castor</span></div></div></div>
-    <div class="tcard hidden"><div class="tet">&#9733;&#9733;&#9733;&#9733;&#9733;</div><p class="ttxt">Le baptême de mon fils était magnifique. Bélinda et son équipe ont tout géré avec le sourire. Bravo&nbsp;!</p><div class="tau"><div class="av" style="background:#5A3520">CB</div><div><span class="an">Clarisse Boganda</span><span class="ar">Cliente · Traiteur · PK10</span></div></div></div>
-    <div class="tcard hidden"><div class="tet">&#9733;&#9733;&#9733;&#9733;&#9733;</div><p class="ttxt">J'habite à Samba et la livraison s'est faite sans problème. Très satisfait du service et des produits.</p><div class="tau"><div class="av" style="background:#3B5E2B">JN</div><div><span class="an">Joël Ngaïssona</span><span class="ar">Client · Produits Fermiers · Samba</span></div></div></div>
-    <div class="tcard hidden"><div class="tet">&#9733;&#9733;&#9733;&#9733;&#9734;</div><p class="ttxt">Nous avons loué 200 chaises pour une réception. Tout était nickel, propre et livré avant l'heure prévue.</p><div class="tau"><div class="av" style="background:#7B2D00">HM</div><div><span class="an">Honorine Mbalanga</span><span class="ar">Cliente · Location · Nzila</span></div></div></div>
-    <div class="tcard hidden"><div class="tet">&#9733;&#9733;&#9733;&#9733;&#9733;</div><p class="ttxt">La viande de Kondo Ti Kodro était délicieuse pour notre repas de famille. Je reviendrai très bientôt&nbsp;!</p><div class="tau"><div class="av" style="background:#8B4513">PY</div><div><span class="an">Pierre Yamandji</span><span class="ar">Client · Produits Fermiers · Padre Pio</span></div></div></div>
-    <div class="tcard hidden"><div class="tet">&#9733;&#9733;&#9733;&#9733;&#9733;</div><p class="ttxt">Excellent traiteur pour mon anniversaire. Les plats étaient chauds et savoureux. Toute ma famille a été conquise&nbsp;!</p><div class="tau"><div class="av" style="background:#2D4A20">LK</div><div><span class="an">Léonie Kpata</span><span class="ar">Cliente · Traiteur · Bimbo</span></div></div></div>
-    <div class="tcard hidden"><div class="tet">&#9733;&#9733;&#9733;&#9733;&#9734;</div><p class="ttxt">Le pack chaises + tentes pour notre événement religieux était parfait. Je recommande à tous mes amis&nbsp;!</p><div class="tau"><div class="av" style="background:#5A3520">FM</div><div><span class="an">Félicien Mandaba</span><span class="ar">Client · Location · Gobongo</span></div></div></div>
-    <div class="tcard hidden"><div class="tet">&#9733;&#9733;&#9733;&#9733;&#9733;</div><p class="ttxt">Des oeufs très frais, des chèvres en bonne santé. Saboplume c'est la qualité centrafricaine dont on peut être fier.</p><div class="tau"><div class="av" style="background:#3B5E2B">RD</div><div><span class="an">Rose Doumolou</span><span class="ar">Cliente · Produits Fermiers · Lakouanga</span></div></div></div>
-    <div class="tcard hidden"><div class="tet">&#9733;&#9733;&#9733;&#9733;&#9733;</div><p class="ttxt">Notre séminaire d'entreprise a été un succès grâce au traiteur Saboplume. Ponctuel, professionnel, délicieux.</p><div class="tau"><div class="av" style="background:#7B2D00">AN</div><div><span class="an">Aubin Ngbango</span><span class="ar">Client · Traiteur · Castor</span></div></div></div>
-    <div class="tcard hidden"><div class="tet">&#9733;&#9733;&#9733;&#9733;&#9734;</div><p class="ttxt">Je commande régulièrement depuis plusieurs mois. La qualité est constante et le service toujours au top&nbsp;!</p><div class="tau"><div class="av" style="background:#8B4513">VN</div><div><span class="an">Véronique Nganzi</span><span class="ar">Cliente · Produits Fermiers · Sica 2</span></div></div></div>
-  </div>
-  <p class="temo-compteur" id="temo-compteur"></p>
-  <button class="bvoirplus" id="bvoirplus">Voir tous les témoignages</button>
-</section>
-
-<!-- AVIS -->
-<section class="savis" id="laisser-avis">
-  <div class="avisc">
-    <div class="avish">
-      <div class="lbl" style="justify-content:center">Votre Avis Compte</div>
-      <h2>Laisser un avis</h2>
-      <p>Vous avez utilisé nos services ? Partagez votre expérience et aidez d'autres clients à nous découvrir.</p>
-    </div>
-    <div class="avisf sabo-anim" data-anim="sabo-zoom">
-      <div class="aviseg" id="aviseg">
-        <span class="avise" data-v="1">&#9733;</span><span class="avise" data-v="2">&#9733;</span><span class="avise" data-v="3">&#9733;</span><span class="avise" data-v="4">&#9733;</span><span class="avise" data-v="5">&#9733;</span>
-      </div>
-      <p class="avisnt" id="avisnt">Cliquez pour noter</p>
-      <input class="inp" type="text" id="avisnom" placeholder="Votre prénom *">
-      <input class="inp" type="text" id="avissvc" placeholder="Service utilisé (ex: Traiteur, Produits Fermiers...)">
-      <input class="inp" type="text" id="avisquart" placeholder="Votre quartier (ex: Gobongo, Castor...)">
-      <textarea class="inp" id="avistxt" placeholder="Partagez votre expérience..." style="min-height:100px"></textarea>
-      <button class="bavis" id="bavis">Publier mon avis</button>
-    </div>
-  </div>
-</section>
-
-<!-- CONTACT -->
-<section class="scont" id="contact">
-  <div class="contg">
-    <div class="contgl sabo-anim" data-anim="sabo-fade-left">
-      <h2>Nous trouver &amp; commander</h2>
-      <div class="contl"><span class="contll">Adresse</span><span class="contlv"><a href="https://maps.google.com/?q=Bimbo,Rue+du+Général+Gambi,République+Centrafricaine" target="_blank">Bimbo — Rue du Général Gambi</a></span></div>
-      <div class="contl"><span class="contll">Horaires</span><span class="contlv">Tous les jours · 8h — 17h</span></div>
-      <div class="contl"><span class="contll">Téléphone</span><span class="contlv"><a href="tel:+23674225757">+236 74 22 57 57</a></span></div>
-      <div class="contl"><span class="contll">Email</span><span class="contlv"><a href="mailto:saboplume@outlook.fr">saboplume@outlook.fr</a></span></div>
-      <div class="socbtns">
-        <a href="https://www.facebook.com/share/1ArfaX1XMn/" target="_blank" class="bsoc">Facebook</a>
-        <a href="https://www.tiktok.com/@saboplume" target="_blank" class="bsoc">TikTok</a>
-        <a href="https://www.instagram.com/saboplume" target="_blank" class="bsoc">Instagram</a>
-        <a href="https://wa.me/message/RQHOZ2OBRC5QM1" target="_blank" class="bsoc">WhatsApp</a>
-      </div>
-      <button class="bct" id="btncontacter">Nous contacter</button>
-      <div class="pdf-section">
-        <a href="https://drive.google.com/file/d/1CldPDFeN7rNIADHHmC-1I9nquE9eiHah/view?usp=sharing" target="_blank" class="bpdf">Charte entreprise</a>
-        <a href="https://drive.google.com/file/d/1YtWUBT_GFzitVkfCOQWoTE3xaa2Gcsvt/view?usp=sharing" target="_blank" class="bpdf">Portfolio</a>
-      </div>
-    </div>
-    <div class="contgr sabo-anim" data-anim="sabo-fade-right">
-      <h3>Comment commander&nbsp;?</h3>
-      <p>Plusieurs façons selon ce qui vous convient.</p>
-      <div class="copt"><h4>En ligne</h4><p>Commandez depuis notre site, via nos réseaux sociaux ou par email</p></div>
-      <div class="copt"><h4>Sur place</h4><p>Bimbo, Rue du Général Gambi — tous les jours de 8h à 17h.</p></div>
-      <div class="copt" style="border-bottom:none">
-        <h4>Sur rendez-vous</h4>
-        <p>Pour un conseil personnalisé ou une commande spéciale, prenez rendez-vous.</p>
-        <button class="btn-rdv" id="btn-rdv-open">Prendre rendez-vous</button>
-      </div>
-      <div class="cnot">Livraison disponible — tarifs selon la distance</div>
-    </div>
-  </div>
-</section>
-
-<footer>
-  <span>© 2027 Saboplume EURL · Bimbo, République Centrafricaine</span>
-  <div class="flinks">
-    <a href="#produits">Produits Fermiers</a>
-    <a href="#traiteur">Traiteur</a>
-    <a href="#location">Location Événementielle</a>
-  </div>
-</footer>
-
-<script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-import { getFirestore, doc, getDoc, collection, addDoc, getDocs, query, orderBy } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
-const firebaseConfig={apiKey:"AIzaSyACg587ve8fA4VYhA6Xe022TzQ4VPR7xuk",authDomain:"saboplume.firebaseapp.com",projectId:"saboplume",storageBucket:"saboplume.firebasestorage.app",messagingSenderId:"781101005839",appId:"1:781101005839:web:ffbeb9f0e7793502a7377a"};
-const app=initializeApp(firebaseConfig);
-const db=getFirestore(app);
-async function getData(k,d){try{const s=await getDoc(doc(db,'config',k));return s.exists()?s.data():d;}catch(e){return d;}}
-async function addRecord(t,r){try{await addDoc(collection(db,t),r);}catch(e){console.error(e);}}
-window.addRecord=addRecord;
-function fp(n){return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g,'\u00A0');}
-
-// ── CHARGER AVIS FIREBASE ──
-async function chargerAvis(){
-  try{
-    const snap=await getDocs(query(collection(db,'reviews'),orderBy('createdAt','desc')));
-    if(snap.empty)return;
-    const couleurs=['#3B5E2B','#7B2D00','#8B4513','#2D4A20','#5A3520','#1A3A0F'];
-    const temog=document.getElementById('temog');
-    temog.innerHTML='';
-    var idx=0;
-    snap.forEach(function(d){
-      var a=d.data();
-      var nom=a.name||'Anonyme';
-      var init=nom.split(' ').map(function(w){return w[0]||'';}).join('').substring(0,2).toUpperCase();
-      var etoiles='';
-      for(var i=1;i<=5;i++) etoiles+=i<=(a.rating||5)?'&#9733;':'&#9734;';
-      var svc=[a.service,a.quartier].filter(Boolean).join(' · ')||'Client Saboplume';
-      var card=document.createElement('div');
-      card.className='tcard'+(idx>=3?' hidden':'');
-      card.innerHTML='<div class="tet">'+etoiles+'</div><p class="ttxt">'+(a.comment||'')+'</p><div class="tau"><div class="av" style="background:'+couleurs[idx%couleurs.length]+'">'+init+'</div><div><span class="an">'+nom+'</span><span class="ar">'+svc+'</span></div></div>';
-      temog.appendChild(card);
-      idx++;
-    });
-    initTemoignages();
-  }catch(e){console.error(e);}
-}
-
-function initTemoignages(){
-  var cards=document.querySelectorAll('#temog .tcard');
-  var total=cards.length;
-  var btn=document.getElementById('bvoirplus');
-  var cpt=document.getElementById('temo-compteur');
-  var expanded=false;
-  function def(){return window.innerWidth>800?3:2;}
-  function update(){
-    var shown=expanded?total:def();
-    cards.forEach(function(c,i){c.classList.toggle('hidden',i>=shown);});
-    if(cpt) cpt.textContent=Math.min(shown,total)+' avis affichés sur '+total;
-    if(btn) btn.textContent=expanded?'Voir moins':'Voir tous les témoignages';
-  }
-  if(btn){
-    var nb=btn.cloneNode(true);
-    btn.parentNode.replaceChild(nb,btn);
-    nb.addEventListener('click',function(){expanded=!expanded;update();if(!expanded)document.getElementById('temoignages').scrollIntoView({behavior:'smooth'});});
-  }
-  update();
-  window.addEventListener('resize',function(){if(!expanded)update();});
-}
-
-async function appliquerAdmin(){
-  var PD=[{id:'oeuf',nom:'Palette de 30 oeufs',desc:'Fraîcheur assurée, production régulière directement de notre élevage.',prix:1000,dispo:true,remise:false},{id:'segue',nom:'Segue Kondo',desc:'Race résistante, adaptée aux conditions locales.',prix:3500,dispo:true,remise:false},{id:'kondo',nom:'Kondo Ti Kodro',desc:'Variété robuste, idéale pour reproduction et production.',prix:4500,dispo:true,remise:false},{id:'kete',nom:'Kete Ngassa',desc:'Jeune chevreau en bonne santé, élevé dans de bonnes conditions.',prix:50000,dispo:true,remise:false},{id:'kota',nom:'Kota Ngassa',desc:'Chèvres plus développées, robustes et en pleine forme.',prix:70000,dispo:true,remise:false}];
-  var pd=await getData('produits',{liste:PD});var prods=pd.liste||PD;
-  document.querySelectorAll('.badd').forEach(function(btn){
-    var nom=btn.getAttribute('data-nom');
-    var prod=prods.find(function(p){return p.nom===nom;});
-    if(prod){
-      btn.setAttribute('data-prix',prod.prix);
-      var pcb=btn.closest('.pcb');
-      if(pcb){
-        var h3=pcb.querySelector('h3');if(h3)h3.textContent=prod.nom;
-        var desc=pcb.querySelector('.pdesc');if(desc)desc.textContent=prod.desc;
-        var prix=pcb.querySelector('.pprix');
-        if(prix){var r=(typeof prod.remise==='number')?prod.remise:(prod.remise?5:0);if(r>0){var pr=Math.round(prod.prix*(1-r/100));prix.innerHTML='<span style="text-decoration:line-through;color:#aaa;font-size:15px">'+fp(prod.prix)+'</span> <span style="color:var(--vt)">'+fp(pr)+' FCFA</span>';}else prix.textContent=fp(prod.prix)+'\u00A0FCFA';}
-        var badge=pcb.querySelector('.badge');
-        if(badge){if(prod.dispo){badge.textContent='Disponible';badge.classList.remove('indispo');}else{badge.textContent='Indisponible';badge.classList.add('indispo');btn.disabled=true;btn.style.opacity='.4';}}
-      }
-    }
-  });
-  var tx=await getData('textes',{});
-  if(tx.quiTitre){var h=document.querySelector('.quig h2');if(h)h.textContent=tx.quiTitre;}
-  if(tx.quiPara){var ps=document.querySelectorAll('.quig>div>p');if(ps[0])ps[0].textContent=tx.quiPara;}
-  if(tx.visionP1){var vp=document.querySelectorAll('.aprl p');if(vp[0])vp[0].textContent=tx.visionP1;}
-  if(tx.visionP2){var vp2=document.querySelectorAll('.aprl p');if(vp2[1])vp2[1].textContent=tx.visionP2;}
-  var md=await getData('medias',{});
-  if(md.logo){var lo=document.querySelector('.hero-logo');if(lo)lo.src=md.logo;}
-  if(md.belinda){var b=document.querySelector('.gerant-photo');if(b)b.src=md.belinda;}
-  var pi=document.querySelectorAll('.sprod .pcard-img');
-  if(md.oeuf1&&pi[0])pi[0].src=md.oeuf1;if(md.vol1&&pi[1])pi[1].src=md.vol1;if(md.vol2&&pi[2])pi[2].src=md.vol2;if(md.cap1&&pi[3])pi[3].src=md.cap1;if(md.cap2&&pi[4])pi[4].src=md.cap2;
-  var ei=document.querySelector('.eng-photo-main');if(md.elev1&&ei)ei.src=md.elev1;
-  var ti=document.querySelector('.trait-photo');if(md.trait1&&ti)ti.src=md.trait1;
-  var li=document.querySelectorAll('.loc-photo');if(md.chaises&&li[0])li[0].src=md.chaises;if(md.tentes&&li[1])li[1].src=md.tentes;
-  if(md.prixChaise){document.querySelectorAll('.loco').forEach(function(b){if(b.textContent.trim()==='Chaises'){b.setAttribute('data-px',md.prixChaise);if(b.classList.contains('on'))document.getElementById('tprix').textContent=fp(parseInt(md.prixChaise))+' FCFA / unité';}});}
-  if(md.prixTente){document.querySelectorAll('.loco').forEach(function(b){if(b.textContent.trim()==='Tentes')b.setAttribute('data-px',md.prixTente);});}
-  var li2=await getData('liens',{});
-  if(li2.facebook){var fb=document.querySelector('a[href*="facebook"]');if(fb)fb.href=li2.facebook;}
-  if(li2.tiktok){var tt=document.querySelector('a[href*="tiktok"]');if(tt)tt.href=li2.tiktok;}
-  if(li2.instagram){var ig=document.querySelector('a[href*="instagram"]');if(ig)ig.href=li2.instagram;}
-  if(li2.whatsapp){document.querySelectorAll('a[href*="wa.me"]').forEach(function(a){a.href=li2.whatsapp;});}
-  if(li2.tel){var ta=document.querySelector('a[href^="tel:"]');if(ta){ta.href='tel:'+li2.tel.replace(/\s/g,'');ta.textContent=li2.tel;}}
-  if(li2.email){document.querySelectorAll('a[href^="mailto:"]').forEach(function(a){a.href='mailto:'+li2.email;a.textContent=li2.email;});}
-  if(md.charte){document.querySelectorAll('a[href*="1CldPDF"]').forEach(function(a){a.href=md.charte;});}
-  if(md.portfolio){document.querySelectorAll('a[href*="1YtWUBT"]').forEach(function(a){a.href=md.portfolio;});}
-}
-
-document.addEventListener('DOMContentLoaded',async function(){
-  await appliquerAdmin();
-  await chargerAvis();
-  initTemoignages();
-
-  var activeBtn=document.querySelector('.loco.on');
-  var upx=activeBtn?parseInt(activeBtn.getAttribute('data-px')||'300'):300;
-  var panier=[],modeR=null,modeP=null,modeEnvoi=null;
-
-  function notif(m){var e=document.getElementById('notif');e.textContent=m;e.classList.add('on');clearTimeout(e._t);e._t=setTimeout(function(){e.classList.remove('on');},3200);}
-  function aller(id){var e=document.getElementById(id);if(e)e.scrollIntoView({behavior:'smooth'});}
-  var ovl=document.getElementById('ovl'),menu=document.getElementById('menu'),pan=document.getElementById('pan');
-  function fermerTout(){menu.classList.remove('on');pan.classList.remove('on');ovl.classList.remove('on');}
-  ovl.addEventListener('click',function(){fermerTout();['modal','modal-contact','modal-rdv'].forEach(function(id){document.getElementById(id).classList.remove('on');});});
-  document.getElementById('bmenu').addEventListener('click',function(){menu.classList.add('on');ovl.classList.add('on');});
-  document.getElementById('xmenu').addEventListener('click',fermerTout);
-  document.querySelectorAll('.menu a.int').forEach(function(a){a.addEventListener('click',function(e){e.preventDefault();aller(this.getAttribute('href').substring(1));fermerTout();});});
-  document.getElementById('bpan').addEventListener('click',function(){if(pan.classList.contains('on')){pan.classList.remove('on');ovl.classList.remove('on');}else{pan.classList.add('on');ovl.classList.add('on');}});
-  document.getElementById('xpan').addEventListener('click',function(){pan.classList.remove('on');ovl.classList.remove('on');});
-
-  function majPan(){
-    var cnt=0,tot=0;panier.forEach(function(a){cnt+=a.q;tot+=a.p*a.q;});
-    document.getElementById('pcnt').textContent=cnt;document.getElementById('pantot').textContent=fp(tot)+' FCFA';
-    var pb=document.getElementById('panb');
-    if(!panier.length){pb.innerHTML='<p class="panvide">Votre panier est vide</p>';return;}
-    var h='';panier.forEach(function(a){h+='<div class="panl"><div><div class="panln">'+a.n+'</div><div class="panlq">Qté : '+a.q+'</div></div><div style="display:flex;align-items:center;gap:6px"><span class="panlp">'+fp(a.p*a.q)+' FCFA</span><button class="panlx" data-n="'+a.n+'">✕</button></div></div>';});
-    pb.innerHTML=h;
-    pb.querySelectorAll('.panlx').forEach(function(x){x.addEventListener('click',function(){panier=panier.filter(function(i){return i.n!==x.getAttribute('data-n');});majPan();});});
-  }
-  document.querySelectorAll('.badd').forEach(function(btn){btn.addEventListener('click',function(){var n=this.getAttribute('data-nom'),p=parseInt(this.getAttribute('data-prix'));var ex=panier.find(function(i){return i.n===n;});if(ex)ex.q++;else panier.push({n:n,p:p,q:1});majPan();notif(n+' ajouté au panier ✓');});});
-
-  function ouvrirModal(){if(!panier.length){notif('Ajoutez des articles au panier d\'abord');return;}pan.classList.remove('on');ovl.classList.remove('on');reinit();document.getElementById('modal').classList.add('on');}
-  function fermerModal(){document.getElementById('modal').classList.remove('on');setTimeout(reinit,300);}
-  function reinit(){modeR=null;modeP=null;modeEnvoi=null;['fnom','ftel','fadr','fnotes'].forEach(function(id){document.getElementById(id).value='';});document.getElementById('badr').style.display='none';document.getElementById('bret').style.display='none';['cliv','cret','cesp','cor','cwa','cem'].forEach(function(id){document.getElementById(id).classList.remove('on');});document.getElementById('sform').style.display='block';document.getElementById('sconf').style.display='none';}
-  document.getElementById('bcmd').addEventListener('click',ouvrirModal);
-  document.getElementById('bpanco').addEventListener('click',ouvrirModal);
-  document.getElementById('mclose').addEventListener('click',fermerModal);
-  document.getElementById('bconfclose').addEventListener('click',fermerModal);
-  document.getElementById('modal').addEventListener('click',function(e){if(e.target===this)fermerModal();});
-  document.getElementById('cliv').addEventListener('click',function(){modeR='livraison';this.classList.add('on');document.getElementById('cret').classList.remove('on');document.getElementById('badr').style.display='block';document.getElementById('bret').style.display='none';});
-  document.getElementById('cret').addEventListener('click',function(){modeR='retrait';this.classList.add('on');document.getElementById('cliv').classList.remove('on');document.getElementById('badr').style.display='none';document.getElementById('bret').style.display='block';});
-  document.getElementById('cesp').addEventListener('click',function(){modeP='especes';this.classList.add('on');document.getElementById('cor').classList.remove('on');});
-  document.getElementById('cor').addEventListener('click',function(){modeP='orange';this.classList.add('on');document.getElementById('cesp').classList.remove('on');});
-  document.getElementById('cwa').addEventListener('click',function(){modeEnvoi='whatsapp';this.classList.add('on');document.getElementById('cem').classList.remove('on');});
-  document.getElementById('cem').addEventListener('click',function(){modeEnvoi='email';this.classList.add('on');document.getElementById('cwa').classList.remove('on');});
-
-  document.getElementById('benvoyer').addEventListener('click',async function(){
-    var nom=document.getElementById('fnom').value.trim(),tel=document.getElementById('ftel').value.trim(),adr=document.getElementById('fadr').value.trim(),notes=document.getElementById('fnotes').value.trim();
-    if(!nom){alert('Veuillez entrer votre nom.');return;}if(!tel){alert('Veuillez entrer votre téléphone.');return;}if(!modeR){alert('Veuillez choisir un mode de réception.');return;}if(modeR==='livraison'&&!adr){alert('Veuillez entrer votre adresse.');return;}if(!modeP){alert('Veuillez choisir un mode de paiement.');return;}if(!modeEnvoi){alert('Veuillez choisir comment envoyer votre commande.');return;}
-    var tot=0,ligs='';panier.forEach(function(i){tot+=i.p*i.q;ligs+='- '+i.n+' x'+i.q+' = '+fp(i.p*i.q)+' FCFA\n';});
-    var rec=modeR==='livraison'?'Livraison à : '+adr:'Retrait sur place (Bimbo)';
-    var pay=modeP==='especes'?'Espèces':'Orange Money';
-    var msg='Nouvelle commande Saboplume\n\nClient : '+nom+'\nTél : '+tel+'\n\nArticles :\n'+ligs+'\nTotal : '+fp(tot)+' FCFA\n\nRéception : '+rec+'\nPaiement : '+pay+(notes?'\n\nNotes : '+notes:'')+'\n\nVia saboplume.com';
-    await addRecord('commandes',{date:new Date().toLocaleString('fr-FR',{day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'}),client:nom,tel:tel,articles:panier.map(function(x){return x.n+' x'+x.q;}).join(', '),montant:fp(tot)+' FCFA',reception:rec,paiement:pay+(modeEnvoi==='whatsapp'?' · WhatsApp':' · Email')});
-    if(modeEnvoi==='whatsapp') window.location.href='https://wa.me/23674225757?text='+encodeURIComponent(msg);
-    else window.location.href='mailto:saboplume@outlook.fr?subject='+encodeURIComponent('Commande Saboplume - '+nom)+'&body='+encodeURIComponent(msg);
-    panier=[];majPan();document.getElementById('sform').style.display='none';document.getElementById('sconf').style.display='block';
-  });
-
-  document.getElementById('btncontacter').addEventListener('click',function(){document.getElementById('modal-contact').classList.add('on');});
-  document.getElementById('mclose-contact').addEventListener('click',function(){document.getElementById('modal-contact').classList.remove('on');});
-  document.getElementById('modal-contact').addEventListener('click',function(e){if(e.target===this)this.classList.remove('on');});
-
-  document.getElementById('btn-rdv-open').addEventListener('click',function(){document.getElementById('modal-rdv').classList.add('on');});
-  document.getElementById('mclose-rdv').addEventListener('click',function(){document.getElementById('modal-rdv').classList.remove('on');});
-  document.getElementById('modal-rdv').addEventListener('click',function(e){if(e.target===this)this.classList.remove('on');});
-  document.getElementById('brdv-envoyer').addEventListener('click',function(){
-    var nom=document.getElementById('rnom').value.trim(),tel=document.getElementById('rtel').value.trim(),obj=document.getElementById('robjet').value.trim();
-    var j=document.getElementById('rjour').value,m=document.getElementById('rmois').value,a=document.getElementById('rannee').value,h=document.getElementById('rheure').value;
-    var msg2=document.getElementById('rmessage').value.trim();
-    if(!nom||!tel||!obj){alert('Veuillez remplir les champs obligatoires.');return;}
-    var date=(j&&m&&a)?j+' '+m+' '+a:'à confirmer';
-    var txt='Demande de rendez-vous — Saboplume\n\nNom : '+nom+'\nTél : '+tel+'\nObjet : '+obj+'\nDate souhaitée : '+date+'\nHeure : '+(h||'à confirmer')+(msg2?'\n\nMessage : '+msg2:'')+'\n\nVia saboplume.com';
-    window.location.href='https://wa.me/23674225757?text='+encodeURIComponent(txt);
-    document.getElementById('modal-rdv').classList.remove('on');
-    notif('Demande de RDV envoyée ! Nous confirmons sous 24h.');
-  });
-
-  document.querySelectorAll('.bdk[data-to]').forEach(function(b){b.addEventListener('click',function(){aller(this.getAttribute('data-to'));});});
-
-  var ongl=document.querySelectorAll('.loco'),qinp=document.getElementById('qinp');
-  ongl.forEach(function(btn){btn.addEventListener('click',function(){ongl.forEach(function(x){x.classList.remove('on');});this.classList.add('on');var px=this.getAttribute('data-px');upx=px?parseInt(px):null;document.getElementById('tlbl').textContent=this.getAttribute('data-lb');document.getElementById('tprix').textContent=px?fp(parseInt(px))+' FCFA / unité':'Sur devis';document.getElementById('ftit').textContent=this.getAttribute('data-ti');document.getElementById('qlbl').textContent=this.getAttribute('data-ql');majTot();});});
-  function majTot(){var q=parseInt(qinp.value)||0;document.getElementById('tot').textContent=upx?fp(q*upx)+' FCFA':'Sur devis';}
-  qinp.addEventListener('input',majTot);
-
-  document.getElementById('bdevis').addEventListener('click',async function(){
-    var nom=document.getElementById('tnom').value.trim(),tel=document.getElementById('ttel').value.trim(),evt=document.getElementById('tevt').value.trim();
-    var j=document.getElementById('tjour').value,m=document.getElementById('tmois').value,a=document.getElementById('tannee').value,pers=document.getElementById('tpers').value.trim(),det=document.getElementById('tdetails').value.trim();
-    if(!nom||!tel){alert('Veuillez entrer votre nom et téléphone.');return;}
-    var date=(j&&m&&a)?j+' '+m+' '+a:'à confirmer';
-    var msg='Demande Traiteur Saboplume\n\nNom : '+nom+'\nTél : '+tel+'\nType : '+(evt||'N/A')+'\nDate : '+date+'\nPersonnes : '+(pers||'N/A')+(det?'\n\nDétails : '+det:'')+'\n\nVia saboplume.com';
-    await addRecord('traiteur',{date:new Date().toLocaleString('fr-FR',{day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'}),nom:nom,tel:tel,evenement:evt||'N/A',personnes:pers||'N/A',dateEvt:date});
-    window.location.href='https://wa.me/23674225757?text='+encodeURIComponent(msg);
-    notif('Demande envoyée ! Nous vous contacterons très bientôt.');
-  });
-
-  document.getElementById('bres').addEventListener('click',async function(){
-    var nom=document.getElementById('lnom').value.trim(),tel=document.getElementById('ltel').value.trim(),lieu=document.getElementById('llieu').value.trim();
-    var j=document.getElementById('ljour').value,m=document.getElementById('lmois').value,a=document.getElementById('lannee').value,q=parseInt(qinp.value)||0;
-    if(!nom||!tel){alert('Veuillez entrer votre nom et téléphone.');return;}
-    var date=(j&&m&&a)?j+' '+m+' '+a:'à confirmer';
-    var type=document.querySelector('.loco.on').textContent,tot2=upx?fp(q*upx)+' FCFA':'Sur devis';
-    var msg='Réservation Location Saboplume\n\nNom : '+nom+'\nTél : '+tel+'\nType : '+type+'\nQuantité : '+q+'\nTotal : '+tot2+'\nDate : '+date+(lieu?'\nLieu : '+lieu:'')+'\n\nVia saboplume.com';
-    await addRecord('locations',{date:new Date().toLocaleString('fr-FR',{day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'}),nom:nom,tel:tel,type:type,quantite:q,lieu:lieu||'N/A',dateEvt:date});
-    window.location.href='https://wa.me/23674225757?text='+encodeURIComponent(msg);
-    notif('Réservation envoyée ! Nous vous contacterons très bientôt.');
-  });
-});
-</script>
-
-<!-- ETOILES -->
-<script>
-(function(){
-  var _note=0;
-  var txts=['','Très décevant','Décevant','Correct','Bien','Excellent !'];
-  function init(){
-    var stars=document.querySelectorAll('.avise'),lbl=document.getElementById('avisnt');
-    if(!stars.length||!lbl)return;
-    function color(n){for(var i=0;i<stars.length;i++)stars[i].classList.toggle('on',i<n);lbl.textContent=n?txts[n]+' ('+n+'/5)':'Cliquez pour noter';}
-    for(var i=0;i<stars.length;i++){(function(n){stars[n].addEventListener('click',function(){_note=n+1;color(_note);});stars[n].addEventListener('touchend',function(e){e.preventDefault();_note=n+1;color(_note);});stars[n].addEventListener('mouseenter',function(){color(n+1);});})(i);}
-    document.getElementById('aviseg').addEventListener('mouseleave',function(){color(_note);});
-    var btn=document.getElementById('bavis');
-    if(btn){btn.addEventListener('click',async function(){
-      var nom=document.getElementById('avisnom').value.trim(),svc=document.getElementById('avissvc').value.trim(),quart=document.getElementById('avisquart').value.trim(),txt=document.getElementById('avistxt').value.trim();
-      if(!_note){alert('Veuillez choisir une note.');return;}if(!nom){alert('Veuillez entrer votre prénom.');return;}if(!txt){alert('Veuillez écrire votre avis.');return;}
-      btn.disabled=true;btn.textContent='Envoi en cours...';
-      try{
-        if(typeof window.addRecord==='function') await window.addRecord('reviews_pending',{name:nom,service:svc||'',quartier:quart||'',comment:txt,rating:_note,createdAt:new Date()});
-        ['avisnom','avissvc','avisquart','avistxt'].forEach(function(id){document.getElementById(id).value='';});
-        _note=0;color(0);
-        var avisf=document.querySelector('.avisf');
-        if(avisf){avisf.innerHTML='<div style="text-align:center;padding:40px 20px"><div style="font-size:52px;margin-bottom:16px">&#10003;</div><h3 style="font-family:\'Cormorant Garamond\',serif;font-size:28px;color:var(--vt);margin-bottom:12px">Merci pour votre avis !</h3><p style="font-size:16px;color:#666;line-height:1.7">Votre témoignage a bien été reçu.<br>Merci de votre confiance.</p></div>';}
-      }catch(e){alert('Erreur lors de l\'envoi. Veuillez réessayer.');btn.disabled=false;btn.textContent='Publier mon avis';}
-    });}
-  }
-  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
-})();
-</script>
-
-<!-- ANIMATIONS SCROLL -->
-<script>
-(function(){
-  if(!('IntersectionObserver' in window))return;
-  document.querySelectorAll('.sabo-anim').forEach(function(el){
-    var anims=el.getAttribute('data-anim')||'sabo-fade-up';
-    el.style.opacity='0';
-    var io=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){e.target.style.opacity='';anims.split(' ').forEach(function(c){if(c)e.target.classList.add(c);});io.unobserve(e.target);}});},{threshold:0.12,rootMargin:'0px 0px -40px 0px'});
-    io.observe(el);
-  });
-  document.querySelectorAll('.sabo-trait-anim').forEach(function(el){
-    var io2=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('sabo-trait-run');io2.unobserve(e.target);}});},{threshold:0.3});
-    io2.observe(el);
-  });
-  document.querySelectorAll('.qin').forEach(function(el,i){
-    el.style.opacity='0';el.style.transform='scale(.5)';
-    var io3=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){setTimeout(function(){e.target.style.transition='opacity .5s cubic-bezier(.22,1,.36,1),transform .5s cubic-bezier(.22,1,.36,1)';e.target.style.opacity='1';e.target.style.transform='scale(1)';},i*120);io3.unobserve(e.target);}});},{threshold:0.3});
-    io3.observe(el);
-  });
-  document.querySelectorAll('.pcard').forEach(function(el,i){
-    el.style.opacity='0';el.style.transform='translateY(30px)';
-    var io4=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){setTimeout(function(){e.target.style.transition='opacity .6s cubic-bezier(.22,1,.36,1),transform .6s cubic-bezier(.22,1,.36,1),box-shadow .25s';e.target.style.opacity='1';e.target.style.transform='translateY(0)';},(i%3)*100);io4.unobserve(e.target);}});},{threshold:0.1});
-    io4.observe(el);
-  });
-})();
-</script>
-</body>
-</html>
-<html lang="fr">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Saboplume</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,500&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Cinzel:wght@400;500;600&display=swap" rel="stylesheet">
-<style>
-:root{--br:#7B2D00;--brf:#5A1F00;--vt:#3B5E2B;--vtf:#2D4A20;--cr:#F5F2EC;--crl:#FAF8F4;--tx:#2C2C2C;--or:#C8A96E}
-*{margin:0;padding:0;box-sizing:border-box}
-body{font-family:"EB Garamond",Georgia,serif;color:var(--tx);background:#fff;font-size:17px;line-height:1.7}
 .nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(255,255,255,.96);border-bottom:1px solid #e8e2d9;display:flex;align-items:center;justify-content:space-between;padding:0 32px;height:64px;box-shadow:0 2px 16px rgba(0,0,0,.06);backdrop-filter:blur(8px)}
 .burger{width:44px;height:44px;background:var(--br);border:none;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px}
 .burger span{display:block;width:22px;height:2px;background:#fff}
@@ -1012,9 +20,11 @@ body{font-family:"EB Garamond",Georgia,serif;color:var(--tx);background:#fff;fon
 .ncmd:hover{background:var(--vtf)}
 .ovl{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:1100}
 .ovl.on{display:block}
-.menu{position:fixed;top:0;left:-300px;width:280px;height:100vh;background:var(--br);z-index:1200;transition:left .3s;padding:70px 36px 40px;overflow-y:auto}
+.menu{position:fixed;top:0;left:-300px;width:280px;height:100vh;background:var(--br);z-index:1200;transition:left .3s;padding:0 36px 40px;overflow-y:auto}
+.menu-logo{display:block;width:180px;height:auto;margin:32px auto 26px;opacity:.97}
+.menu-divider{width:100%;height:1px;background:rgba(255,255,255,.15);margin-bottom:8px}
 .menu.on{left:0}
-.menu a{display:block;color:#fff;text-decoration:none;font-family:"Cinzel",serif;font-size:13px;letter-spacing:.1em;padding:13px 0;border-bottom:1px solid rgba(255,255,255,.15)}
+.menu a{display:block;color:#fff;text-decoration:none;font-family:"Cinzel",serif;font-size:12px;letter-spacing:.08em;padding:13px 0;border-bottom:1px solid rgba(255,255,255,.15);white-space:nowrap}
 .menu a:hover{color:var(--or)}
 .menu .ext::after{content:" ↗";font-size:11px;opacity:.7}
 .xbtn{position:absolute;top:18px;right:18px;background:none;border:none;color:#fff;font-size:26px;cursor:pointer;line-height:1}
@@ -1157,7 +167,7 @@ select.inp{cursor:pointer}
 .engh{text-align:center;margin-bottom:32px;padding:0 80px}
 .engh h2{font-family:"Cormorant Garamond",serif;font-style:italic;font-size:46px}
 .eng-photos-small{display:flex;justify-content:center;width:100%;margin:0 0 32px 0;padding:0}
-.eng-photo-small{width:160px;height:120px;object-fit:cover;display:block;transition:transform .35s,box-shadow .35s}
+.eng-photo-small{width:520px;height:320px;object-fit:cover;display:block;transition:transform .35s,box-shadow .35s}
 .eng-photo-small:hover{transform:scale(1.02)}
 .engp{display:grid;grid-template-columns:repeat(4,1fr);max-width:900px;margin:0 auto;gap:12px;padding:0 80px}
 .engi{padding:18px 16px;border:1px solid #e0dbd2;display:flex;flex-direction:column;gap:6px;position:relative;overflow:hidden;background:linear-gradient(to bottom,#fff,#faf8f4);transition:transform .25s,box-shadow .25s,background .25s}
@@ -1167,11 +177,11 @@ select.inp{cursor:pointer}
 .engi p{font-size:14px;color:#555;line-height:1.55}
 
 .strait{background:var(--crl);padding:80px;position:relative}
-.traitc{max-width:1000px;margin:0 auto}
+.traitc{max-width:1000px;margin:0 auto;text-align:center}
 .traitc h1{font-family:"Cormorant Garamond",serif;font-size:50px;margin-bottom:11px}
-.traitintro{font-size:16px;color:#666;max-width:680px;margin-bottom:38px}
+.traitintro{font-size:16px;color:#666;max-width:680px;margin:0 auto 38px}
 .traitc h2{font-family:"Cormorant Garamond",serif;font-size:34px;color:var(--vt);margin-bottom:9px}
-.traitsub{font-size:15px;color:#666;max-width:620px;margin-bottom:30px}
+.traitsub{font-size:15px;color:#666;max-width:620px;margin:0 auto 30px}
 .trait-photo-wrap{overflow:hidden;position:relative}
 .trait-photo-wrap::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,transparent 60%,rgba(59,94,43,.35));pointer-events:none;opacity:0;transition:opacity .35s}
 .trait-photo-wrap:hover::after{opacity:1}
@@ -1313,12 +323,15 @@ footer span{font-family:"Cinzel",serif;font-size:10px;letter-spacing:.06em;color
 <!-- MENU -->
 <div class="menu" id="menu">
   <button class="xbtn" id="xmenu">&#x2715;</button>
+  <img src="https://i.ibb.co/99dmLkJX/SABOPLUME-BLANC.png" alt="Saboplume" class="menu-logo">
+  <div class="menu-divider"></div>
   <a href="#accueil" class="int">Accueil</a>
   <a href="#qui" class="int">Qui sommes-nous</a>
   <a href="#valeurs" class="int">Nos Valeurs</a>
   <a href="#produits" class="int">Produits Fermiers</a>
   <a href="#traiteur" class="int">Traiteur</a>
   <a href="#location" class="int">Location Événementielle</a>
+  <a href="#engagement" class="int">Notre Engagement</a>
   <a href="#temoignages" class="int">Témoignages</a>
   <a href="https://drive.google.com/file/d/1CldPDFeN7rNIADHHmC-1I9nquE9eiHah/view?usp=sharing" target="_blank" class="ext">Charte de l'entreprise</a>
   <a href="https://drive.google.com/file/d/1YtWUBT_GFzitVkfCOQWoTE3xaa2Gcsvt/view?usp=sharing" target="_blank" class="ext">Portfolio</a>
@@ -1386,9 +399,9 @@ footer span{font-family:"Cinzel",serif;font-size:10px;letter-spacing:.06em;color
         <span class="mcopt-icon">📱</span>
         <div class="mcopt-txt"><strong>WhatsApp</strong><span>+236 74 22 57 57</span></div>
       </a>
-      <a href="mailto:saboplume@outlook.fr" class="mcopt">
+      <a href="/cdn-cgi/l/email-protection#ea998b88859a869f878faa859f9e86858581c48c98" class="mcopt">
         <span class="mcopt-icon">✉️</span>
-        <div class="mcopt-txt"><strong>Email</strong><span>saboplume@outlook.fr</span></div>
+        <div class="mcopt-txt"><strong>Email</strong><span>saboplume&#64;outlook.fr</span></div>
       </a>
     </div>
   </div>
@@ -1506,7 +519,7 @@ footer span{font-family:"Cinzel",serif;font-size:10px;letter-spacing:.06em;color
   <h2 class="cattit">Oeufs</h2>
   <div class="prodg" style="max-width:1100px;margin:0 auto">
     <div class="pcard" style="grid-column:1/-1">
-      <img src="https://i.ibb.co/7N0YkPLf/IMG-2132-JPG.jpg" alt="Oeufs frais" class="pcard-img" style="width:100%;max-width:900px;height:480px;display:block;object-fit:contain;object-position:center;margin:0 auto;background:#f5f2ec">
+      <img src="https://i.ibb.co/7N0YkPLf/IMG-2132-JPG.jpg" alt="Oeufs frais" class="pcard-img" style="width:100%;max-width:900px;height:340px;display:block;object-fit:contain;object-position:center;margin:0 auto;background:#f5f2ec">
       <div class="pcb" style="border-left:4px solid var(--vt)">
         <span class="badge">Disponible</span>
         <h3>Palette de 30 oeufs</h3>
@@ -1563,9 +576,9 @@ footer span{font-family:"Cinzel",serif;font-size:10px;letter-spacing:.06em;color
     <p class="traitintro">Célébrer avec excellence — Saboplume vous accompagne de A à Z.</p>
     <h2>Saboplume Traiteur</h2>
     <p class="traitsub">Mariages, baptêmes, anniversaires, réceptions d'entreprise. Nous gérons tout.</p>
-    <div style="margin-bottom:30px">
-      <div class="trait-photo-wrap" style="max-width:460px">
-        <img src="https://i.ibb.co/HD9jRr17/IMG-2130-JPG.jpg" alt="Traiteur Saboplume" class="trait-photo" style="width:100%;max-width:460px;height:320px;display:block;object-fit:cover;object-position:center;margin:0 auto">
+    <div style="margin-bottom:30px;display:flex;justify-content:center">
+      <div class="trait-photo-wrap" style="width:100%;max-width:680px">
+        <img src="https://i.ibb.co/PG9VFx2y/IMG-2265-JPG-TRAITEUR.jpg" alt="Traiteur Saboplume" class="trait-photo" style="width:100%;height:auto;max-height:460px;display:block;object-fit:contain;object-position:center;background:#f5f2ec">
       </div>
     </div>
     <div class="fdevis">
@@ -1591,7 +604,7 @@ footer span{font-family:"Cinzel",serif;font-size:10px;letter-spacing:.06em;color
     <h2>Saboplume Location Événementielle</h2>
     <p class="locintro">Matériel événementiel de qualité : chaises et tentes. Livraison et reprise incluses.</p>
     <div class="loc-photos">
-      <img src="https://i.ibb.co/kFLqBJ1/Whats-App-Image-2026-02-21-at-12-15-43.jpg" alt="Chaises location" class="loc-photo" style="object-fit:contain;background:#f5f5f5">
+      <img src="https://i.ibb.co/kFLqBJ1/Whats-App-Image-2026-02-21-at-12-15-43.jpg" alt="Chaises location" class="loc-photo" style="object-fit:cover;object-position:center">
       <img src="https://i.ibb.co/BHV7y0HS/Whats-App-Image-2026-02-22-at-17-28-35.jpg" alt="Tentes location" class="loc-photo">
     </div>
     <div class="locong">
@@ -1674,7 +687,7 @@ footer span{font-family:"Cinzel",serif;font-size:10px;letter-spacing:.06em;color
       <div class="contl"><span class="contll">Adresse</span><span class="contlv"><a href="https://maps.google.com/?q=Bimbo,Rue+du+Général+Gambi,République+Centrafricaine" target="_blank">Bimbo — Rue du Général Gambi</a></span></div>
       <div class="contl"><span class="contll">Horaires</span><span class="contlv">Tous les jours · 8h — 17h</span></div>
       <div class="contl"><span class="contll">Téléphone</span><span class="contlv"><a href="tel:+23674225757">+236 74 22 57 57</a></span></div>
-      <div class="contl"><span class="contll">Email</span><span class="contlv"><a href="mailto:saboplume@outlook.fr">saboplume@outlook.fr</a></span></div>
+      <div class="contl"><span class="contll">Email</span><span class="contlv"><a href="/cdn-cgi/l/email-protection#601301020f100c150d05200f15140c0f0f0b4e0612">saboplume&#64;outlook.fr</a></span></div>
       <div class="socbtns">
         <a href="https://www.facebook.com/share/1ArfaX1XMn/" target="_blank" class="bsoc">Facebook</a>
         <a href="https://www.tiktok.com/@saboplume" target="_blank" class="bsoc">TikTok</a>
@@ -1683,8 +696,8 @@ footer span{font-family:"Cinzel",serif;font-size:10px;letter-spacing:.06em;color
       </div>
       <button class="bct" id="btncontacter">Nous contacter</button>
       <div class="pdf-section">
-        <a href="https://drive.google.com/file/d/1CldPDFeN7rNIADHHmC-1I9nquE9eiHah/view?usp=sharing" target="_blank" class="bpdf">📄 Charte entreprise</a>
-        <a href="https://drive.google.com/file/d/1YtWUBT_GFzitVkfCOQWoTE3xaa2Gcsvt/view?usp=sharing" target="_blank" class="bpdf">📋 Portfolio</a>
+        <a href="https://drive.google.com/file/d/1CldPDFeN7rNIADHHmC-1I9nquE9eiHah/view?usp=sharing" target="_blank" class="bpdf">Charte entreprise</a>
+        <a href="https://drive.google.com/file/d/1YtWUBT_GFzitVkfCOQWoTE3xaa2Gcsvt/view?usp=sharing" target="_blank" class="bpdf">Portfolio</a>
       </div>
     </div>
     <div class="contgr sabo-anim" data-anim="sabo-fade-right">
@@ -1695,7 +708,7 @@ footer span{font-family:"Cinzel",serif;font-size:10px;letter-spacing:.06em;color
       <div class="copt" style="border-bottom:none">
         <h4>Sur rendez-vous</h4>
         <p>Pour un conseil personnalisé ou une commande spéciale, prenez rendez-vous.</p>
-        <button class="btn-rdv" id="btn-rdv-open">📅 Prendre rendez-vous</button>
+        <button class="btn-rdv" id="btn-rdv-open">Prendre rendez-vous</button>
       </div>
       <div class="cnot">Livraison disponible — tarifs selon la distance</div>
     </div>
@@ -1711,7 +724,7 @@ footer span{font-family:"Cinzel",serif;font-size:10px;letter-spacing:.06em;color
   </div>
 </footer>
 
-<script type="module">
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 import { getFirestore, doc, getDoc, collection, addDoc, getDocs, query, orderBy } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
@@ -1743,7 +756,7 @@ async function chargerAvisFirebase() {
     if (snap.empty) return;
     const couleurs = ['#3B5E2B','#7B2D00','#8B4513','#2D4A20','#5A3520','#1A3A0F'];
     const temog = document.getElementById('temog');
-    temog.innerHTML = '';
+    // Ajouter les avis Firebase EN TÊTE (avant les 13 statiques)
     var idx = 0;
     snap.forEach(function(d) {
       var a = d.data();
@@ -1753,12 +766,12 @@ async function chargerAvisFirebase() {
       for(var i=1;i<=5;i++) etoiles += i<=(a.rating||5) ? '★' : '☆';
       var svc = [a.service, a.quartier].filter(Boolean).join(' · ') || 'Client Saboplume';
       var card = document.createElement('div');
-      card.className = 'tcard' + (idx >= 3 ? ' hidden' : '');
+      card.className = 'tcard hidden';
       card.innerHTML = '<div class="tet">'+etoiles+'</div>'
         +'<p class="ttxt">'+(a.comment||'')+'</p>'
         +'<div class="tau"><div class="av" style="background:'+couleurs[idx%couleurs.length]+'">'+init+'</div>'
         +'<div><span class="an">'+nom+'</span><span class="ar">'+svc+'</span></div></div>';
-      temog.appendChild(card);
+      temog.insertBefore(card, temog.firstChild);
       idx++;
     });
     majTemoignages();
@@ -2070,7 +1083,7 @@ document.addEventListener('DOMContentLoaded', async function(){
         btn.disabled=true;btn.textContent='Envoi en cours...';
         try {
           if(typeof window.addRecord==='function'){
-            await window.addRecord('reviews_pending',{name:nom,service:svc||'',quartier:quart||'',comment:txt,rating:_note,createdAt:new Date()});
+            await window.addRecord('reviews',{name:nom,service:svc||'',quartier:quart||'',comment:txt,rating:_note,createdAt:new Date()});
           }
           // Reset
           ['avisnom','avissvc','avisquart','avistxt'].forEach(function(id){document.getElementById(id).value='';});
@@ -2107,34 +1120,4 @@ document.addEventListener('DOMContentLoaded', async function(){
       entries.forEach(function(e){
         if(e.isIntersecting){ e.target.style.opacity=''; anims.split(' ').forEach(function(c){if(c)e.target.classList.add(c);}); io.unobserve(e.target); }
       });
-    },{threshold:0.12,rootMargin:'0px 0px -40px 0px'});
-    io.observe(el);
-  });
-  document.querySelectorAll('.sabo-trait-anim').forEach(function(el){
-    var io2=new IntersectionObserver(function(entries){
-      entries.forEach(function(e){ if(e.isIntersecting){e.target.classList.add('sabo-trait-run');io2.unobserve(e.target);} });
-    },{threshold:0.3});
-    io2.observe(el);
-  });
-  document.querySelectorAll('.qin').forEach(function(el,i){
-    el.style.opacity='0';el.style.transform='scale(.5)';
-    var io3=new IntersectionObserver(function(entries){
-      entries.forEach(function(e){
-        if(e.isIntersecting){ setTimeout(function(){ e.target.style.transition='opacity .5s cubic-bezier(.22,1,.36,1),transform .5s cubic-bezier(.22,1,.36,1)';e.target.style.opacity='1';e.target.style.transform='scale(1)'; },i*120); io3.unobserve(e.target); }
-      });
-    },{threshold:0.3});
-    io3.observe(el);
-  });
-  document.querySelectorAll('.pcard').forEach(function(el,i){
-    el.style.opacity='0';el.style.transform='translateY(30px)';
-    var io4=new IntersectionObserver(function(entries){
-      entries.forEach(function(e){
-        if(e.isIntersecting){ setTimeout(function(){ e.target.style.transition='opacity .6s cubic-bezier(.22,1,.36,1),transform .6s cubic-bezier(.22,1,.36,1),box-shadow .25s';e.target.style.opacity='1';e.target.style.transform='translateY(0)'; },(i%3)*100); io4.unobserve(e.target); }
-      });
-    },{threshold:0.1});
-    io4.observe(el);
-  });
-})();
-</script>
-</body>
-</html>
+    },{threshold:0
