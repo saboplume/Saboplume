@@ -1556,7 +1556,90 @@ document.addEventListener('DOMContentLoaded',async function(){
   }
   document.getElementById('aviseg').addEventListener('mouseleave',function(){majEtoiles(noteAvis);});
 
-}); // fin DOMContentLoaded
+// ======================= AVIS CLIENTS FIREBASE =======================
+// À coller dans le <script type="module"> de index.html
+// juste avant la ligne : }); // fin DOMContentLoaded
+
+async function chargerAvisFirebase() {
+  try {
+    const { getDocs, collection, query, orderBy } = await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js");
+    const snap = await getDocs(query(collection(db, 'reviews'), orderBy('createdAt', 'desc')));
+    if (snap.empty) return; // Pas d'avis publiés → on garde les avis statiques
+
+    const couleurs = ['#3B5E2B','#7B2D00','#8B4513','#2D4A20','#5A3520','#1A3A0F'];
+    const temog = document.getElementById('temog');
+
+    // Supprimer les anciens avis statiques
+    temog.innerHTML = '';
+
+    var idx = 0;
+    snap.forEach(function(d) {
+      var a = d.data();
+      var nom = a.name || 'Anonyme';
+      var initiales = nom.split(' ').map(function(w){ return w[0]; }).join('').substring(0,2).toUpperCase();
+      var etoiles = '';
+      for(var i = 1; i <= 5; i++) etoiles += i <= (a.rating||5) ? '★' : '☆';
+      var couleur = couleurs[idx % couleurs.length];
+      var svc = a.service ? a.service : '';
+      var quart = a.quartier ? a.quartier : '';
+      var sous = [svc, quart].filter(Boolean).join(' · ');
+
+      var card = document.createElement('div');
+      card.className = 'tcard' + (idx >= 3 ? ' hidden' : '');
+      card.innerHTML =
+        '<div class="tet">' + etoiles + '</div>' +
+        '<p class="ttxt">' + (a.comment || '') + '</p>' +
+        '<div class="tau">' +
+          '<div class="av" style="background:' + couleur + '">' + initiales + '</div>' +
+          '<div>' +
+            '<span class="an">' + nom + '</span>' +
+            '<span class="ar">' + (sous || 'Client Saboplume') + '</span>' +
+          '</div>' +
+        '</div>';
+      temog.appendChild(card);
+      idx++;
+    });
+
+    // Mettre à jour le compteur et le bouton "Voir tous"
+    var total = temog.querySelectorAll('.tcard').length;
+    var compteur = document.getElementById('temo-compteur');
+    var btnVoir = document.getElementById('bvoirplus');
+    var expanded = false;
+
+    function majAffichage() {
+      var def = window.innerWidth > 800 ? 3 : 2;
+      var shown = expanded ? total : def;
+      temog.querySelectorAll('.tcard').forEach(function(c, i) {
+        c.classList.toggle('hidden', i >= shown);
+      });
+      if(compteur) compteur.textContent = shown + ' avis affichés sur ' + total;
+      if(btnVoir) btnVoir.textContent = expanded ? 'Voir moins ↑' : 'Voir tous les témoignages';
+    }
+
+    if(btnVoir) {
+      // Remplacer l'ancien listener
+      var newBtn = btnVoir.cloneNode(true);
+      btnVoir.parentNode.replaceChild(newBtn, btnVoir);
+      newBtn.addEventListener('click', function() {
+        expanded = !expanded;
+        majAffichage();
+        if(!expanded) document.getElementById('temoignages').scrollIntoView({behavior:'smooth'});
+      });
+    }
+
+    majAffichage();
+    window.addEventListener('resize', function(){ if(!expanded) majAffichage(); });
+
+  } catch(e) {
+    console.error('Erreur chargement avis Firebase:', e);
+    // En cas d'erreur, les avis statiques restent affichés
+  }
+}
+
+// Appeler au chargement
+document.addEventListener('DOMContentLoaded', function() {
+  chargerAvisFirebase();
+});}); // fin DOMContentLoaded
 </script>
 
 
