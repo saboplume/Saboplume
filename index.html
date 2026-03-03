@@ -281,14 +281,100 @@ select.inp{cursor:pointer}
 .pdf-section{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap}
 .bpdf{border:1.5px solid rgba(255,255,255,.35);background:transparent;color:#fff;padding:8px 15px;font-family:"Cinzel",serif;font-size:10px;letter-spacing:.08em;cursor:pointer;text-decoration:none;display:inline-block}
 .bpdf:hover{background:rgba(255,255,255,.1)}
-/* CLICKABLE ANIMATIONS */
-button,a,[role="button"],.badd,.bdk,.benv,.bres,.benvoyer,.bavis,.ncmd,.nbtn,.panco,.bvoirplus,.btn-rdv,.bsoc,.bpdf,.bct,.loco,.mcopt{cursor:pointer;transition:transform .18s cubic-bezier(.22,1,.36,1),box-shadow .18s,opacity .18s,background .2s,border-color .2s,color .2s,letter-spacing .2s}
-button:hover:not(:disabled),a:hover,.badd:hover,.bdk:hover,.benv:hover,.bres:hover,.benvoyer:hover,.bavis:hover,.ncmd:hover,.panco:hover,.bvoirplus:hover,.btn-rdv:hover,.bct:hover,.loco:hover{transform:translateY(-2px)}
-button:active:not(:disabled),a:active{transform:translateY(0) scale(.97);opacity:.88}
-.pcard,.tcard,.engi,.vc,.mcopt{cursor:pointer}
-.mcopt:hover{transform:translateY(-3px);box-shadow:0 8px 20px rgba(0,0,0,.1)}
-.hcard{cursor:default;transition:transform .3s,box-shadow .3s,filter .3s}
-.hcard:hover{transform:translateY(-6px) scale(1.02);box-shadow:0 14px 32px rgba(0,0,0,.18);filter:brightness(1.07)}
+/* CLICKABLE ANIMATIONS — boutons principaux avec effet shimmer */
+@keyframes saboRipple{0%{transform:scale(0);opacity:.5}100%{transform:scale(4);opacity:0}}
+@keyframes saboShimmer{0%{left:-100%}100%{left:200%}}
+@keyframes saboPulse{0%,100%{box-shadow:0 0 0 0 rgba(59,94,43,.4)}70%{box-shadow:0 0 0 10px rgba(59,94,43,0)}}
+@keyframes saboGlow{0%,100%{box-shadow:0 4px 15px rgba(123,45,0,.25)}50%{box-shadow:0 4px 28px rgba(123,45,0,.55)}}
+
+/* Tous les boutons verts */
+.ncmd,.panco,.benvoyer,.benv,.bres,.bavis,.bct{
+  position:relative;overflow:hidden;
+  transition:transform .22s cubic-bezier(.22,1,.36,1),box-shadow .22s,background .22s,letter-spacing .22s !important;
+}
+.ncmd:hover,.panco:hover,.benvoyer:hover,.benv:hover,.bres:hover,.bavis:hover,.bct:hover{
+  transform:translateY(-3px) scale(1.02) !important;
+  box-shadow:0 8px 24px rgba(59,94,43,.45) !important;
+  letter-spacing:.16em !important;
+}
+.ncmd:active,.panco:active,.benvoyer:active,.benv:active,.bres:active,.bavis:active,.bct:active{
+  transform:translateY(0) scale(.97) !important;
+}
+/* Effet shimmer sur les boutons verts au hover */
+.ncmd::after,.panco::after,.benvoyer::after,.benv::after,.bres::after,.bavis::after,.bct::after{
+  content:'';position:absolute;top:0;left:-100%;width:60%;height:100%;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.25),transparent);
+  transition:none;pointer-events:none;
+}
+.ncmd:hover::after,.panco:hover::after,.benvoyer:hover::after,.benv:hover::after,.bres:hover::after,.bavis:hover::after,.bct:hover::after{
+  animation:saboShimmer .6s ease forwards;
+}
+
+/* Boutons bordeaux */
+.badd,.bdk,.btn-rdv{
+  position:relative;overflow:hidden;
+  transition:transform .22s cubic-bezier(.22,1,.36,1),box-shadow .22s,background .22s,letter-spacing .22s !important;
+}
+.badd:hover,.bdk:hover,.btn-rdv:hover{
+  transform:translateY(-3px) scale(1.04) !important;
+  box-shadow:0 8px 22px rgba(123,45,0,.45) !important;
+}
+.badd:active,.bdk:active,.btn-rdv:active{transform:translateY(0) scale(.96) !important;}
+
+/* Bouton voir plus */
+.bvoirplus{
+  transition:transform .22s cubic-bezier(.22,1,.36,1),background .22s,color .22s,box-shadow .22s !important;
+}
+.bvoirplus:hover{
+  transform:translateY(-3px) scale(1.04) !important;
+  box-shadow:0 8px 20px rgba(59,94,43,.3) !important;
+}
+
+/* Liens sociaux */
+.bsoc,.bpdf{
+  transition:transform .2s cubic-bezier(.22,1,.36,1),background .2s,border-color .2s,letter-spacing .2s !important;
+}
+.bsoc:hover,.bpdf:hover{
+  transform:translateY(-3px) scale(1.06) !important;
+  letter-spacing:.12em !important;
+}
+
+/* Cartes produits — déjà bonnes, on renforce */
+.pcard{transition:transform .3s cubic-bezier(.22,1,.36,1),box-shadow .3s,border-bottom-color .3s !important}
+.pcard:hover{transform:translateY(-10px) !important;box-shadow:0 22px 48px rgba(0,0,0,.16) !important;border-bottom-color:var(--or) !important}
+
+/* Cartes valeurs */
+.vc{transition:transform .3s cubic-bezier(.22,1,.36,1),box-shadow .3s,filter .3s !important}
+.vc:hover{transform:translateY(-8px) scale(1.04) !important;box-shadow:0 20px 40px rgba(0,0,0,.25) !important;filter:brightness(1.1) !important}
+
+/* Cartes témoignages */
+.tcard{transition:transform .3s cubic-bezier(.22,1,.36,1),box-shadow .3s,border-bottom-color .3s !important}
+.tcard:hover{transform:translateY(-8px) !important;box-shadow:0 18px 36px rgba(0,0,0,.13) !important;border-bottom-color:var(--or) !important}
+
+/* Cartes engagement */
+.engi{transition:transform .3s cubic-bezier(.22,1,.36,1),box-shadow .3s,background .3s !important}
+.engi:hover{transform:translateY(-6px) scale(1.03) !important;box-shadow:0 12px 28px rgba(0,0,0,.1) !important}
+
+/* Cards hero */
+.hcard{transition:transform .3s cubic-bezier(.22,1,.36,1),box-shadow .3s,filter .3s}
+.hcard:hover{transform:translateY(-8px) scale(1.03);box-shadow:0 18px 40px rgba(0,0,0,.25);filter:brightness(1.08)}
+
+/* Onglets location */
+.loco{transition:transform .2s cubic-bezier(.22,1,.36,1),background .2s,color .2s !important}
+.loco:hover:not(.on){transform:translateY(-2px) scale(1.04) !important}
+
+/* Options contact modal */
+.mcopt{transition:transform .25s cubic-bezier(.22,1,.36,1),box-shadow .25s,border-color .25s,background .25s !important}
+.mcopt:hover{transform:translateY(-4px) scale(1.02) !important;box-shadow:0 10px 24px rgba(0,0,0,.1) !important;border-color:var(--vt) !important}
+
+/* Burger button */
+.burger{transition:transform .2s cubic-bezier(.22,1,.36,1),box-shadow .2s !important}
+.burger:hover{transform:scale(1.1) !important;box-shadow:0 4px 14px rgba(123,45,0,.4) !important}
+.burger:active{transform:scale(.93) !important}
+
+/* Bouton Commander nav */
+.ncmd{animation:saboGlow 2.5s ease-in-out infinite}
+
 footer{background:linear-gradient(90deg,var(--vtf) 0%,#1a3a0f 100%);padding:15px 80px;display:flex;justify-content:space-between;align-items:center;border-top:2px solid rgba(200,169,110,.3)}
 footer span{font-family:"Cinzel",serif;font-size:10px;letter-spacing:.06em;color:rgba(255,255,255,.6)}
 .flinks{display:flex;gap:22px}
@@ -487,9 +573,9 @@ footer span{font-family:"Cinzel",serif;font-size:10px;letter-spacing:.06em;color
       </div>
     </div>
     <div class="sabo-anim" data-anim="sabo-fade-right">
-      <div class="qi"><div class="qin">1</div><div><div class="qit">Produits Fermiers de Qualité</div><p>Volaille, caprins et oeufs frais issus d'un élevage soigné</p></div></div>
-      <div class="qi"><div class="qin">2</div><div><div class="qit">Service Traiteur Professionnel</div><p>Mariages, baptêmes, anniversaires — chaque événement mérite l'excellence</p></div></div>
-      <div class="qi"><div class="qin">3</div><div><div class="qit">Location Événementielle</div><p>Chaises et tentes de qualité, livrées et reprises selon vos besoins</p></div></div>
+      <div class="qi sabo-anim" data-anim="sabo-fade-left"><div class="qin">1</div><div><div class="qit">Produits Fermiers de Qualité</div><p>Volaille, caprins et oeufs frais issus d'un élevage soigné</p></div></div>
+      <div class="qi sabo-anim" data-anim="sabo-fade-left"><div class="qin">2</div><div><div class="qit">Service Traiteur Professionnel</div><p>Mariages, baptêmes, anniversaires — chaque événement mérite l'excellence</p></div></div>
+      <div class="qi sabo-anim" data-anim="sabo-fade-left"><div class="qin">3</div><div><div class="qit">Location Événementielle</div><p>Chaises et tentes de qualité, livrées et reprises selon vos besoins</p></div></div>
     </div>
   </div>
 </section>
@@ -516,15 +602,15 @@ footer span{font-family:"Cinzel",serif;font-size:10px;letter-spacing:.06em;color
       <p>Saboplume est une EURL créée à Bimbo en 2027 par Bélinda Songuet, avec une ambition claire : proposer des produits fermiers de qualité et des services adaptés aux besoins des habitants de Bimbo.</p>
       <p>Grâce à la confiance de sa clientèle, Saboplume a progressivement élargi ses activités autour de trois pôles complémentaires.</p>
     </div>
-    <div class="gerant-col">
+    <div class="gerant-col sabo-anim" data-anim="sabo-zoom">
       <img src="https://i.ibb.co/sJw0Swdr/IMG-1939.png" alt="Bélinda Songuet" class="gerant-photo">
       <p class="gerant-nom">Bélinda Songuet</p>
       <p class="gerant-titre">Gérante de Saboplume</p>
     </div>
     <div class="aprr sabo-anim" data-anim="sabo-fade-right">
-      <div class="aprs"><h4>Produits Fermiers</h4><p>Volailles, caprins et oeufs frais. Production locale contrôlée, disponible 7j/7.</p></div>
-      <div class="aprs"><h4>Saboplume Traiteur</h4><p>Prise en charge complète de la restauration pour vos événements.</p></div>
-      <div class="aprs"><h4>Location Événementielle</h4><p>Chaises et tentes pour toutes vos réceptions, livrées sur place.</p></div>
+      <div class="aprs sabo-anim" data-anim="sabo-fade-right"><h4>Produits Fermiers</h4><p>Volailles, caprins et oeufs frais. Production locale contrôlée, disponible 7j/7.</p></div>
+      <div class="aprs sabo-anim" data-anim="sabo-fade-right"><h4>Saboplume Traiteur</h4><p>Prise en charge complète de la restauration pour vos événements.</p></div>
+      <div class="aprs sabo-anim" data-anim="sabo-fade-right"><h4>Location Événementielle</h4><p>Chaises et tentes pour toutes vos réceptions, livrées sur place.</p></div>
     </div>
   </div>
 </section>
@@ -532,7 +618,7 @@ footer span{font-family:"Cinzel",serif;font-size:10px;letter-spacing:.06em;color
 <!-- PRODUITS -->
 <section class="sprod" id="produits">
   <div class="prodh sabo-anim" data-anim="sabo-fade-up"><h1 class="titre-trait sabo-trait-anim">Produits Fermiers</h1><p>Nourrir avec authenticité — des produits frais et sains directement de notre ferme.</p></div>
-  <h2 class="cattit">Oeufs</h2>
+  <h2 class="cattit sabo-anim" data-anim="sabo-fade-up">Oeufs</h2>
   <div class="prodg" style="max-width:1100px;margin:0 auto">
     <div class="pcard" style="grid-column:1/-1">
       <img src="https://i.ibb.co/7N0YkPLf/IMG-2132-JPG.jpg" alt="Oeufs frais" class="pcard-img" style="width:100%;max-width:900px;height:340px;display:block;object-fit:contain;object-position:center;margin:0 auto;background:#f5f2ec">
@@ -544,24 +630,24 @@ footer span{font-family:"Cinzel",serif;font-size:10px;letter-spacing:.06em;color
       </div>
     </div>
   </div>
-  <h2 class="cattit">Volailles</h2>
+  <h2 class="cattit sabo-anim" data-anim="sabo-fade-up">Volailles</h2>
   <div class="prodg">
-    <div class="pcard">
+    <div class="pcard sabo-anim" data-anim="sabo-fade-up">
       <img src="https://i.ibb.co/1YDS9Yyp/Whats-App-Image-2026-02-21-at-09-08-05-Copie.jpg" alt="Segue Kondo" class="pcard-img">
       <div class="pcb"><span class="badge">Disponible</span><h3>Segue Kondo</h3><p class="pdesc">Race résistante, adaptée aux conditions locales.</p><div class="ppied"><span class="pprix">3&nbsp;500 FCFA</span><button class="badd" data-nom="Segue Kondo" data-prix="3500">+ AJOUTER</button></div></div>
     </div>
-    <div class="pcard">
+    <div class="pcard sabo-anim" data-anim="sabo-fade-up">
       <img src="https://i.ibb.co/99DP49ZM/Whats-App-Image-2026-02-21-at-09-44-24-Copie.jpg" alt="Kondo Ti Kodro" class="pcard-img">
       <div class="pcb"><span class="badge">Disponible</span><h3>Kondo Ti Kodro</h3><p class="pdesc">Variété robuste, idéale pour reproduction et production.</p><div class="ppied"><span class="pprix">4&nbsp;500 FCFA</span><button class="badd" data-nom="Kondo Ti Kodro" data-prix="4500">+ AJOUTER</button></div></div>
     </div>
   </div>
-  <h2 class="cattit">Caprins</h2>
+  <h2 class="cattit sabo-anim" data-anim="sabo-fade-up">Caprins</h2>
   <div class="prodg">
-    <div class="pcard">
+    <div class="pcard sabo-anim" data-anim="sabo-fade-up">
       <img src="https://i.ibb.co/LzmPdfvr/Whats-App-Image-2026-02-21-at-09-40-18.jpg" alt="Kete Ngassa" class="pcard-img">
       <div class="pcb"><span class="badge">Disponible</span><h3>Kete Ngassa</h3><p class="pdesc">Jeune chevreau en bonne santé, élevé dans de bonnes conditions.</p><div class="ppied"><span class="pprix">50&nbsp;000 FCFA</span><button class="badd" data-nom="Kete Ngassa" data-prix="50000">+ AJOUTER</button></div></div>
     </div>
-    <div class="pcard">
+    <div class="pcard sabo-anim" data-anim="sabo-fade-up">
       <img src="https://i.ibb.co/rP7B9Mq/Whats-App-Image-2026-02-21-at-09-40-19-Copie.jpg" alt="Kota Ngassa" class="pcard-img" style="height:260px;object-fit:cover;object-position:center 30%">
       <div class="pcb"><span class="badge">Disponible</span><h3>Kota Ngassa</h3><p class="pdesc">Chèvres plus développées, robustes et en pleine forme.</p><div class="ppied"><span class="pprix">70&nbsp;000 FCFA</span><button class="badd" data-nom="Kota Ngassa" data-prix="70000">+ AJOUTER</button></div></div>
     </div>
@@ -597,7 +683,7 @@ footer span{font-family:"Cinzel",serif;font-size:10px;letter-spacing:.06em;color
         <img src="https://i.ibb.co/PG9VFx2y/IMG-2265-JPG-TRAITEUR.jpg" alt="Traiteur Saboplume" class="trait-photo" style="width:100%;height:auto;max-height:460px;display:block;object-fit:contain;object-position:center;background:#f5f2ec">
       </div>
     </div>
-    <div class="fdevis">
+    <div class="fdevis sabo-anim" data-anim="sabo-slide-up">
       <h3>Demander un devis Traiteur</h3>
       <input class="inp" type="text" id="tnom" placeholder="Votre nom">
       <input class="inp" type="tel" id="ttel" placeholder="Votre téléphone">
@@ -628,8 +714,8 @@ footer span{font-family:"Cinzel",serif;font-size:10px;letter-spacing:.06em;color
       <button class="loco" data-px="15000" data-lb="Tarif par tente" data-ti="Réserver des tentes" data-ql="Nombre de tentes :">Tentes</button>
       <button class="loco" data-px="" data-lb="Pack Chaises + Tentes" data-ti="Réserver le pack" data-ql="Nombre de personnes :">Pack</button>
     </div>
-    <div class="loctarf"><span class="loctarl" id="tlbl">Tarif par chaise</span><span class="loctarp" id="tprix">300 FCFA / unité</span></div>
-    <div class="fres">
+    <div class="loctarf sabo-anim" data-anim="sabo-fade-up"><span class="loctarl" id="tlbl">Tarif par chaise</span><span class="loctarp" id="tprix">300 FCFA / unité</span></div>
+    <div class="fres sabo-anim" data-anim="sabo-slide-up">
       <h3 id="ftit">Réserver des chaises</h3>
       <input class="inp" type="text" id="lnom" placeholder="Votre nom">
       <input class="inp" type="tel" id="ltel" placeholder="Votre téléphone">
@@ -652,12 +738,12 @@ footer span{font-family:"Cinzel",serif;font-size:10px;letter-spacing:.06em;color
     <div class="lbl">Témoignages</div>
     <h2 class="titre-trait sabo-trait-anim">Ce que disent nos <em>clients</em></h2>
     <div style="display:flex;align-items:center;gap:8px;margin-bottom:20px"><span style="width:28px;height:2px;background:var(--or)"></span><span style="width:8px;height:2px;background:rgba(200,169,110,.4)"></span><span style="width:4px;height:2px;background:rgba(200,169,110,.2)"></span></div>
-    <div class="noteg"><span class="etoiles">★★★★★</span><span style="font-family:'EB Garamond',serif;font-size:22px">4.8</span><span style="font-family:'Cinzel',serif;font-size:10px;letter-spacing:.1em;color:#999">Note Globale</span></div>
+    <div class="noteg sabo-anim" data-anim="sabo-zoom"><span class="etoiles">★★★★★</span><span style="font-family:'EB Garamond',serif;font-size:22px">4.8</span><span style="font-family:'Cinzel',serif;font-size:10px;letter-spacing:.1em;color:#999">Note Globale</span></div>
   </div>
   <div class="temog" id="temog">
-    <div class="tcard"><div class="tet">★★★★★</div><p class="ttxt">J'ai acheté un Kete Ngassa et je suis vraiment ravie. Le chevreau est en parfaite santé. Je recommande Saboplume les yeux fermés&nbsp;!</p><div class="tau"><div class="av" style="background:#3B5E2B">AN</div><div><span class="an">Adèle Nzamba</span><span class="ar">Cliente · Produits Fermiers · Gobongo</span></div></div></div>
-    <div class="tcard"><div class="tet">★★★★★</div><p class="ttxt">Saboplume Traiteur a géré tous les repas de notre mariage. Tout était parfait : qualité, service, ponctualité&nbsp;!</p><div class="tau"><div class="av" style="background:#7B2D00">GN</div><div><span class="an">Gaëlle Ngoundji</span><span class="ar">Cliente · Traiteur · Sica 2</span></div></div></div>
-    <div class="tcard"><div class="tet">★★★★★</div><p class="ttxt">J'ai loué chaises et tentes pour notre conférence. Livraison à l'heure, matériel en parfait état. Service sérieux&nbsp;!</p><div class="tau"><div class="av" style="background:#8B4513">SK</div><div><span class="an">Samuel Koyakoua</span><span class="ar">Client · Location · Lakouanga</span></div></div></div>
+    <div class="tcard sabo-anim" data-anim="sabo-zoom"><div class="tet">★★★★★</div><p class="ttxt">J'ai acheté un Kete Ngassa et je suis vraiment ravie. Le chevreau est en parfaite santé. Je recommande Saboplume les yeux fermés&nbsp;!</p><div class="tau"><div class="av" style="background:#3B5E2B">AN</div><div><span class="an">Adèle Nzamba</span><span class="ar">Cliente · Produits Fermiers · Gobongo</span></div></div></div>
+    <div class="tcard sabo-anim" data-anim="sabo-zoom"><div class="tet">★★★★★</div><p class="ttxt">Saboplume Traiteur a géré tous les repas de notre mariage. Tout était parfait : qualité, service, ponctualité&nbsp;!</p><div class="tau"><div class="av" style="background:#7B2D00">GN</div><div><span class="an">Gaëlle Ngoundji</span><span class="ar">Cliente · Traiteur · Sica 2</span></div></div></div>
+    <div class="tcard sabo-anim" data-anim="sabo-zoom"><div class="tet">★★★★★</div><p class="ttxt">J'ai loué chaises et tentes pour notre conférence. Livraison à l'heure, matériel en parfait état. Service sérieux&nbsp;!</p><div class="tau"><div class="av" style="background:#8B4513">SK</div><div><span class="an">Samuel Koyakoua</span><span class="ar">Client · Location · Lakouanga</span></div></div></div>
     <div class="tcard hidden"><div class="tet">★★★★★</div><p class="ttxt">Les oeufs sont toujours frais, je commande chaque semaine. Une vraie confiance s'est installée avec Saboplume.</p><div class="tau"><div class="av" style="background:#2D4A20">MK</div><div><span class="an">Martine Kouyidiki</span><span class="ar">Cliente · Produits Fermiers · Castor</span></div></div></div>
     <div class="tcard hidden"><div class="tet">★★★★★</div><p class="ttxt">Le baptême de mon fils était magnifique. Bélinda et son équipe ont tout géré avec le sourire. Bravo&nbsp;!</p><div class="tau"><div class="av" style="background:#5A3520">CB</div><div><span class="an">Clarisse Boganda</span><span class="ar">Cliente · Traiteur · PK10</span></div></div></div>
     <div class="tcard hidden"><div class="tet">★★★★★</div><p class="ttxt">J'habite à Samba et la livraison s'est faite sans problème. Très satisfait du service et des produits.</p><div class="tau"><div class="av" style="background:#3B5E2B">JN</div><div><span class="an">Joël Ngaïssona</span><span class="ar">Client · Produits Fermiers · Samba</span></div></div></div>
@@ -1125,15 +1211,155 @@ document.addEventListener('DOMContentLoaded', async function(){
 })();
 </script>
 
+
 <!-- ANIMATIONS SCROLL -->
 <script>
 (function(){
   if(!('IntersectionObserver' in window)) return;
+
+  // ── 1. Éléments avec data-anim ──
   document.querySelectorAll('.sabo-anim').forEach(function(el){
-    var anims=el.getAttribute('data-anim')||'sabo-fade-up';
-    el.style.opacity='0';
-    var io=new IntersectionObserver(function(entries){
+    var anims = el.getAttribute('data-anim') || 'sabo-fade-up';
+    el.style.opacity = '0';
+    el.style.willChange = 'transform, opacity';
+    var io = new IntersectionObserver(function(entries){
       entries.forEach(function(e){
-        if(e.isIntersecting){ e.target.style.opacity=''; anims.split(' ').forEach(function(c){if(c)e.target.classList.add(c);}); io.unobserve(e.target); }
+        if(e.isIntersecting){
+          e.target.style.opacity = '';
+          e.target.style.willChange = '';
+          anims.split(' ').forEach(function(c){ if(c) e.target.classList.add(c); });
+          io.unobserve(e.target);
+        }
       });
-    },{threshold:0
+    },{threshold:0.12, rootMargin:'0px 0px -40px 0px'});
+    io.observe(el);
+  });
+
+  // ── 2. Trait animé sous les titres ──
+  document.querySelectorAll('.sabo-trait-anim').forEach(function(el){
+    var io2 = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){ e.target.classList.add('sabo-trait-run'); io2.unobserve(e.target); }
+      });
+    },{threshold:0.3});
+    io2.observe(el);
+  });
+
+  // ── 3. Chiffres animés (1, 2, 3) ──
+  document.querySelectorAll('.qin').forEach(function(el, i){
+    el.style.opacity = '0';
+    el.style.transform = 'scale(.5)';
+    var io3 = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){
+          setTimeout(function(){
+            e.target.style.transition = 'opacity .5s cubic-bezier(.22,1,.36,1), transform .5s cubic-bezier(.22,1,.36,1)';
+            e.target.style.opacity = '1';
+            e.target.style.transform = 'scale(1)';
+          }, i * 120);
+          io3.unobserve(e.target);
+        }
+      });
+    },{threshold:0.3});
+    io3.observe(el);
+  });
+
+  // ── 4. Cartes produits en cascade ──
+  document.querySelectorAll('.pcard').forEach(function(el, i){
+    // Déjà géré par sabo-anim mais on ajoute le délai en cascade
+    el.style.animationDelay = (i % 3) * 0.1 + 's';
+  });
+
+  // ── 5. Cartes témoignages en cascade ──
+  document.querySelectorAll('.tcard:not(.hidden)').forEach(function(el, i){
+    el.style.animationDelay = i * 0.12 + 's';
+  });
+
+  // ── 6. Sections entières — parallaxe légère sur fond ──
+  var sections = document.querySelectorAll('.squi, .sval, .sapr, .sprod, .seng, .strait, .sloc, .stemo, .savis, .scont');
+  sections.forEach(function(sec){
+    sec.style.opacity = '0';
+    sec.style.transform = 'translateY(30px)';
+    sec.style.transition = 'opacity .7s cubic-bezier(.22,1,.36,1), transform .7s cubic-bezier(.22,1,.36,1)';
+    var io5 = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){
+          e.target.style.opacity = '1';
+          e.target.style.transform = 'translateY(0)';
+          io5.unobserve(e.target);
+        }
+      });
+    },{threshold:0.05, rootMargin:'0px 0px -20px 0px'});
+    io5.observe(sec);
+  });
+
+  // ── 7. Labels (lbl) glissent depuis la gauche ──
+  document.querySelectorAll('.lbl').forEach(function(el){
+    if(el.classList.contains('sabo-anim')) return; // déjà géré
+    el.style.opacity = '0';
+    el.style.transform = 'translateX(-20px)';
+    el.style.transition = 'opacity .5s ease, transform .5s ease';
+    var io6 = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){
+          e.target.style.opacity = '1';
+          e.target.style.transform = 'translateX(0)';
+          io6.unobserve(e.target);
+        }
+      });
+    },{threshold:0.5});
+    io6.observe(el);
+  });
+
+  // ── 8. Photos loc-photo zooment à l'entrée ──
+  document.querySelectorAll('.loc-photo').forEach(function(el, i){
+    el.style.opacity = '0';
+    el.style.transform = 'scale(.92)';
+    el.style.transition = 'opacity .6s cubic-bezier(.22,1,.36,1) '+(i*0.15)+'s, transform .6s cubic-bezier(.22,1,.36,1) '+(i*0.15)+'s';
+    var io7 = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){
+          e.target.style.opacity = '1';
+          e.target.style.transform = 'scale(1)';
+          io7.unobserve(e.target);
+        }
+      });
+    },{threshold:0.2});
+    io7.observe(el);
+  });
+
+  // ── 9. Valeurs — compteur qui monte ──
+  document.querySelectorAll('.vc h3').forEach(function(el, i){
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(16px)';
+    el.style.transition = 'opacity .5s ease '+(i*0.08)+'s, transform .5s ease '+(i*0.08)+'s';
+    var io8 = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){
+          e.target.style.opacity = '1';
+          e.target.style.transform = 'translateY(0)';
+          io8.unobserve(e.target);
+        }
+      });
+    },{threshold:0.3});
+    io8.observe(el);
+  });
+
+  // ── 10. Footer glisse vers le haut ──
+  var footer = document.querySelector('footer');
+  if(footer){
+    footer.style.opacity = '0';
+    footer.style.transform = 'translateY(20px)';
+    footer.style.transition = 'opacity .6s ease, transform .6s ease';
+    var io9 = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){ e.target.style.opacity='1'; e.target.style.transform='translateY(0)'; io9.unobserve(e.target); }
+      });
+    },{threshold:0.3});
+    io9.observe(footer);
+  }
+
+})();
+</script>
+</body>
+</html>
