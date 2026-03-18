@@ -475,6 +475,158 @@ footer span{font-family:"Cinzel",serif;font-size:10px;letter-spacing:.06em;color
   0%, 100% { transform: translateX(0); }
   50%       { transform: translateX(5px); }
 }
+
+/* ═══════════ ANIMATIONS ENRICHIES SABOPLUME ═══════════ */
+
+/* Hero logo : entrée cinématique + flottement */
+@keyframes saboHeroIn{
+  0%{opacity:0;transform:scale(.65) translateY(-40px);filter:blur(12px)}
+  70%{opacity:1;transform:scale(1.05) translateY(5px);filter:blur(0)}
+  100%{opacity:1;transform:scale(1) translateY(0)}
+}
+@keyframes saboFloatLogo{
+  0%,100%{transform:translateY(0) rotate(0deg)}
+  33%{transform:translateY(-9px) rotate(.4deg)}
+  66%{transform:translateY(-4px) rotate(-.3deg)}
+}
+
+/* Particule de fond */
+@keyframes saboPtcl{
+  0%,100%{transform:translateY(0) scale(1);opacity:.5}
+  50%{transform:translateY(-20px) scale(1.05);opacity:.25}
+}
+
+/* Shine sur boutons */
+@keyframes saboShineBtn{
+  0%{left:-100%}100%{left:150%}
+}
+
+/* Compteur chiffre */
+@keyframes saboNumPop{
+  0%{opacity:0;transform:scale(.4) rotate(-8deg)}
+  70%{transform:scale(1.15) rotate(2deg)}
+  100%{opacity:1;transform:scale(1) rotate(0)}
+}
+
+/* Trait titre */
+@keyframes saboLineGrow{
+  from{transform:scaleX(0);opacity:0}
+  to{transform:scaleX(1);opacity:1}
+}
+
+/* Card révèle par le bas */
+@keyframes saboCardReveal{
+  0%{opacity:0;transform:translateY(50px) scale(.96)}
+  60%{opacity:1;transform:translateY(-6px) scale(1.01)}
+  100%{opacity:1;transform:none}
+}
+
+/* Délais supplémentaires */
+.sabo-d7{animation-delay:.68s!important}
+.sabo-d8{animation-delay:.78s!important}
+.sabo-d9{animation-delay:.9s!important}
+
+/* ── Hero ── */
+.hero-logo{
+  animation:saboHeroIn 1.5s cubic-bezier(.22,1,.36,1) both,
+            saboFloatLogo 6s ease-in-out 1.6s infinite!important
+}
+.htag{animation-delay:.35s!important}
+.hloc{animation-delay:.55s!important}
+
+/* ── Particules hero ── */
+.hero-ptcl{
+  position:absolute;border-radius:50%;pointer-events:none;z-index:0;
+  background:radial-gradient(circle,rgba(123,45,0,.12) 0%,transparent 70%);
+  animation:saboPtcl var(--pd,7s) ease-in-out var(--pl,0s) infinite;
+}
+
+/* ── hcard hover ── */
+.hcard{
+  transition:transform .4s cubic-bezier(.22,1,.36,1),
+             box-shadow .4s ease, border-left-color .3s ease;
+  cursor:default;
+}
+.hcard:hover{
+  transform:translateY(-10px) scale(1.02);
+  box-shadow:0 22px 55px rgba(0,0,0,.2);
+  border-left-color:rgba(200,169,110,1)!important;
+}
+
+/* ── Valeurs cards ── */
+.vc{transition:transform .35s cubic-bezier(.22,1,.36,1),box-shadow .35s ease}
+.vc:hover{transform:translateY(-8px);box-shadow:0 18px 45px rgba(0,0,0,.15)}
+
+/* ── Témoignages cards ── */
+.tcard{transition:transform .35s cubic-bezier(.22,1,.36,1),box-shadow .35s ease}
+.tcard:hover{transform:translateY(-7px) scale(1.015);box-shadow:0 20px 50px rgba(0,0,0,.15)}
+
+/* ── Produits images ── */
+.prod-img-wrap{overflow:hidden;border-radius:inherit}
+.prod-img-wrap img{transition:transform .6s cubic-bezier(.22,1,.36,1),filter .4s}
+.prod-img-wrap:hover img{transform:scale(1.07)}
+
+/* ── Photos traiteur ── */
+.trait-photo,.loc-photo{
+  transition:transform .5s cubic-bezier(.22,1,.36,1),
+             box-shadow .4s ease,filter .4s;
+}
+.trait-photo:hover,.loc-photo:hover{
+  transform:scale(1.025);
+  box-shadow:0 16px 40px rgba(0,0,0,.2);
+  filter:brightness(1.06)
+}
+
+/* ── Boutons : shimmer au hover ── */
+.bct,.bpdf,.btn-primary,.bdk,.bsoc{
+  position:relative;overflow:hidden;
+}
+.bct::after,.bpdf::after,.btn-primary::after,.bdk::after,.bsoc::after{
+  content:'';position:absolute;top:0;left:-100%;
+  width:55%;height:100%;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.22),transparent);
+  pointer-events:none;transition:none;
+}
+.bct:hover::after,.bpdf:hover::after,.btn-primary:hover::after,
+.bdk:hover::after,.bsoc:hover::after{
+  animation:saboShineBtn .55s ease forwards;
+}
+
+/* ── Nav liens underline animé ── */
+.sidenav-links a,.nav a{position:relative}
+.sidenav-links a::after,.nav a::after{
+  content:'';position:absolute;bottom:-2px;left:50%;
+  width:0;height:2px;
+  background:currentColor;
+  transition:width .28s ease,left .28s ease;
+}
+.sidenav-links a:hover::after,.nav a:hover::after{width:100%;left:0}
+
+/* ── Qi items (1,2,3) ── */
+.qi{transition:transform .3s cubic-bezier(.22,1,.36,1)}
+.qi:hover{transform:translateX(6px)}
+.qin{transition:transform .5s cubic-bezier(.22,1,.36,1),background .4s}
+.qi:hover .qin{transform:rotate(360deg) scale(1.12)}
+
+/* ── Stat cards ── */
+.stat-card{transition:transform .3s cubic-bezier(.22,1,.36,1),box-shadow .3s}
+.stat-card:hover{transform:translateY(-5px);box-shadow:0 14px 35px rgba(0,0,0,.12)}
+
+/* ── Footer apparition ── */
+footer{transition:opacity .8s ease,transform .8s ease}
+
+/* ── Logo nav pulse subtil ── */
+.nav-logo,.nav img{transition:transform .3s cubic-bezier(.22,1,.36,1),filter .3s}
+.nav-logo:hover,.nav img:hover{transform:scale(1.05);filter:brightness(1.1)}
+
+/* ── Avatar témoignages ── */
+.av{transition:transform .3s cubic-bezier(.22,1,.36,1)}
+.tcard:hover .av{transform:scale(1.1) rotate(-3deg)}
+
+/* ── Sabo float utility ── */
+.sabo-float-permanent{animation:saboFloatLogo 5s ease-in-out infinite}
+
+/* ═══════════════════════════════════════════════════════ */
 </style>
 </head>
 <body>
@@ -614,14 +766,17 @@ footer span{font-family:"Cinzel",serif;font-size:10px;letter-spacing:.06em;color
 
 <!-- HERO -->
 <section class="hero" id="accueil">
+  <div class="hero-ptcl" style="width:320px;height:320px;top:-100px;right:-80px;--pd:7s;--pl:0s"></div>
+  <div class="hero-ptcl" style="width:180px;height:180px;bottom:80px;left:-30px;--pd:9s;--pl:2s"></div>
+  <div class="hero-ptcl" style="width:120px;height:120px;top:35%;right:8%;--pd:6s;--pl:3.5s"></div>
   <img src="https://i.ibb.co/C3NkLpLY/logo-officiel-saboplume.png" alt="Saboplume" class="hero-logo">
   <p class="htag">« À vos côtés pour chaque occasion »</p>
   <p class="hloc">BIMBO &nbsp;·&nbsp; RÉPUBLIQUE CENTRAFRICAINE</p>
   <div class="hdiv"></div>
   <div class="hcards">
-    <div class="hcard"><h3>Produits Fermiers</h3><p>Volailles, caprins et oeufs frais directement de notre ferme</p></div>
-    <div class="hcard"><h3>Traiteur</h3><p>Conception et réalisation de menus pour tous vos événements</p></div>
-    <div class="hcard"><h3>Location Événementielle</h3><p>Chaises et tentes pour tous vos rassemblements</p></div>
+    <div class="hcard sabo-anim" data-anim="sabo-fade-up sabo-d2"><h3>Produits Fermiers</h3><p>Volailles, caprins et oeufs frais directement de notre ferme</p></div>
+    <div class="hcard sabo-anim" data-anim="sabo-fade-up sabo-d3"><h3>Traiteur</h3><p>Conception et réalisation de menus pour tous vos événements</p></div>
+    <div class="hcard sabo-anim" data-anim="sabo-fade-up sabo-d4"><h3>Location Événementielle</h3><p>Chaises et tentes pour tous vos rassemblements</p></div>
   </div>
 </section>
 
@@ -1425,4 +1580,73 @@ document.addEventListener('DOMContentLoaded', async function(){
     footer.style.transition = 'opacity .6s ease, transform .6s ease';
     var io9 = new IntersectionObserver(function(entries){
       entries.forEach(function(e){
-        if(e.isIntersecting){ e.target.style.opacity='1'; e.target.s
+        if(e.isIntersecting){ e.target.style.opacity='1'; e.target.style.transform='translateY(0)'; io9.unobserve(e.target); }
+      });
+    },{threshold:0.1});
+    io9.observe(footer);
+  }
+
+})();
+</script>
+
+
+<!-- ANIMATIONS EXTRA -->
+<script>
+(function(){
+  // Stagger auto sur grilles de cartes
+  ['tcard','hcard','vc','stat-card','prod-card','lcard','avis-card'].forEach(function(cls){
+    document.querySelectorAll('.'+cls+':not(.sabo-anim)').forEach(function(el, i){
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(40px)';
+      el.style.transition = 'opacity .65s cubic-bezier(.22,1,.36,1) '+( i*0.1)+'s, transform .65s cubic-bezier(.22,1,.36,1) '+(i*0.1)+'s';
+      var io = new IntersectionObserver(function(entries){
+        entries.forEach(function(e){
+          if(e.isIntersecting){
+            e.target.style.opacity = '1';
+            e.target.style.transform = 'translateY(0)';
+            io.unobserve(e.target);
+          }
+        });
+      },{threshold:0.08, rootMargin:'0px 0px -30px 0px'});
+      io.observe(el);
+    });
+  });
+
+  // Compteurs animés sur les stats (stat-n)
+  document.querySelectorAll('.stat-n, .avis-stat-n').forEach(function(el){
+    var io2 = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){
+          e.target.style.animation = 'saboNumPop .6s cubic-bezier(.22,1,.36,1) both';
+          io2.unobserve(e.target);
+        }
+      });
+    },{threshold:0.5});
+    io2.observe(el);
+  });
+
+  // Nav scroll : ombre progressive
+  var nav = document.querySelector('nav');
+  if(nav){
+    window.addEventListener('scroll', function(){
+      var y = window.scrollY;
+      nav.style.boxShadow = y > 20
+        ? '0 4px 30px rgba(0,0,0,'+ Math.min(.15, y/500) +')'
+        : 'none';
+      nav.style.backdropFilter = y > 20 ? 'blur(12px)' : 'blur(4px)';
+    }, {passive:true});
+  }
+
+  // Images : fade-in au chargement
+  document.querySelectorAll('img[loading="lazy"]').forEach(function(img){
+    img.style.opacity = '0';
+    img.style.transition = 'opacity .6s ease';
+    img.addEventListener('load', function(){ img.style.opacity = '1'; });
+    if(img.complete) img.style.opacity = '1';
+  });
+
+})();
+</script>
+
+</body>
+</html>
