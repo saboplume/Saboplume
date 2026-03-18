@@ -129,6 +129,13 @@ button:disabled{opacity:.45;cursor:default}
 .hamburger.active span:nth-child(1){transform:translateY(8px) rotate(45deg)}
 .hamburger.active span:nth-child(2){opacity:0}
 .hamburger.active span:nth-child(3){transform:translateY(-8px) rotate(-45deg)}
+
+/* LIKES SECTION */
+.like-row{display:flex;align-items:center;justify-content:space-between;background:#1a1a2e;border:1px solid #2a2a4a;border-radius:8px;padding:14px 18px;gap:12px;}
+.like-row-name{font-weight:600;color:#fff;font-size:.9rem;flex:1;}
+.like-row-cat{font-size:.72rem;color:#aaa;margin-top:2px;}
+.like-heart{font-size:1.5rem;color:#e84a6f;}
+.like-row-count{font-size:1.6rem;font-weight:800;color:#e84a6f;min-width:50px;text-align:right;}
 </style>
 </head>
 <body>
@@ -166,6 +173,7 @@ button:disabled{opacity:.45;cursor:default}
 <a href="#" onclick="showSection('traiteur',this);closeSB()"> Traiteur</a>
 <a href="#" onclick="showSection('locations',this);closeSB()"> Locations</a>
 <a href="#" onclick="showSection('avis',this);closeSB()"> Avis Clients <span class="avis-badge" id="nav-badge">0</span></a>
+<a href="#" onclick="showSection('likes',this);closeSB()"> Likes Catalogue</a>
 </nav>
 <div class="sidebar-footer">
 <button class="btn-logout" onclick="logout()">Déconnexion</button>
@@ -284,12 +292,25 @@ Publiés <span class="avis-badge" id="badge-published">0</span>
 </div>
 </div>
 
+
+<div class="section" id="sec-likes">
+<div class="topbar">
+<h1>Likes Catalogue <span class="firebase-badge"> Firebase</span></h1>
+</div>
+<div class="avis-stats">
+<div class="avis-stat"><div class="avis-stat-n" id="likes-total">—</div><div class="avis-stat-l">TOTAL LIKES</div></div>
+</div>
+<div id="likes-list" style="margin-top:24px;display:flex;flex-direction:column;gap:10px;">
+<div class="avis-empty"><div class="avis-empty-icon">⏳</div><p>Chargement...</p></div>
+</div>
+</div>
+
 </div><!-- /main -->
 </div><!-- /admin-wrap -->
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-import { getFirestore, doc, getDoc, setDoc, collection, getDocs, addDoc, deleteDoc, query, orderBy, onSnapshot, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+import { getFirestore, doc, getDoc, setDoc, collection, getDocs, addDoc, deleteDoc, query, orderBy, onSnapshot, serverTimestamp, increment } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyACg587ve8fA4VYhA6Xe022TzQ4VPR7xuk",
@@ -337,6 +358,7 @@ window.showSection=function(id,el){
   if(sec) sec.classList.add('active');
   document.querySelectorAll('.sidenav a').forEach(function(a){a.classList.remove('active');});
   if(el) el.classList.add('active');
+  if(id==='likes') loadLikes();
   else{document.querySelectorAll('.sidenav a').forEach(function(a){if(a.getAttribute('onclick')&&a.getAttribute('onclick').indexOf("'"+id+"'")>=0)a.classList.add('active');});}
   if(id==='commandes') renderTable('commandes');
   if(id==='traiteur') renderTable('traiteur');
@@ -526,6 +548,39 @@ async function init() {
 //  MOBILE SIDEBAR 
 window.toggleSB=function(){var sb=document.querySelector('.sidebar');var ov=document.getElementById('sbo');var hb=document.getElementById('hbg');var open=sb.classList.toggle('open');ov.classList.toggle('on',open);hb.classList.toggle('active',open);};
 window.closeSB=function(){document.querySelector('.sidebar').classList.remove('open');document.getElementById('sbo').classList.remove('on');document.getElementById('hbg').classList.remove('active');};
+
+// ── LIKES CATALOGUE ──
+async function loadLikes() {
+  const list = document.getElementById('likes-list');
+  list.innerHTML = '<div class="avis-empty"><div class="avis-empty-icon">⏳</div><p>Chargement...</p></div>';
+  try {
+    const snap = await getDocs(collection(db, 'catalogue_likes'));
+    const items = [];
+    snap.forEach(function(d) {
+      items.push({ nom: d.data().nom || d.id, total: d.data().total || 0 });
+    });
+    // Sort by total desc
+    items.sort(function(a,b){ return b.total - a.total; });
+    
+    const totalLikes = items.reduce(function(s,i){ return s+i.total; }, 0);
+    document.getElementById('likes-total').textContent = totalLikes;
+
+    if(items.length === 0) {
+      list.innerHTML = '<div class="avis-empty"><div class="avis-empty-icon">💔</div><p>Aucun like pour le moment</p></div>';
+      return;
+    }
+    list.innerHTML = items.map(function(item) {
+      return '<div class="like-row">' +
+        '<div><div class="like-row-name">' + item.nom + '</div></div>' +
+        '' +
+        '<div class="like-row-count">' + item.total + '</div>' +
+      '</div>';
+    }).join('');
+  } catch(e) {
+    list.innerHTML = '<div class="avis-empty"><p>Erreur de chargement : ' + e.message + '</p></div>';
+  }
+}
+
 </script>
 </body>
 </html>
