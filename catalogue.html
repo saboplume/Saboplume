@@ -384,7 +384,7 @@ function buildSections() {
   container.innerHTML = allHtml;
 }
 
-function showSection(key) {
+window.showSection = function(key) {
   document.querySelectorAll('.section,.all-section').forEach(s=>s.classList.remove('active'));
   document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));
 
@@ -400,7 +400,7 @@ function showSection(key) {
   filterCards('');
 }
 
-function filterCards(q) {
+window.filterCards = function(q) {
   q = q.toLowerCase().trim();
   // Only filter in active section
   const activeSection = document.querySelector('.section.active, .all-section.active');
