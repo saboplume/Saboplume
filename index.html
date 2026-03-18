@@ -413,6 +413,71 @@ footer span{font-family:"Cinzel",serif;font-size:10px;letter-spacing:.06em;color
   .locong{grid-template-columns:1fr}
   .dateg{grid-template-columns:1fr}
 }
+
+/* ── CATALOGUE CTA BUTTON ── */
+.catalogue-cta {
+  display: block;
+  margin: 18px auto 0;
+  max-width: 320px;
+  text-decoration: none;
+  animation: cta-pulse 2.4s ease-in-out infinite;
+}
+.catalogue-cta-inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: linear-gradient(135deg, #5A3520 0%, #7B4A2A 50%, #5A3520 100%);
+  background-size: 200% 200%;
+  border: 2px solid #C49A28;
+  border-radius: 50px;
+  padding: 14px 28px;
+  color: #F0C040;
+  font-family: 'Montserrat', sans-serif;
+  font-size: .9rem;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  box-shadow: 0 4px 20px rgba(196,154,40,.3);
+  transition: transform .2s, box-shadow .2s;
+  animation: cta-shimmer 2.4s linear infinite;
+  background-size: 200%;
+}
+.catalogue-cta:hover .catalogue-cta-inner {
+  transform: scale(1.05);
+  box-shadow: 0 6px 28px rgba(196,154,40,.55);
+}
+.catalogue-cta-icon {
+  font-size: 1.2rem;
+  animation: cta-bounce 1.2s ease-in-out infinite;
+}
+.catalogue-cta-arrow {
+  font-size: 1.1rem;
+  display: inline-block;
+  animation: cta-slide 1.4s ease-in-out infinite;
+}
+.catalogue-cta-text {
+  flex: 1;
+  text-align: center;
+}
+@keyframes cta-pulse {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-5px); }
+}
+@keyframes cta-shimmer {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+@keyframes cta-bounce {
+  0%, 100% { transform: rotate(0deg) scale(1); }
+  30%       { transform: rotate(-15deg) scale(1.15); }
+  60%       { transform: rotate(10deg) scale(1.1); }
+}
+@keyframes cta-slide {
+  0%, 100% { transform: translateX(0); }
+  50%       { transform: translateX(5px); }
+}
 </style>
 </head>
 <body>
@@ -434,7 +499,7 @@ footer span{font-family:"Cinzel",serif;font-size:10px;letter-spacing:.06em;color
   <a href="#engagement" class="int">Notre Engagement</a>
   <a href="#temoignages" class="int">Témoignages</a>
   <a href="https://drive.google.com/file/d/1CldPDFeN7rNIADHHmC-1I9nquE9eiHah/view?usp=sharing" target="_blank" class="ext">Charte de l'entreprise</a>
-  <a href="https://drive.google.com/file/d/1YtWUBT_GFzitVkfCOQWoTE3xaa2Gcsvt/view?usp=sharing" target="_blank" class="ext">Portfolio</a>
+  <a href="/catalogue.html" target="_blank" class="ext">Catalogue Traiteur</a>
   <a href="#contact" class="int">Contact</a>
   </div>
   <div class="menu-footer">
@@ -685,6 +750,13 @@ footer span{font-family:"Cinzel",serif;font-size:10px;letter-spacing:.06em;color
     <div style="margin-bottom:30px;display:flex;justify-content:center">
       <div class="trait-photo-wrap" style="width:100%;max-width:680px">
         <img src="https://i.ibb.co/PG9VFx2y/IMG-2265-JPG-TRAITEUR.jpg" alt="Traiteur Saboplume" class="trait-photo" style="width:100%;height:auto;max-height:460px;display:block;object-fit:contain;object-position:center;background:#f5f2ec">
+        <a href="/catalogue.html" target="_blank" class="catalogue-cta">
+          <span class="catalogue-cta-inner">
+            <span class="catalogue-cta-icon">🍽️</span>
+            <span class="catalogue-cta-text">Découvrir notre catalogue</span>
+            <span class="catalogue-cta-arrow">→</span>
+          </span>
+        </a>
       </div>
     </div>
     <div class="fdevis sabo-anim" data-anim="sabo-slide-up">
@@ -793,7 +865,7 @@ footer span{font-family:"Cinzel",serif;font-size:10px;letter-spacing:.06em;color
       <div class="contl"><span class="contll">Adresse</span><span class="contlv"><a href="https://maps.google.com/?q=Bimbo,Rue+du+Général+Gambi,République+Centrafricaine" target="_blank">Bimbo — Rue du Général Gambi</a></span></div>
       <div class="contl"><span class="contll">Horaires</span><span class="contlv">Tous les jours · 8h — 17h</span></div>
       <div class="contl"><span class="contll">Téléphone</span><span class="contlv"><a href="tel:+23674225757">+236 74 22 57 57</a></span></div>
-      <div class="contl"><span class="contll">Email</span><span class="contlv"><a href="mailto:saboplume&#64;outlook.fr">saboplume&#64;outlook.fr</a></span></div>
+      <div class="contl"><span class="contll">Email</span><span class="contlv"><a href="/cdn-cgi/l/email-protection#7605171419061a031b13505540424d1903021a19191d581004">saboplume&#64;outlook.fr</a></span></div>
       <div class="socbtns">
         <a href="https://www.facebook.com/share/1ArfaX1XMn/" target="_blank" class="bsoc">Facebook</a>
         <a href="https://www.tiktok.com/@saboplume" target="_blank" class="bsoc">TikTok</a>
@@ -803,7 +875,7 @@ footer span{font-family:"Cinzel",serif;font-size:10px;letter-spacing:.06em;color
       <button class="bct" id="btncontacter">Nous contacter</button>
       <div class="pdf-section">
         <a href="https://drive.google.com/file/d/1CldPDFeN7rNIADHHmC-1I9nquE9eiHah/view?usp=sharing" target="_blank" class="bpdf">Charte entreprise</a>
-        <a href="https://drive.google.com/file/d/1YtWUBT_GFzitVkfCOQWoTE3xaa2Gcsvt/view?usp=sharing" target="_blank" class="bpdf">Portfolio</a>
+        <a href="/catalogue.html" target="_blank" class="bpdf">Catalogue Traiteur</a>
       </div>
     </div>
     <div class="contgr sabo-anim" data-anim="sabo-fade-right">
@@ -830,7 +902,7 @@ footer span{font-family:"Cinzel",serif;font-size:10px;letter-spacing:.06em;color
   </div>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script type="module">
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 import { getFirestore, doc, getDoc, collection, addDoc, getDocs, query, orderBy } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
@@ -1357,13 +1429,4 @@ document.addEventListener('DOMContentLoaded', async function(){
     footer.style.transition = 'opacity .6s ease, transform .6s ease';
     var io9 = new IntersectionObserver(function(entries){
       entries.forEach(function(e){
-        if(e.isIntersecting){ e.target.style.opacity='1'; e.target.style.transform='translateY(0)'; io9.unobserve(e.target); }
-      });
-    },{threshold:0.3});
-    io9.observe(footer);
-  }
-
-})();
-</script>
-</body>
-</html>
+        if(e.isIntersecting){ e.target.style.opacity='1'; e.target.s
