@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Saboplume — Catalogue Traiteur</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --gold:#2E8B4A; --gold-light:#3DAE62; --gold-pale:#FDF6E3;
+  --brown:#3A1F08; --brown2:#6B3A14; --brown3:#9C5E2B;
+  --green:#2E6B2E; --blue:#1F3A6B; --amber:#2E8B4A;
+  --bg:#0D0905; --card:#1A100A; --card2:#120C07;
+  --white:#FFF8F0; --grey:#A89880;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bg);color:var(--white);font-family:'Montserrat',sans-serif;min-height:100vh;}
+
+/* ── HEADER ── */
+header{
+  background:linear-gradient(135deg,#0D0905 0%,#1A0F06 40%,#0D0905 100%);
+  border-bottom:2px solid var(--gold);
+  padding:48px 40px 36px;
+  text-align:center;
+  position:relative;
+  overflow:hidden;
+}
+header::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 70% 60% at 50% 0%,rgba(46,139,74,.12),transparent);
+  pointer-events:none;
+}
+.logo-line{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(2.8rem,6vw,5rem);
+  font-weight:700;letter-spacing:.18em;
+  color:var(--gold);
+  text-shadow:0 0 40px rgba(46,139,74,.4);
+  line-height:1;
+}
+.tagline{
+  margin-top:10px;
+  font-size:.78rem;letter-spacing:.28em;
+  color:var(--grey);text-transform:uppercase;
+}
+.header-divider{
+  margin:22px auto 16px;width:120px;height:1px;
+  background:linear-gradient(90deg,transparent,var(--gold),transparent);
+}
+.header-sub{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.15rem;font-style:italic;color:#2E8B4A99;
+  letter-spacing:.08em;
+}
+.total-badge{
+  display:inline-block;margin-top:16px;
+  background:rgba(46,139,74,.12);border:1px solid rgba(46,139,74,.35);
+  border-radius:30px;padding:6px 22px;
+  font-size:.72rem;letter-spacing:.2em;color:var(--gold-light);text-transform:uppercase;
+}
+
+/* ── NAV TABS ── */
+.nav-wrap{
+  background:#100903;
+  border-bottom:1px solid rgba(46,139,74,.2);
+  position:sticky;top:0;z-index:100;
+  overflow-x:auto;white-space:nowrap;
+  scrollbar-width:none;
+}
+.nav-wrap::-webkit-scrollbar{display:none;}
+.nav-tabs{
+  display:inline-flex;gap:0;padding:0 24px;
+}
+.nav-tab{
+  padding:14px 20px;font-size:.72rem;letter-spacing:.15em;
+  text-transform:uppercase;color:var(--grey);
+  border-bottom:2px solid transparent;cursor:pointer;
+  transition:all .25s;font-weight:600;white-space:nowrap;
+}
+.nav-tab:hover{color:var(--gold-light);}
+.nav-tab.active{color:var(--gold);border-bottom-color:var(--gold);}
+/* Couleurs actives par onglet */
+.nav-tab[data-section="ENTRÉE AFRICAINE"].active{color:#4caf50;border-bottom-color:#4caf50;}
+.nav-tab[data-section="ENTRÉE EUROPÉENNE"].active{color:#64b5f6;border-bottom-color:#64b5f6;}
+.nav-tab[data-section="PLAT AFRICAIN"].active{color:#f48fb1;border-bottom-color:#f48fb1;}
+.nav-tab[data-section="PLAT EUROPÉEN"].active{color:#ce93d8;border-bottom-color:#ce93d8;}
+.nav-tab[data-section="MIGNARDISE SALÉE"].active{color:#ffb74d;border-bottom-color:#ffb74d;}
+.nav-tab[data-section="MIGNARDISE SUCRÉE"].active{color:#ffd54f;border-bottom-color:#ffd54f;}
+.nav-tab[data-section="DESSERT AFRICAIN"].active{color:#bcaaa4;border-bottom-color:#bcaaa4;}
+.nav-tab[data-section="DESSERT EUROPÉEN"].active{color:#90caf9;border-bottom-color:#90caf9;}
+
+/* ── SEARCH ── */
+.search-wrap{
+  max-width:520px;margin:36px auto 0;padding:0 24px;
+}
+.search-box{
+  width:100%;background:rgba(255,248,240,.05);
+  border:1px solid rgba(46,139,74,.3);border-radius:4px;
+  padding:12px 18px;color:var(--white);font-size:.85rem;
+  font-family:'Montserrat',sans-serif;outline:none;
+  transition:border-color .2s;
+}
+.search-box::placeholder{color:var(--grey);}
+.search-box:focus{border-color:var(--gold);}
+
+/* ── SECTION ── */
+.section{display:none;padding:40px 32px 60px;}
+.section.active{display:block;}
+.section-header{
+  display:flex;align-items:center;gap:16px;
+  margin-bottom:36px;padding-bottom:16px;
+  border-bottom:1px solid rgba(46,139,74,.25);
+}
+.section-icon{display:none;}
+.section-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(1.6rem,3vw,2.2rem);
+  font-weight:600;color:var(--gold);letter-spacing:.04em;
+}
+.section-count{
+  margin-left:auto;font-size:.72rem;letter-spacing:.15em;
+  color:var(--grey);text-transform:uppercase;white-space:nowrap;
+}
+
+/* ── GRID ── */
+.cards-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
+  gap:22px;
+}
+
+/* ── CARD ── */
+.card{
+  background:var(--card);border:1px solid rgba(46,139,74,.15);
+  border-radius:6px;overflow:hidden;
+  transition:transform .3s,border-color .3s,box-shadow .3s;
+  cursor:default;
+}
+.card:hover{
+  transform:translateY(-4px);
+  border-color:rgba(46,139,74,.55);
+  box-shadow:0 12px 40px rgba(0,0,0,.5),0 0 20px rgba(46,139,74,.08);
+}
+.card-img-wrap{
+  width:100%;height:180px;overflow:hidden;position:relative;
+  background:var(--card2);
+}
+.card-img-wrap img{
+  width:100%;height:100%;object-fit:cover;
+  transition:transform .4s;display:block;
+}
+.card:hover .card-img-wrap img{transform:scale(1.06);}
+.card-img-placeholder{
+  width:100%;height:100%;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  color:var(--brown3);gap:8px;
+}
+.card-img-placeholder span{font-size:2.4rem;}
+.card-img-placeholder small{font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--brown3);}
+.cat-ribbon{
+  display:block;width:100%;
+  font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;
+  padding:4px 10px;border-radius:0;font-weight:700;text-align:center;
+}
+/* Ruban par catégorie — couleur unique */
+.ribbon-ea{background:rgba(46,125,50,.90);color:#c8f5c8;}        /* Entrée Africaine   — vert forêt */
+.ribbon-ee{background:rgba(21,101,192,.90);color:#bbdefb;}        /* Entrée Européenne  — bleu royal */
+.ribbon-pa{background:rgba(194,24,91,.90);color:#fce4ec;}         /* Plat Africain      — rose fuchsia */
+.ribbon-pe{background:rgba(106,27,154,.90);color:#ede7f6;}        /* Plat Européen      — violet */
+.ribbon-ms{background:rgba(230,81,0,.90);color:#ffe0b2;}          /* Mignardise Salée   — orange brûlé */
+.ribbon-mx{background:rgba(249,168,37,.95);color:#4a2600;}        /* Mignardise Sucrée  — ambre doré */
+.ribbon-da{background:rgba(78,52,46,.92);color:#ffccbc;}          /* Dessert Africain   — brun caramel */
+.ribbon-de{background:rgba(13,71,161,.90);color:#e3f2fd;}         /* Dessert Européen   — bleu marine */
+/* anciens alias conservés pour compatibilité */
+.ribbon-af{background:rgba(194,24,91,.90);color:#fce4ec;}
+.ribbon-eu{background:rgba(21,101,192,.90);color:#bbdefb;}
+
+.card-body{padding:16px;}
+.card-name{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.05rem;font-weight:600;
+  color:var(--gold-light);line-height:1.3;
+  margin-bottom:6px;
+}
+.card-desc{
+  font-size:.73rem;color:var(--grey);line-height:1.5;
+  margin-bottom:10px;
+}
+.card-meta{
+  display:flex;flex-wrap:wrap;gap:6px;align-items:center;
+}
+.meta-pill{
+  font-size:.63rem;letter-spacing:.08em;text-transform:uppercase;
+  padding:3px 8px;border-radius:2px;
+  background:rgba(46,139,74,.1);border:1px solid rgba(46,139,74,.2);
+  color:var(--gold);
+}
+.meta-origine{
+  background:rgba(255,248,240,.05);border-color:rgba(255,248,240,.1);
+  color:var(--grey);
+}
+.like-wrap{margin-left:auto;display:flex;align-items:center;gap:5px;}
+.like-btn{background:none;border:none;cursor:pointer;font-size:1.15rem;line-height:1;padding:0;transition:transform .18s;}
+.like-btn:hover{transform:scale(1.25);}
+.like-count{font-size:.72rem;color:#e84a6f;font-weight:700;min-width:10px;}
+
+/* ── ALL section ── */
+.all-section{display:none;padding:40px 32px 60px;}
+.all-section.active{display:block;}
+.all-header{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(1.5rem,3vw,2rem);color:var(--gold);
+  margin-bottom:8px;letter-spacing:.04em;
+}
+.all-sub{font-size:.75rem;color:var(--grey);letter-spacing:.1em;
+  text-transform:uppercase;margin-bottom:32px;}
+
+/* ── FOOTER ── */
+footer{
+  background:#080503;border-top:1px solid rgba(46,139,74,.2);
+  text-align:center;padding:28px;
+  font-size:.72rem;letter-spacing:.12em;color:var(--grey);text-transform:uppercase;
+}
+footer span{color:var(--gold);}
+
+/* RESPONSIVE */
+@media(max-width:640px){
+  header{padding:32px 20px 24px;}
+  .section,.all-section{padding:24px 16px 40px;}
+  .cards-grid{grid-template-columns:1fr 1fr;gap:14px;}
+  .card-img-wrap{height:140px;}
+}
+@media(max-width:400px){
+  .cards-grid{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <img src="https://i.ibb.co/7JmxRqy8/LOGO-BLANC.png" alt="Saboplume" style="height:150px;width:auto;filter:drop-shadow(0 0 22px rgba(46,139,74,.5));margin-bottom:6px;"/>
+  <div class="tagline">Service Traiteur &amp; Réceptions — Bimbo, République Centrafricaine</div>
+  <div class="header-divider"></div>
+  <div class="header-sub">Gastronomie Africaine &amp; Internationale</div>
+  <div class="total-badge">212 spécialités au menu</div>
+</header>
+
+<div class="search-wrap">
+  <input class="search-box" type="text" id="searchInput" placeholder="Rechercher un plat…" oninput="filterCards(this.value)"/>
+</div>
+
+<nav class="nav-wrap">
+  <div class="nav-tabs" id="navTabs">
+    <div class="nav-tab active" onclick="showSection('all')" data-section="all">Toutes les spécialités</div>
+    <div class="nav-tab" onclick="showSection('ENTRÉE AFRICAINE')" data-section="ENTRÉE AFRICAINE">Entrées Africaines</div>
+    <div class="nav-tab" onclick="showSection('ENTRÉE EUROPÉENNE')" data-section="ENTRÉE EUROPÉENNE">Entrées Européennes</div>
+    <div class="nav-tab" onclick="showSection('PLAT AFRICAIN')" data-section="PLAT AFRICAIN">Plats Africains</div>
+    <div class="nav-tab" onclick="showSection('PLAT EUROPÉEN')" data-section="PLAT EUROPÉEN">Plats Européens</div>
+    <div class="nav-tab" onclick="showSection('DESSERT AFRICAIN')" data-section="DESSERT AFRICAIN">Desserts Africains</div>
+    <div class="nav-tab" onclick="showSection('DESSERT EUROPÉEN')" data-section="DESSERT EUROPÉEN">Desserts Européens</div>
+  </div>
+</nav>
+
+<div id="main-content"></div>
+
+<footer>
+  <span>SABOPLUME</span> &nbsp;·&nbsp; Service Traiteur &amp; Réceptions &nbsp;·&nbsp; Bimbo, République Centrafricaine<br/>
+</footer>
+
+<script>
+const DISHES = [{"cat": "ENTRÉE AFRICAINE", "nom": "Accras de haricots", "desc": "Beignets frits de haricots niébé assaisonnés", "origine": "Afrique de l'Ouest", "type": "Végétarien", "img": "https://i.ibb.co/Tx80gvLN/accra-haricot.png"}, {"cat": "ENTRÉE AFRICAINE", "nom": "Accras de poisson", "desc": "Beignets frits de poisson épicé et aromates", "origine": "Afrique centrale", "type": "Poisson", "img": "https://i.ibb.co/Z3cxPZd/Accras-de-poisson.png"}, {"cat": "ENTRÉE AFRICAINE", "nom": "Beignets de banane plantain (Aloco)", "desc": "Rondelles de plantain frites dorées, légèrement sucrées-salées", "origine": "Afrique centrale", "type": "Végétarien", "img": "https://i.ibb.co/fVcFWm27/Beignets-de-banane-plantain-Aloco.png"}, {"cat": "ENTRÉE AFRICAINE", "nom": "Beignets de crevettes pimentés", "desc": "Crevettes enrobées de pâte épicée, frites dorées, sauce tomate maison", "origine": "Afrique centrale", "type": "Fruits de mer", "img": "https://i.ibb.co/v4ZVxmMg/Beignets-de-crevettes-piment-s.png"}, {"cat": "ENTRÉE AFRICAINE", "nom": "Beignets de maïs au piment", "desc": "Galettes épaisses de farine de maïs au piment et oignon, frites dorées", "origine": "Centrafrique / RCA", "type": "Végétarien", "img": "https://i.ibb.co/6cN9xxKk/Beignets-de-ma-s-au-piment.png"}, {"cat": "ENTRÉE AFRICAINE", "nom": "Boulettes de manioc farcies", "desc": "Boulettes de manioc pilé farcies à la viande hachée épicée, frites", "origine": "Centrafrique / RCA", "type": "Bœuf", "img": "https://i.ibb.co/YJZvMnv/Boulettes-de-manioc-farcies.png"}, {"cat": "ENTRÉE AFRICAINE", "nom": "Brochettes de bœuf marinées", "desc": "Cubes de bœuf marinés aux épices locales, grillés sur braise", "origine": "Centrafrique / RCA", "type": "Bœuf", "img": "https://i.ibb.co/FLqmcdWD/Brochettes-de-b-uf-marin-es.png"}, {"cat": "ENTRÉE AFRICAINE", "nom": "Brochettes de chèvre épicées", "desc": "Viande de chèvre marinée au piment et oignon, grillée", "origine": "Centrafrique / RCA", "type": "Chèvre", "img": "https://i.ibb.co/GQnbRfQ8/Brochettes-de-ch-vre-pic-es.png"}, {"cat": "ENTRÉE AFRICAINE", "nom": "Brochettes de poulet braisé", "desc": "Morceaux de poulet marinés aux épices africaines, grillés", "origine": "Afrique centrale", "type": "Poulet", "img": "https://i.ibb.co/gMW232y3/Brochettes-de-poulet-brais.png"}, {"cat": "ENTRÉE AFRICAINE", "nom": "Champignons kòmbò sautés", "desc": "Champignons sauvages locaux sautés à l'ail et aux herbes", "origine": "Centrafrique / RCA", "type": "Végétarien", "img": "https://i.ibb.co/3yG1nx3q/Champignons-k-mb-saut-s.png"}, {"cat": "ENTRÉE AFRICAINE", "nom": "Crevettes sautées à l'ail", "desc": "Crevettes fraîches sautées à l'ail, piment et huile de palme", "origine": "Afrique centrale (Sangha)", "type": "Fruits de mer", "img": "https://i.ibb.co/KxYhy1BZ/Crevettes-saut-es-l-ail.png"}, {"cat": "ENTRÉE AFRICAINE", "nom": "Mini samossas au poulet", "desc": "Feuilletés triangulaires farcis de poulet épicé et légumes", "origine": "Afrique de l'Est / fusion", "type": "Poulet", "img": "https://i.ibb.co/0VtrzPWF/Mini-samossas-au-poulet.png"}, {"cat": "ENTRÉE AFRICAINE", "nom": "Moussaka centrafricaine (soupe gombo)", "desc": "Soupe épaisse de gombo à la viande de bœuf, servie en verrines", "origine": "Centrafrique / RCA", "type": "Bœuf", "img": "https://i.ibb.co/nN6TrVPc/Moussaka-centrafricaine-soupe-gombo.png"}, {"cat": "ENTRÉE AFRICAINE", "nom": "Nems aux légumes africains", "desc": "Rouleaux croustillants garnis de légumes de saison et épices", "origine": "Fusion Afrique", "type": "Végétarien", "img": "https://i.ibb.co/svJKHCLs/Nems-aux-l-gumes-africains.png"}, {"cat": "ENTRÉE AFRICAINE", "nom": "Pastels au thon", "desc": "Chaussons frits farcis de thon assaisonné aux herbes", "origine": "Afrique de l'Ouest", "type": "Poisson", "img": "https://i.ibb.co/QFvgzCjX/Pastels-au-thon.png"}, {"cat": "ENTRÉE AFRICAINE", "nom": "Salade d'amarante aux œufs et tomates", "desc": "Feuilles d'amarante blanchies, œufs durs, tomates, oignon rouge et vinaigrette", "origine": "Centrafrique / RCA", "type": "Végétarien", "img": "https://i.ibb.co/qMHhvfxf/Salade-d-amarante-aux-ufs-et-tomates.png"}, {"cat": "ENTRÉE AFRICAINE", "nom": "Salade d'avocat à la mangue", "desc": "Avocat, mangue, oignon rouge, citron et coriandre fraîche", "origine": "Afrique centrale", "type": "Végétarien", "img": "https://i.ibb.co/tPBsknH3/Salade-d-avocat-la-mangue.png"}, {"cat": "ENTRÉE AFRICAINE", "nom": "Salade de chou et carottes", "desc": "Chou blanc émincé, carottes râpées, vinaigrette citron-moutarde", "origine": "Afrique centrale", "type": "Végétarien", "img": "https://i.ibb.co/DDBCHv8k/Salade-de-chou-et-carottes.png"}, {"cat": "ENTRÉE AFRICAINE", "nom": "Salade de gombo froid", "desc": "Gombos cuits refroidis, tomate, oignon, piment vert, huile de palme", "origine": "Centrafrique / RCA", "type": "Végétarien", "img": "https://i.ibb.co/TDkZ2qFS/Salade-de-gombo-froid.png"}, {"cat": "ENTRÉE AFRICAINE", "nom": "Salade de haricots rouges épicée", "desc": "Haricots rouges, oignon, tomate, piment, huile et persil", "origine": "Centrafrique / RCA", "type": "Végétarien", "img": "https://i.ibb.co/SXJXgx3y/Salade-de-haricots-rouges-pic-e.png"}, {"cat": "ENTRÉE AFRICAINE", "nom": "Salade de papaye verte épicée", "desc": "Papaye verte râpée, piment, tomate, citron vert", "origine": "Afrique centrale", "type": "Végétarien", "img": "https://i.ibb.co/1ff3QVGN/Salade-de-papaye-verte-pic-e.png"}, {"cat": "ENTRÉE AFRICAINE", "nom": "Salade de petits pois et maïs", "desc": "Petits pois, maïs, oignon rouge, mayonnaise légère et herbes", "origine": "Afrique centrale", "type": "Végétarien", "img": "https://i.ibb.co/LjWYMMw/Salade-de-petits-pois-et-ma-s.png"}, {"cat": "ENTRÉE AFRICAINE", "nom": "Salade tiède de plantain grillé", "desc": "Plantain grillé tranché, salade verte, tomate, oignon rouge et vinaigrette", "origine": "Afrique centrale", "type": "Végétarien", "img": "https://i.ibb.co/1J7xVGYb/Salade-ti-de-de-plantain-grill.png"}, {"cat": "ENTRÉE AFRICAINE", "nom": "Soupe de haricots blancs au poisson fumé", "desc": "Haricots blancs mijotés avec poisson fumé, tomates, oignons et piment", "origine": "Centrafrique / RCA", "type": "Poisson", "img": "https://i.ibb.co/nMs9B855/Soupe-de-haricots-blancs-au-poisson-fum.png"}, {"cat": "ENTRÉE AFRICAINE", "nom": "Soupe de pistaches (nkamba)", "desc": "Bouillon de pistaches pilées, légumes feuilles et poisson séché", "origine": "Centrafrique / RCA", "type": "Poisson", "img": "https://i.ibb.co/5brSkJ5/Soupe-de-pistaches-nkamba.png"}, {"cat": "ENTRÉE AFRICAINE", "nom": "Soupe de poisson capitaine", "desc": "Bouillon riche de poisson capitaine, tomates et légumes locaux", "origine": "Centrafrique / RCA", "type": "Poisson", "img": "https://i.ibb.co/VcVGDWjt/Soupe-de-poisson-capitaine.png"}, {"cat": "ENTRÉE AFRICAINE", "nom": "Tartare de capitaine aux herbes", "desc": "Capitaine frais coupé en dés fins, citron vert, oignon rouge, piment et coriandre", "origine": "Centrafrique / RCA", "type": "Poisson", "img": "https://i.ibb.co/fdf7HW1N/Tartare-de-capitaine-aux-herbes.png"}, {"cat": "ENTRÉE AFRICAINE", "nom": "Tilapia fumé effiloché en verrine", "desc": "Tilapia fumé émietté, sauce tomate épicée, servi en mise en bouche", "origine": "Centrafrique / RCA", "type": "Poisson", "img": "https://i.ibb.co/Vp3SrJZ1/Tilapia-fum-effiloch-en-verrine.png"}, {"cat": "ENTRÉE AFRICAINE", "nom": "Velouté de courge au gingembre", "desc": "Courge locale mixée avec gingembre frais, oignon, bouillon et lait de coco", "origine": "Afrique centrale", "type": "Végétarien", "img": "https://i.ibb.co/2YLhM7Sy/Velout-de-courge-au-gingembre.png"}, {"cat": "ENTRÉE AFRICAINE", "nom": "Velouté de patate douce au piment", "desc": "Velouté chaud de patate douce, piment doux, oignon et lait de coco", "origine": "Afrique centrale", "type": "Végétarien", "img": "https://i.ibb.co/JwBHgK91/Velout-de-patate-douce-au-piment.png"}, {"cat": "ENTRÉE AFRICAINE", "nom": "Verrine avocat-mangue au citron vert", "desc": "Dés d'avocat et mangue fraîche, vinaigrette citron vert-piment, noix de coco râpée", "origine": "Afrique centrale", "type": "Végétarien", "img": "https://i.ibb.co/dwsSRmVx/Verrine-avocat-mangue-au-citron-vert.png"}, {"cat": "ENTRÉE AFRICAINE", "nom": "Verrine de crevettes à l'avocat épicé", "desc": "Mousse d'avocat pimentée en verrine, crevettes marinées citron-ail par-dessus", "origine": "Afrique centrale", "type": "Fruits de mer", "img": "https://i.ibb.co/SDvSqdgW/Verrine-de-crevettes-l-avocat-pic.png"}, {"cat": "ENTRÉE EUROPÉENNE", "nom": "Bruschetta tomate basilic", "desc": "Tranches de pain grillé, tomates fraîches, basilic, ail, huile d'olive", "origine": "Italie", "type": "Végétarien", "img": "https://i.ibb.co/Hf8H6gT5/Bruschetta-tomate-basilic.png"}, {"cat": "ENTRÉE EUROPÉENNE", "nom": "Carpaccio de bœuf", "desc": "Fines tranches de bœuf cru, huile d'olive, câpres, parmesan", "origine": "Italie", "type": "Bœuf", "img": "https://i.ibb.co/ksqndZhk/Carpaccio-de-b-uf.png"}, {"cat": "ENTRÉE EUROPÉENNE", "nom": "Crème de champignons en verrine", "desc": "Velouté de champignons de Paris, crème fraîche, persil, servi froid", "origine": "France", "type": "Végétarien", "img": "https://i.ibb.co/gMmf2DN0/Cr-me-de-champignons-en-verrine.png"}, {"cat": "ENTRÉE EUROPÉENNE", "nom": "Feuilleté au fromage", "desc": "Chausson feuilleté garni de fromage fondu et fines herbes", "origine": "France", "type": "Végétarien", "img": "https://i.ibb.co/35HJd97H/Feuillet-au-fromage.png"}, {"cat": "ENTRÉE EUROPÉENNE", "nom": "Melon au jambon", "desc": "Quartiers de melon enroulés de jambon sec", "origine": "France / Espagne", "type": "Porc", "img": "https://i.ibb.co/0yRH2tjf/Melon-au-jambon.png"}, {"cat": "ENTRÉE EUROPÉENNE", "nom": "Salade césar au poulet", "desc": "Laitue, poulet grillé, croûtons, parmesan, sauce césar", "origine": "International", "type": "Poulet", "img": "https://i.ibb.co/7dkRWwfM/Salade-c-sar-au-poulet.png"}, {"cat": "ENTRÉE EUROPÉENNE", "nom": "Salade de chou rouge aux pommes", "desc": "Chou rouge, pommes, noix, vinaigrette au vinaigre balsamique", "origine": "France / Allemagne", "type": "Végétarien", "img": "https://i.ibb.co/tMrtxXjT/Salade-de-chou-rouge-aux-pommes.png"}, {"cat": "ENTRÉE EUROPÉENNE", "nom": "Salade de crudités au citron", "desc": "Carottes râpées, chou blanc, tomates, oignon, vinaigrette citron et huile", "origine": "France", "type": "Végétarien", "img": "https://i.ibb.co/DHNw4Shc/Salade-de-crudit-s-au-citron.png"}, {"cat": "ENTRÉE EUROPÉENNE", "nom": "Salade de tomates mozzarella", "desc": "Tomates fraîches, mozzarella, basilic, huile d'olive, vinaigre balsamique", "origine": "Italie", "type": "Végétarien", "img": "https://i.ibb.co/gZZ04TR7/Salade-de-tomates-mozzarella.png"}, {"cat": "ENTRÉE EUROPÉENNE", "nom": "Salade niçoise revisitée", "desc": "Thon, haricots verts, olives, œufs durs, tomates, vinaigrette moutarde", "origine": "France", "type": "Poisson", "img": "https://i.ibb.co/LztTNBdD/Salade-ni-oise-revisit-e.png"}, {"cat": "ENTRÉE EUROPÉENNE", "nom": "Soupe de légumes multicolore", "desc": "Velouté de légumes de saison, coloré et savoureux", "origine": "France", "type": "Végétarien", "img": "https://i.ibb.co/v6b7YxSR/Soupe-de-l-gumes-multicolore.png"}, {"cat": "ENTRÉE EUROPÉENNE", "nom": "Soupe de poulet aux légumes et gingembre", "desc": "Bouillon de poulet clair avec légumes de saison et gingembre frais", "origine": "France / fusion", "type": "Poulet", "img": "https://i.ibb.co/4ZmtZTDt/Soupe-de-poulet-aux-l-gumes-et-gingembre.png"}, {"cat": "ENTRÉE EUROPÉENNE", "nom": "Soupe à l'oignon gratinée", "desc": "Soupe d'oignons caramélisés, croûton et fromage gratiné", "origine": "France", "type": "Végétarien", "img": "https://i.ibb.co/wZTtJDrp/Soupe-l-oignon-gratin-e.png"}, {"cat": "ENTRÉE EUROPÉENNE", "nom": "Taboulé libanais", "desc": "Semoule fine, tomate, persil, menthe, citron et huile d'olive", "origine": "Liban / France", "type": "Végétarien", "img": "https://i.ibb.co/7drS4y11/Taboul-libanais.png"}, {"cat": "ENTRÉE EUROPÉENNE", "nom": "Velouté de patate douce", "desc": "Velouté onctueux de patate douce, gingembre et lait de coco", "origine": "France / fusion", "type": "Végétarien", "img": "https://i.ibb.co/mV4jD13X/Velout-de-patate-douce.png"}, {"cat": "ENTRÉE EUROPÉENNE", "nom": "Verrine de guacamole aux crevettes", "desc": "Guacamole crémeux au piment et citron vert, crevettes sautées à l'ail", "origine": "France / Mexique", "type": "Fruits de mer", "img": "https://i.ibb.co/C5kdPLDx/Verrine-de-guacamole-aux-crevettes.png"}, {"cat": "ENTRÉE EUROPÉENNE", "nom": "Vol-au-vent au poulet", "desc": "Croûtes feuilletées garnies de poulet en sauce béchamel et champignons", "origine": "Belgique / France", "type": "Poulet", "img": "https://i.ibb.co/PvrvQGFF/Vol-au-vent-au-poulet.png"}, {"cat": "ENTRÉE EUROPÉENNE", "nom": "Œufs cocotte aux légumes du marché", "desc": "Œufs cuits en cocotte sur lit de légumes locaux, crème et herbes", "origine": "France", "type": "Végétarien", "img": "https://i.ibb.co/Y7bmPLmb/ufs-cocotte-aux-l-gumes-du-march.png"}, {"cat": "ENTRÉE EUROPÉENNE", "nom": "Œufs mimosa farcis", "desc": "Œufs durs farcis de jaune, mayonnaise, moutarde et ciboulette", "origine": "France", "type": "Végétarien", "img": "https://i.ibb.co/W47Q5FwC/ufs-mimosa-farcis.png"}, {"cat": "PLAT AFRICAIN", "nom": "Amarante douce (gboudou) aux champignons", "desc": "Feuilles d'amarante sautées avec champignons kòmbò, ail et huile de palme", "origine": "Centrafrique / RCA", "type": "Végétarien", "img": "https://i.ibb.co/W4kHkv4F/Feuilles-d-amarante-saut-es-avec-champignons-k-mb-ail-et-huile-de-palme.png"}, {"cat": "PLAT AFRICAIN", "nom": "Attieké au poisson grillé", "desc": "Semoule de manioc fermentée servie avec poisson grillé et sauce tomate", "origine": "Côte d'Ivoire / Afrique de l'Ouest", "type": "Poisson", "img": "https://i.ibb.co/FbWvmwDp/Attiek-au-poisson-grill.png"}, {"cat": "PLAT AFRICAIN", "nom": "Attieké au poulet braisé", "desc": "Attieké (couscous de manioc) accompagné de poulet braisé épicé et salade", "origine": "Côte d'Ivoire / Afrique de l'Ouest", "type": "Poulet", "img": "https://i.ibb.co/93zWrQrQ/Attiek-au-poulet-brais.png"}, {"cat": "PLAT AFRICAIN", "nom": "Boulettes de viande hachée farcies", "desc": "Boulettes de bœuf haché épicé avec cœur de légumes, cuites en sauce tomate", "origine": "Centrafrique / RCA", "type": "Bœuf", "img": "https://i.ibb.co/tMLRFx2d/Boulettes-de-viande-hach-e-farcies.png"}, {"cat": "PLAT AFRICAIN", "nom": "Bœuf au gombo et tomates", "desc": "Viande de bœuf mijotée avec gombos, tomates et piment", "origine": "Centrafrique / RCA", "type": "Bœuf", "img": "https://i.ibb.co/rRMbc6Cf/B-uf-au-gombo-et-tomates.png"}, {"cat": "PLAT AFRICAIN", "nom": "Cabri braisé farci couscous et légumes", "desc": "Cabri braisé entier farci de couscous aux légumes et épices africaines", "origine": "Centrafrique / RCA", "type": "Chèvre", "img": "https://i.ibb.co/7fGWVpM/Cabri-brais-farci-couscous-et-l-gumes.png"}, {"cat": "PLAT AFRICAIN", "nom": "Cabri en sauce pistache", "desc": "Cabri mijoté dans une sauce aux pistaches pilées et légumes", "origine": "Centrafrique / RCA", "type": "Chèvre", "img": "https://i.ibb.co/WWj6phQc/Cabri-en-sauce-pistache.png"}, {"cat": "PLAT AFRICAIN", "nom": "Capitaine grillé sauce mbanga", "desc": "Poisson capitaine grillé nappé de sauce à l'huile de palme et tomates", "origine": "Centrafrique / RCA", "type": "Poisson", "img": "https://i.ibb.co/ZzNVjpfY/Capitaine-grill-sauce-mbanga.png"}, {"cat": "PLAT AFRICAIN", "nom": "Chenilles makongo sautées à l'ail", "desc": "Chenilles makongo sautées à l'ail, piment et oignon, avec gozo de manioc", "origine": "Centrafrique / RCA", "type": "Insectes", "img": "https://i.ibb.co/zT4ptXQX/Chenilles-makongo-saut-es-l-ail.png"}, {"cat": "PLAT AFRICAIN", "nom": "Chikwangue accompagnement", "desc": "Pain de manioc fermenté cuit en feuilles de bananier", "origine": "Centrafrique / RCA", "type": "Végétarien", "img": "https://i.ibb.co/7JpK3kT5/Chikwangue-accompagnement.png"}, {"cat": "PLAT AFRICAIN", "nom": "Couscous de mil aux légumes", "desc": "Couscous de mil vapeur servi avec ragoût de légumes africains de saison", "origine": "Centrafrique / RCA", "type": "Végétarien", "img": "https://i.ibb.co/6cJJBm24/Couscous-de-mil-aux-l-gumes.png"}, {"cat": "PLAT AFRICAIN", "nom": "Dongo ti keke (bois d'anisette) au poisson", "desc": "Feuilles de dongo ti keke préparées avec poisson fumé et épices locales", "origine": "Centrafrique / RCA", "type": "Poisson", "img": "https://i.ibb.co/VWWY9M7M/Dongo-ti-keke-bois-d-anisette-au-poisson.png"}, {"cat": "PLAT AFRICAIN", "nom": "Foutou / Fufu de manioc", "desc": "Pâte de manioc pilé, à accompagner de sauces variées", "origine": "Afrique centrale", "type": "Végétarien", "img": "https://i.ibb.co/03b9nr3/Foutou-Fufu-de-manioc.png"}, {"cat": "PLAT AFRICAIN", "nom": "Gboudou (feuilles d'amarante)", "desc": "Feuilles d'amarante cuites avec bœuf ou crevettes et pâte d'arachide", "origine": "Centrafrique / RCA", "type": "Bœuf", "img": "https://i.ibb.co/hF9XCyCq/Gboudou-feuilles-d-amarante.png"}, {"cat": "PLAT AFRICAIN", "nom": "Gibier en sauce (antilope ou sanglier)", "desc": "Viande de brousse mijotée en sauce épaisse aux épices et légumes", "origine": "Centrafrique / RCA", "type": "Gibier", "img": "https://i.ibb.co/WWkVy6Q0/Gibier-en-sauce-antilope-ou-sanglier.png"}, {"cat": "PLAT AFRICAIN", "nom": "Gozo ti manioc", "desc": "Boule de manioc traditionnelle centrafricaine, accompagnement universel", "origine": "Centrafrique / RCA", "type": "Végétarien", "img": "https://i.ibb.co/QjCnDGcT/Gozo-ti-manioc.png"}, {"cat": "PLAT AFRICAIN", "nom": "Haricots rouges en sauce épaisse", "desc": "Haricots rouges cuits longuement, sauce tomate épaisse, oignon, piment", "origine": "Centrafrique / RCA", "type": "Végétarien", "img": "https://i.ibb.co/Y4yh0jvF/Haricots-rouges-en-sauce-paisse.png"}, {"cat": "PLAT AFRICAIN", "nom": "Igname pilée aux sauces variées", "desc": "Igname cuite et pilée en boule lisse, servie avec sauce arachide ou gombo", "origine": "Centrafrique / RCA", "type": "Végétarien", "img": "https://i.ibb.co/gZ426cj6/Igname-pil-e-aux-sauces-vari-es.png"}, {"cat": "PLAT AFRICAIN", "nom": "Kanda (boulettes bœuf-courge)", "desc": "Boulettes de bœuf aux graines de courge en sauce tomate, riz blanc", "origine": "Centrafrique / RCA", "type": "Bœuf", "img": "https://i.ibb.co/dsJxx32J/Kanda-boulettes-b-uf-courge.png"}, {"cat": "PLAT AFRICAIN", "nom": "Kanda ti nyama (gombo-arachide)", "desc": "Boulettes de viande avec sauce gombo et cacahuètes", "origine": "Centrafrique / RCA", "type": "Bœuf", "img": "https://i.ibb.co/VW8kgSxY/Kanda-ti-nyama-gombo-arachide.png"}, {"cat": "PLAT AFRICAIN", "nom": "Koko na nyama (koko au bœuf)", "desc": "Feuilles de gnetum à la pâte d'arachide et viande de bœuf", "origine": "Centrafrique / RCA", "type": "Bœuf", "img": "https://i.ibb.co/MxTbzR1F/Koko-na-nyama-koko-au-b-uf.png"}, {"cat": "PLAT AFRICAIN", "nom": "Kpoto ngoundja (feuilles manioc à la Yakoma)", "desc": "Feuilles de manioc légèrement pilées avec arachides, servi avec plantain", "origine": "Centrafrique / RCA", "type": "Végétarien", "img": "https://i.ibb.co/xt35NfTd/Kpoto-ngoundja-feuilles-manioc-la-Yakoma.png"}, {"cat": "PLAT AFRICAIN", "nom": "Kuru sousou (bolets et poisson fumé)", "desc": "Champignons bolets sautés avec poisson fumé, huile de palme et épices", "origine": "Centrafrique / RCA", "type": "Poisson", "img": "https://i.ibb.co/Zz2D4LKn/Champignons-bolets-saut-s-avec-poisson-fum-huile-de-palme-et-pices.png"}, {"cat": "PLAT AFRICAIN", "nom": "Maboké (poisson en papillote)", "desc": "Poisson entier mariné épicé, cuit dans des feuilles de bananier", "origine": "Centrafrique / RCA", "type": "Poisson", "img": "https://i.ibb.co/qLvMVqv5/Mabok-poisson-en-papillote.png"}, {"cat": "PLAT AFRICAIN", "nom": "Mafé (ragoût arachide)", "desc": "Ragoût de viande en sauce d'arachide, tomates et épices", "origine": "Afrique de l'Ouest", "type": "Bœuf", "img": "https://i.ibb.co/4H0wdB0/Maf-rago-t-arachide.png"}, {"cat": "PLAT AFRICAIN", "nom": "Makongo (chenilles au koko)", "desc": "Chenilles makongo cuisinées avec feuilles de gnetum, huile de palme et épices", "origine": "Centrafrique / RCA", "type": "Insectes", "img": "https://i.ibb.co/b5NxSM4v/Makongo-chenilles-au-koko.png"}, {"cat": "PLAT AFRICAIN", "nom": "Ndolé au bœuf et crevettes", "desc": "Feuilles de ndolé, crevettes séchées, bœuf, épices", "origine": "Cameroun / Afrique centrale", "type": "Bœuf + Crevettes", "img": "https://i.ibb.co/RpD5rdKk/Ndol-au-b-uf-et-crevettes.png"}, {"cat": "PLAT AFRICAIN", "nom": "Ngou ti Kassa (taro-plantain à l'huile de palme)", "desc": "Ragoût de taro et banane plantain assaisonné d'huile de palme et pâte d'arachide", "origine": "Centrafrique / RCA", "type": "Végétarien", "img": "https://i.ibb.co/xTRN03q/Ngou-ti-Kassa-taro-plantain-l-huile-de-palme.png"}, {"cat": "PLAT AFRICAIN", "nom": "Ngoundja (feuilles manioc-arachide)", "desc": "Sauce de feuilles de manioc pilées à la pâte d'arachide et bœuf", "origine": "Centrafrique / RCA", "type": "Bœuf", "img": "https://i.ibb.co/CpM2NHCR/Ngoundja-feuilles-manioc-arachide.png"}, {"cat": "PLAT AFRICAIN", "nom": "Patate douce braisée sauce arachide", "desc": "Patate douce braisée nappée de sauce cacahuètes épicée", "origine": "Centrafrique / RCA", "type": "Végétarien", "img": "https://i.ibb.co/wFzZ241d/Patate-douce-brais-e-sauce-arachide.png"}, {"cat": "PLAT AFRICAIN", "nom": "Plantain au four farci", "desc": "Plantain mûr farci de viande hachée épicée et fromage fondu", "origine": "Afrique centrale", "type": "Bœuf", "img": "https://i.ibb.co/DD9cKDVS/Plantain-m-r-farci-de-viande-hach-e-pic-e-et-fromage-fondu.png"}, {"cat": "PLAT AFRICAIN", "nom": "Poisson chat en sauce locale", "desc": "Poisson chat (kpété) cuit en sauce tomate aux oignons, piment et huile de palme", "origine": "Centrafrique / RCA", "type": "Poisson", "img": "https://i.ibb.co/wrM3GFY2/Poisson-chat-en-sauce-locale.png"}, {"cat": "PLAT AFRICAIN", "nom": "Poulet DG (Directeur Général)", "desc": "Poulet frit puis mijoté avec banane plantain, légumes et épices", "origine": "Cameroun / Afrique centrale", "type": "Poulet", "img": "https://i.ibb.co/d4MJtw7j/Poulet-DG-Directeur-G-n-ral.png"}, {"cat": "PLAT AFRICAIN", "nom": "Poulet braisé centrafricain", "desc": "Poulet entier braisé aux épices locales, tomates, oignons et piment", "origine": "Centrafrique / RCA", "type": "Poulet", "img": "https://i.ibb.co/Kc89WP0H/Poulet-brais-centrafricain.png"}, {"cat": "PLAT AFRICAIN", "nom": "Poulet farci au couscous de mil", "desc": "Poulet entier farci de couscous de mil, légumes et épices, rôti au four", "origine": "Centrafrique / RCA", "type": "Poulet", "img": "https://i.ibb.co/bMFwVRgv/Poulet-farci-au-couscous-de-mil.png"}, {"cat": "PLAT AFRICAIN", "nom": "Poulet yassa", "desc": "Poulet mariné et cuit dans une sauce d'oignons caramélisés et citron", "origine": "Sénégal / Afrique de l'Ouest", "type": "Poulet", "img": "https://i.ibb.co/20JXntkH/Poulet-yassa.png"}, {"cat": "PLAT AFRICAIN", "nom": "Riz au capitaine (Thiébou dien)", "desc": "Riz cuit dans une sauce tomate, poisson capitaine farci aux herbes", "origine": "Sénégal / Afrique de l'Ouest", "type": "Poisson", "img": "https://i.ibb.co/x9cVjSy/Riz-au-capitaine-Thi-bou-dien.png"}, {"cat": "PLAT AFRICAIN", "nom": "Riz blanc sauce gombo au crabe", "desc": "Riz blanc servi avec sauce gombo épaisse aux crabes de rivière", "origine": "Centrafrique / RCA", "type": "Fruits de mer", "img": "https://source.unsplash.com/400x280/?riz%20blanc%20sauce%20gombo%20au%20crabe%20food"}, {"cat": "PLAT AFRICAIN", "nom": "Riz jollof au poulet", "desc": "Riz cuit dans sauce tomate épicée avec poulet, poivrons et épices", "origine": "Afrique de l'Ouest", "type": "Poulet", "img": "https://i.ibb.co/rRY1XSc4/Riz-jollof-au-poulet.png"}, {"cat": "PLAT AFRICAIN", "nom": "Riz sauté aux légumes africains", "desc": "Riz pilaf aux légumes de saison, épices et herbes fraîches", "origine": "Afrique centrale", "type": "Végétarien", "img": "https://i.ibb.co/BVfdFqMm/Riz-saut-aux-l-gumes-africains.png"}, {"cat": "PLAT AFRICAIN", "nom": "Saka saka (feuilles manioc-palme)", "desc": "Feuilles de manioc pilées, huile de palme, poisson ou viande", "origine": "Afrique centrale", "type": "Poisson/Bœuf", "img": "https://i.ibb.co/HfcpbCkG/Saka-saka-feuilles-manioc-palme.png"}, {"cat": "PLAT AFRICAIN", "nom": "Sauce nguiriki à la viande", "desc": "Sauce épaisse et gluante à base d'épice nguiriki, viande de bœuf et arachide", "origine": "Centrafrique / RCA", "type": "Bœuf", "img": "https://i.ibb.co/BH2D3kVX/Sauce-nguiriki-la-viande.png"}, {"cat": "PLAT AFRICAIN", "nom": "Soupe de queue de bœuf", "desc": "Queue de bœuf mijotée longuement avec légumes, tomate et épices", "origine": "Centrafrique / RCA", "type": "Bœuf", "img": "https://i.ibb.co/QFD4LjKP/Soupe-de-queue-de-b-uf.png"}, {"cat": "PLAT AFRICAIN", "nom": "Taro mijoté au bœuf et huile de palme", "desc": "Taro cuit avec bœuf, huile de palme, piment et oignons", "origine": "Centrafrique / RCA", "type": "Bœuf", "img": "https://i.ibb.co/cKjsM22r/Taro-mijot-au-b-uf-et-huile-de-palme.png"}, {"cat": "PLAT AFRICAIN", "nom": "Termites grillées et assaisonnées", "desc": "Termites grillées à sec, assaisonnées de sel et piment, servies en en-cas", "origine": "Centrafrique / RCA", "type": "Insectes", "img": "https://i.ibb.co/931vBw64/Termites-grill-es-et-assaisonn-es.png"}, {"cat": "PLAT AFRICAIN", "nom": "Tilapia en sauce mafé", "desc": "Tilapia cuit dans une sauce aux cacahuètes, tomate et épices", "origine": "Afrique centrale", "type": "Poisson", "img": "https://i.ibb.co/Wpy3Y3FM/Tilapia-en-sauce-maf.png"}, {"cat": "PLAT AFRICAIN", "nom": "Tilapia frit à la sauce tomate", "desc": "Tilapia entier frit doré, servi avec sauce tomate pimentée et riz", "origine": "Centrafrique / RCA", "type": "Poisson", "img": "https://i.ibb.co/6RwtTwTK/Tilapia-frit-la-sauce-tomate.png"}, {"cat": "PLAT AFRICAIN", "nom": "Tripes en sauce pimentée", "desc": "Tripes de bœuf nettoyées et mijotées avec tomates, oignons et piment", "origine": "Centrafrique / RCA", "type": "Abats bœuf", "img": "https://i.ibb.co/CKB2pRTw/Tripes-en-sauce-piment-e.png"}, {"cat": "PLAT AFRICAIN", "nom": "Viande boucanée au koko", "desc": "Viande de bœuf boucanée cuite avec feuilles de gnetum et huile de palme", "origine": "Centrafrique / RCA", "type": "Bœuf fumé", "img": "https://i.ibb.co/pBydzv0T/Viande-boucan-e-au-koko.png"}, {"cat": "PLAT AFRICAIN", "nom": "Viande fumée (boucanée) en sauce tomate", "desc": "Viande de bœuf boucanée mijotée en sauce tomate, oignons et piment", "origine": "Centrafrique / RCA", "type": "Bœuf fumé", "img": "https://i.ibb.co/7s5PJnM/Viande-fum-e-boucan-e-en-sauce-tomate.png"}, {"cat": "PLAT AFRICAIN", "nom": "Yabanda (koko au poisson fumé)", "desc": "Feuilles de gnetum (koko) préparées avec poisson fumé, huile et oignons", "origine": "Centrafrique / RCA", "type": "Poisson", "img": "https://i.ibb.co/27r7gXYW/Yabanda-koko-au-poisson-fum.png"}, {"cat": "PLAT AFRICAIN", "nom": "Épinards au lait de coco et crevettes", "desc": "Épinards frais cuits dans le lait de coco avec crevettes et épices", "origine": "Afrique centrale", "type": "Fruits de mer", "img": "https://i.ibb.co/jvqT0gZ6/pinards-au-lait-de-coco-et-crevettes.png"}, {"cat": "PLAT AFRICAIN", "nom": "Épinards sautés au poisson fumé", "desc": "Épinards cuits à l'huile de palme avec poisson fumé et piment", "origine": "Centrafrique / RCA", "type": "Poisson", "img": "https://i.ibb.co/pryBVYZp/pinards-saut-s-au-poisson-fum.png"}, {"cat": "PLAT AFRICAIN", "nom": "Épinards sautés à l'oignon et haricots verts", "desc": "Épinards frais sautés avec oignons, haricots verts, ail et piment", "origine": "Centrafrique / RCA", "type": "Végétarien", "img": "https://i.ibb.co/C5XmXHW9/pinards-saut-s-l-oignon-et-haricots-verts.png"}, {"cat": "PLAT EUROPÉEN", "nom": "Blanquette de veau", "desc": "Veau en sauce blanche crémeuse, champignons, carottes, riz", "origine": "France", "type": "Veau", "img": "https://i.ibb.co/Swq8cHkY/Blanquette-de-veau.png"}, {"cat": "PLAT EUROPÉEN", "nom": "Bœuf bourguignon", "desc": "Bœuf mijoté au vin rouge (ou bouillon), carottes, oignons, champignons", "origine": "France", "type": "Bœuf", "img": "https://i.ibb.co/fYBnLc68/B-uf-bourguignon.png"}, {"cat": "PLAT EUROPÉEN", "nom": "Chou farci à la viande", "desc": "Feuilles de chou farcies de bœuf haché et riz, sauce tomate", "origine": "France / Europe de l'Est", "type": "Bœuf", "img": "https://i.ibb.co/NnQ4xYHb/Chou-farci-la-viande.png"}, {"cat": "PLAT EUROPÉEN", "nom": "Coq au vin", "desc": "Poulet mijoté dans une sauce au vin rouge avec lardons et champignons", "origine": "France", "type": "Poulet", "img": "https://i.ibb.co/dsDbtR22/Coq-au-vin.png"}, {"cat": "PLAT EUROPÉEN", "nom": "Couscous royal", "desc": "Semoule vapeur, viande d'agneau, poulet, merguez, légumes, bouillon", "origine": "Maghreb / France", "type": "Agneau + Poulet", "img": "https://i.ibb.co/Kcbb9KvD/Couscous-royal.png"}, {"cat": "PLAT EUROPÉEN", "nom": "Gratin dauphinois", "desc": "Pommes de terre en lamelles gratinées à la crème et fromage", "origine": "France", "type": "Végétarien", "img": "https://i.ibb.co/gMzRnCy4/Gratin-dauphinois.png"}, {"cat": "PLAT EUROPÉEN", "nom": "Gratin de chou-fleur au fromage", "desc": "Chou-fleur en gratin béchamel, fromage gratiné, noix de muscade", "origine": "France", "type": "Végétarien", "img": "https://i.ibb.co/2YggvLcx/Gratin-de-chou-fleur-au-fromage.png"}, {"cat": "PLAT EUROPÉEN", "nom": "Haricots verts sautés au lard", "desc": "Haricots verts fins, lardons croustillants, ail, sel et poivre", "origine": "France", "type": "Porc", "img": "https://i.ibb.co/g83GWwr/Haricots-verts-saut-s-au-lard.png"}, {"cat": "PLAT EUROPÉEN", "nom": "Lasagnes à la bolognaise", "desc": "Pâtes en couches avec sauce tomate-viande hachée et béchamel gratinée", "origine": "Italie / France", "type": "Bœuf", "img": "https://i.ibb.co/W4ZGwFTg/Lasagnes-la-bolognaise.png"}, {"cat": "PLAT EUROPÉEN", "nom": "Osso buco à la milanaise", "desc": "Jarret de veau mijoté à la tomate, vin blanc, gremolata", "origine": "Italie", "type": "Veau", "img": "https://i.ibb.co/Lhn63h0J/Osso-buco-la-milanaise.png"}, {"cat": "PLAT EUROPÉEN", "nom": "Poulet rôti aux herbes", "desc": "Poulet entier rôti, thym, ail, beurre, légumes du four", "origine": "France", "type": "Poulet", "img": "https://i.ibb.co/B5hvjDKK/Poulet-r-ti-aux-herbes.png"}, {"cat": "PLAT EUROPÉEN", "nom": "Poulet à la crème et champignons", "desc": "Poulet en sauce crémeuse aux champignons, thym et vin blanc", "origine": "France", "type": "Poulet", "img": "https://i.ibb.co/gLT1MD1t/Poulet-la-cr-me-et-champignons.png"}, {"cat": "PLAT EUROPÉEN", "nom": "Pâtes carbonara", "desc": "Spaghettis, lardons, œuf, parmesan, poivre", "origine": "Italie", "type": "Porc", "img": "https://i.ibb.co/TxFX3p1y/P-tes-carbonara.png"}, {"cat": "PLAT EUROPÉEN", "nom": "Quiche lorraine", "desc": "Tarte salée garnie de lardons, crème, œufs et fromage", "origine": "France", "type": "Porc", "img": "https://i.ibb.co/22Y9Wpj/Quiche-lorraine.png"}, {"cat": "PLAT EUROPÉEN", "nom": "Ratatouille provençale", "desc": "Légumes méditerranéens mijotés (aubergine, courgette, tomate, poivron)", "origine": "France", "type": "Végétarien", "img": "https://i.ibb.co/kVvJFqnG/Ratatouille-proven-ale.png"}, {"cat": "PLAT EUROPÉEN", "nom": "Riz à la valenciana (paëlla)", "desc": "Riz safrané aux fruits de mer, poulet, poivrons", "origine": "Espagne / adaptation", "type": "Mixte", "img": "https://i.ibb.co/d458WxBW/Riz-la-valenciana-pa-lla.png"}, {"cat": "PLAT EUROPÉEN", "nom": "Steak au poivre sauce crémeuse", "desc": "Steak de bœuf, sauce au poivre noir, crème et beurre", "origine": "France", "type": "Bœuf", "img": "https://i.ibb.co/xS4h0Y7n/Steak-au-poivre-sauce-cr-meuse.png"}, {"cat": "PLAT EUROPÉEN", "nom": "Tajine d'agneau aux légumes", "desc": "Agneau mijoté aux épices, légumes de saison, en cocotte", "origine": "Maroc / Afrique du Nord", "type": "Agneau", "img": "https://i.ibb.co/N6L8RMrx/Tajine-d-agneau-aux-l-gumes.png"}, {"cat": "PLAT EUROPÉEN", "nom": "Tarte aux légumes du jardin", "desc": "Tarte salée garnie de légumes frais, fromage et herbes", "origine": "France", "type": "Végétarien", "img": "https://i.ibb.co/hF89r67Z/Tarte-aux-l-gumes-du-jardin.png"}, {"cat": "PLAT EUROPÉEN", "nom": "Épinards à la crème", "desc": "Épinards fondants à la crème fraîche, ail, noix de muscade, beurre", "origine": "France / Belgique", "type": "Végétarien", "img": "https://i.ibb.co/YBw951Cv/pinards-la-cr-me.png"}, {"cat": "MIGNARDISE SALÉE", "nom": "Bouchées feuilletées au fromage", "desc": "Petits feuilletés croustillants au fromage fondu, cumin et herbes", "origine": "France / adaptation", "type": "Fromage", "img": "https://i.ibb.co/7J3w5w3t/Bouch-es-feuillet-es-au-fromage.png"}, {"cat": "MIGNARDISE SALÉE", "nom": "Boulettes de poulet sauce bissap", "desc": "Boulettes de poulet épicées nappées de sauce hibiscus", "origine": "Fusion Afrique", "type": "Poulet", "img": "https://i.ibb.co/6RmbtJjh/Boulettes-de-poulet-sauce-bissap.png"}, {"cat": "MIGNARDISE SALÉE", "nom": "Brochettes de bœuf caramélisées", "desc": "Mini-brochettes de bœuf mariné sauce miel-gingembre-ail, grillées", "origine": "Centrafrique / RCA", "type": "Bœuf", "img": "https://i.ibb.co/nsZpY2KM/Brochettes-de-b-uf-caram-lis-es.png"}, {"cat": "MIGNARDISE SALÉE", "nom": "Canapés au tilapia fumé et avocat", "desc": "Toast croustillant, mousse d'avocat, effiloché de tilapia fumé, citron", "origine": "Centrafrique / RCA", "type": "Poisson", "img": "https://i.ibb.co/gb2mPDYr/Canap-s-au-tilapia-fum-et-avocat.png"}, {"cat": "MIGNARDISE SALÉE", "nom": "Chips de manioc assaisonnées", "desc": "Tranches de manioc finement coupées, frites et assaisonnées sel-piment", "origine": "Centrafrique / RCA", "type": "Végétarien", "img": "https://i.ibb.co/pBs6ryNw/Chips-de-manioc-assaisonn-es.png"}, {"cat": "MIGNARDISE SALÉE", "nom": "Chips de plantain maison salées", "desc": "Plantain vert finement tranché et frit, assaisonné au sel et piment", "origine": "Centrafrique / RCA", "type": "Végétarien", "img": "https://i.ibb.co/1Vb8GYP/Chips-de-plantain-maison-sal-es.png"}, {"cat": "MIGNARDISE SALÉE", "nom": "Mini-accras de crevettes", "desc": "Petits beignets de crevettes hachées épicées, frits et croustillants", "origine": "Afrique centrale", "type": "Fruits de mer", "img": "https://i.ibb.co/Vcw8SSYD/Mini-accras-de-crevettes.png"}, {"cat": "MIGNARDISE SALÉE", "nom": "Mini-brochettes de crevettes grillées", "desc": "Crevettes marinées ail-citron, grillées en mini-brochettes", "origine": "Afrique centrale", "type": "Fruits de mer", "img": "https://i.ibb.co/tMZ689Qw/Mini-brochettes-de-crevettes-grill-es.png"}, {"cat": "MIGNARDISE SALÉE", "nom": "Mini-brochettes poulet-arachide", "desc": "Cubes de poulet grillés sur brochette, sauce cacahuète épicée", "origine": "Afrique centrale", "type": "Poulet", "img": "https://i.ibb.co/4wCQQ39Q/Mini-brochettes-poulet-arachide.png"}, {"cat": "MIGNARDISE SALÉE", "nom": "Mini-empanadas au bœuf épicé", "desc": "Petits chaussons de bœuf haché aux épices africaines, cuits au four", "origine": "Fusion Afrique", "type": "Bœuf", "img": "https://i.ibb.co/277hzrBg/Mini-empanadas-au-b-uf-pic.png"}, {"cat": "MIGNARDISE SALÉE", "nom": "Mini-feuilletés au bœuf épicé", "desc": "Petits chaussons feuilletés farcis de bœuf haché aux épices africaines", "origine": "Fusion Afrique", "type": "Bœuf", "img": "https://i.ibb.co/8g7bbqpZ/Mini-feuillet-s-au-b-uf-pic.png"}, {"cat": "MIGNARDISE SALÉE", "nom": "Mini-samossas au thon épicé", "desc": "Feuilles de brick triangulaires farcies de thon pimenté et herbes", "origine": "Afrique de l'Ouest", "type": "Poisson", "img": "https://i.ibb.co/mVyzwP97/Mini-samossas-au-thon-pic.png"}, {"cat": "MIGNARDISE SALÉE", "nom": "Nems au poulet et légumes africains", "desc": "Rouleaux de printemps de poulet émincé, carottes, chou et gingembre", "origine": "Fusion Afrique", "type": "Poulet", "img": "https://i.ibb.co/PGvRTq6D/Nems-au-poulet-et-l-gumes-africains.png"}, {"cat": "MIGNARDISE SALÉE", "nom": "Verrines de mousse d'avocat pimentée", "desc": "Mousse onctueuse d'avocat au piment, coriandre et citron vert en verrine", "origine": "Fusion Afrique", "type": "Végétarien", "img": "https://i.ibb.co/6RPfBfMZ/Mousse-onctueuse-d-avocat-au-piment-coriandre-et-citron-vert-en-verrine.png"}, {"cat": "MIGNARDISE SUCRÉE", "nom": "Biscuits à la cannelle et gingembre", "desc": "Petits biscuits épicés à la cannelle et gingembre, croquants et parfumés", "origine": "Afrique centrale", "type": "Sucrée", "img": "https://i.ibb.co/yFZSqMw4/Biscuits-la-cannelle-et-gingembre.png"}, {"cat": "MIGNARDISE SUCRÉE", "nom": "Bouchées coco-chocolat au lait concentré", "desc": "Boulettes de coco et lait concentré sucré enrobées de chocolat", "origine": "Afrique tropicale", "type": "Sucrée", "img": "https://i.ibb.co/Mkq7tQHJ/Bouch-es-coco-chocolat-au-lait-concentr.png"}, {"cat": "MIGNARDISE SUCRÉE", "nom": "Bouchées fondantes chocolat-café", "desc": "Mini-carrés de ganache au chocolat noir parfumée au café fort", "origine": "France / Afrique centrale", "type": "Sucrée", "img": "https://i.ibb.co/JRjrf0wd/Bouch-es-fondantes-chocolat-caf.png"}, {"cat": "MIGNARDISE SUCRÉE", "nom": "Bouchées à la mangue et noix de coco", "desc": "Dés de mangue fraîche enrobés de noix de coco râpée, servis froids", "origine": "Afrique centrale", "type": "Sucrée", "img": "https://i.ibb.co/5pV6L6z/Bouch-es-la-mangue-et-noix-de-coco.png"}, {"cat": "MIGNARDISE SUCRÉE", "nom": "Boules coco-miel", "desc": "Boulettes de noix de coco râpée liées au miel et roulées dans le coco grillé", "origine": "Afrique centrale", "type": "Sucrée", "img": "https://i.ibb.co/Nd3VsmB0/Boules-coco-miel.png"}, {"cat": "MIGNARDISE SUCRÉE", "nom": "Boulettes banane-coco grillées", "desc": "Boulettes de banane mûre et noix de coco, poêlées dans le beurre et miel", "origine": "Afrique centrale", "type": "Sucrée", "img": "https://i.ibb.co/nMVCpn8T/Boulettes-banane-coco-grill-es.png"}, {"cat": "MIGNARDISE SUCRÉE", "nom": "Brigadeiros (truffes brésiliennes)", "desc": "Boules de lait concentré et cacao fondantes, roulées dans des pépites de chocolat", "origine": "Brésil", "type": "Sucrée", "img": "https://i.ibb.co/FqdDGpCr/Brigadeiros-truffes-br-siliennes.png"}, {"cat": "MIGNARDISE SUCRÉE", "nom": "Caramels mous à la noix de coco", "desc": "Caramels fondants au beurre et lait de coco, découpés en petits cubes", "origine": "Afrique centrale", "type": "Sucrée", "img": "https://i.ibb.co/DgTpPCDZ/Caramels-mous-la-noix-de-coco.png"}, {"cat": "MIGNARDISE SUCRÉE", "nom": "Choux craquelin à la noix de coco", "desc": "Petits choux avec craquelin, garnis d'une crème légère à la noix de coco", "origine": "France / Afrique tropicale", "type": "Sucrée", "img": "https://i.ibb.co/N6zf0Pfj/Choux-craquelin-la-noix-de-coco.png"}, {"cat": "MIGNARDISE SUCRÉE", "nom": "Congolais (rochers coco)", "desc": "Petits dômes croquants à base de noix de coco râpée et blanc d'œuf, dorés au four", "origine": "France / Afrique centrale", "type": "Sucrée", "img": "https://i.ibb.co/wFMQK7rh/Congolais-rochers-coco.png"}, {"cat": "MIGNARDISE SUCRÉE", "nom": "Croquants aux arachides", "desc": "Petits croquants caramélisés à base d'arachides grillées et sucre", "origine": "Afrique de l'Ouest", "type": "Sucrée", "img": "https://i.ibb.co/99wVkb76/Croquants-aux-arachides.png"}, {"cat": "MIGNARDISE SUCRÉE", "nom": "Financiers aux amandes", "desc": "Petits gâteaux moelleux au beurre et poudre d'amande, très fondants", "origine": "France", "type": "Sucrée", "img": "https://i.ibb.co/wNwPB6D7/Financiers-aux-amandes.png"}, {"cat": "MIGNARDISE SUCRÉE", "nom": "Galettes au maïs et miel", "desc": "Petites galettes légères à la farine de maïs, sucrées au miel local", "origine": "Afrique centrale", "type": "Sucrée", "img": "https://i.ibb.co/Q39GCrg3/Galettes-au-ma-s-et-miel.png"}, {"cat": "MIGNARDISE SUCRÉE", "nom": "Guimauve à la mangue", "desc": "Guimauve souple et fondante parfumée à la purée de mangue fraîche", "origine": "France / Afrique tropicale", "type": "Sucrée", "img": "https://i.ibb.co/5xzm7y8y/Guimauve-la-mangue.png"}, {"cat": "MIGNARDISE SUCRÉE", "nom": "Macarons coco (sans amande)", "desc": "Petits macarons moelleux à base de noix de coco râpée, légers et sucrés", "origine": "France (adaptation tropicale)", "type": "Sucrée", "img": "https://i.ibb.co/TxcHNwr6/Macarons-coco-sans-amande.png"}, {"cat": "MIGNARDISE SUCRÉE", "nom": "Madeleines au miel et gingembre", "desc": "Petites madeleines moelleuses parfumées au miel et gingembre frais", "origine": "France / Afrique centrale", "type": "Sucrée", "img": "https://i.ibb.co/ymjbvF3d/Madeleines-au-miel-et-gingembre.png"}, {"cat": "MIGNARDISE SUCRÉE", "nom": "Mendiants au chocolat noir", "desc": "Disques de chocolat fondu garnis d'amandes, arachides grillées et sésame", "origine": "France", "type": "Sucrée", "img": "https://i.ibb.co/ZRSWNFvW/Mendiants-au-chocolat-noir.png"}, {"cat": "MIGNARDISE SUCRÉE", "nom": "Mini-baba au café", "desc": "Petit baba imbibé de sirop parfumé au café, chantilly légère", "origine": "France (Pologne / origine)", "type": "Sucrée", "img": "https://i.ibb.co/vx7HdC5p/Mini-baba-au-caf.png"}, {"cat": "MIGNARDISE SUCRÉE", "nom": "Mini-beignets de banane au sucre vanillé", "desc": "Rondelles de banane frites en pâte légère, saupoudrées de sucre vanillé", "origine": "Afrique centrale", "type": "Sucrée", "img": "https://i.ibb.co/mF0Hgf5F/Mini-beignets-de-banane-au-sucre-vanill.png"}, {"cat": "MIGNARDISE SUCRÉE", "nom": "Mini-cake marbré chocolat-vanille", "desc": "Petits cakes moelleux marbrés de deux pâtes : vanille et cacao", "origine": "France", "type": "Sucrée", "img": "https://i.ibb.co/99kRbYCn/Mini-cake-marbr-chocolat-vanille.png"}, {"cat": "MIGNARDISE SUCRÉE", "nom": "Mini-cakes banane-chocolat", "desc": "Petits gâteaux moelleux à la banane mûre avec des pépites de chocolat", "origine": "Afrique centrale", "type": "Sucrée", "img": "https://i.ibb.co/qYF8K1rt/Mini-cakes-banane-chocolat.png"}, {"cat": "MIGNARDISE SUCRÉE", "nom": "Mini-tartelette au chocolat et caramel", "desc": "Fond sablé croustillant, caramel au beurre salé et ganache chocolat noir", "origine": "France", "type": "Sucrée", "img": "https://i.ibb.co/3JdGYt0/Mini-tartelette-au-chocolat-et-caramel.png"}, {"cat": "MIGNARDISE SUCRÉE", "nom": "Mini-tartelette mangue-coco", "desc": "Fond sablé, crème légère à la noix de coco, dés de mangue fraîche", "origine": "France / Afrique centrale", "type": "Sucrée", "img": "https://i.ibb.co/GQfK73vn/Mini-tartelette-mangue-coco.png"}, {"cat": "MIGNARDISE SUCRÉE", "nom": "Mini-tartelette à l'ananas caramélisé", "desc": "Fond sablé, ananas poêlé au beurre et cassonade, crème fraîche", "origine": "France / Afrique centrale", "type": "Sucrée", "img": "https://i.ibb.co/x8ScBP5H/Mini-tartelette-l-ananas-caram-lis.png"}, {"cat": "MIGNARDISE SUCRÉE", "nom": "Mini-tartelette à la noix de coco", "desc": "Fond sablé garni d'une crème de coco légère, noix de coco grillée dessus", "origine": "France / Afrique tropicale", "type": "Sucrée", "img": "https://i.ibb.co/r2KsH7Q9/Mini-tartelette-la-noix-de-coco.png"}, {"cat": "MIGNARDISE SUCRÉE", "nom": "Mini-éclairs au café", "desc": "Petits choux garnis d'une crème pâtissière au café, glaçage chocolat", "origine": "France", "type": "Sucrée", "img": "https://i.ibb.co/gMyG9yWD/Mini-clairs-au-caf.png"}, {"cat": "MIGNARDISE SUCRÉE", "nom": "Mini-éclairs au chocolat", "desc": "Petits choux garnis d'une crème pâtissière au cacao, glaçage chocolat noir", "origine": "France", "type": "Sucrée", "img": "https://i.ibb.co/LzzHyjhc/Mini-clairs-au-chocolat.png"}, {"cat": "MIGNARDISE SUCRÉE", "nom": "Nems de banane plantain au fromage", "desc": "Rouleaux croustillants farcis de plantain mûr et fromage fondu", "origine": "Afrique centrale (fusion)", "type": "Sucrée", "img": "https://i.ibb.co/wFMZcP84/Nems-de-banane-plantain-au-fromage.png"}, {"cat": "MIGNARDISE SUCRÉE", "nom": "Rochers coco chocolat", "desc": "Boules de noix de coco et blanc d'œuf enrobées de chocolat fondu", "origine": "Afrique centrale", "type": "Sucrée", "img": "https://i.ibb.co/Y4mMGgqZ/Rochers-coco-chocolat.png"}, {"cat": "MIGNARDISE SUCRÉE", "nom": "Roses des sables au chocolat", "desc": "Céréales soufflées enrobées de chocolat fondu au café, séchées en petits tas", "origine": "France", "type": "Sucrée", "img": "https://i.ibb.co/nqPPvqQt/Roses-des-sables-au-chocolat.png"}, {"cat": "MIGNARDISE SUCRÉE", "nom": "Sablés au citron et sésame", "desc": "Biscuits fins parfumés au zeste de citron et graines de sésame dorés", "origine": "Afrique centrale", "type": "Sucrée", "img": "https://i.ibb.co/gMmmWbSv/Sabl-s-au-citron-et-s-same.png"}, {"cat": "MIGNARDISE SUCRÉE", "nom": "Sablés au sésame grillé", "desc": "Petits biscuits sablés croustillants parfumés aux graines de sésame torréfiées", "origine": "Afrique centrale", "type": "Sucrée", "img": "https://i.ibb.co/NdzdKm3W/Sabl-s-au-s-same-grill.png"}, {"cat": "MIGNARDISE SUCRÉE", "nom": "Sablés à la vanille et noix de coco", "desc": "Biscuits sablés fondants parfumés à la vanille et à la noix de coco", "origine": "France / Afrique centrale", "type": "Sucrée", "img": "https://i.ibb.co/DPnF9d3j/Sabl-s-la-vanille-et-noix-de-coco.png"}, {"cat": "MIGNARDISE SUCRÉE", "nom": "Truffes au chocolat et cacao", "desc": "Ganache de chocolat noir roulée dans du cacao amer non sucré", "origine": "France (confiserie)", "type": "Sucrée", "img": "https://i.ibb.co/zTKf8pjJ/Truffes-au-chocolat-et-cacao.png"}, {"cat": "MIGNARDISE SUCRÉE", "nom": "Truffes chocolat-gingembre", "desc": "Ganache chocolat noir parfumée au gingembre frais râpé, roulée dans le cacao", "origine": "France / Asie (fusion)", "type": "Sucrée", "img": "https://i.ibb.co/xSDdxDLf/Truffes-chocolat-gingembre.png"}, {"cat": "MIGNARDISE SUCRÉE", "nom": "Truffes chocolat-noix de coco", "desc": "Ganache chocolat noir enrobée de noix de coco râpée grillée", "origine": "France / Afrique tropicale", "type": "Sucrée", "img": "https://i.ibb.co/JwZWWG17/Truffes-chocolat-noix-de-coco.png"}, {"cat": "MIGNARDISE SUCRÉE", "nom": "Tuiles au sésame", "desc": "Fines tuiles croquantes au sésame grillé, légèrement sucrées", "origine": "Centrafrique / RCA", "type": "Végétarien", "img": "https://i.ibb.co/whHwwGxc/Tuiles-au-s-same.png"}, {"cat": "MIGNARDISE SUCRÉE", "nom": "Tuiles aux amandes et orange", "desc": "Fines tuiles croustillantes aux amandes effilées, parfumées à l'orange", "origine": "France", "type": "Sucrée", "img": "https://i.ibb.co/WQsXws5/Tuiles-aux-amandes-et-orange.png"}, {"cat": "MIGNARDISE SUCRÉE", "nom": "Tuiles à la noix de coco et sésame", "desc": "Fines tuiles croustillantes de coco râpée et graines de sésame dorées", "origine": "Afrique centrale", "type": "Sucrée", "img": "https://i.ibb.co/ym0W9c2h/Tuiles-la-noix-de-coco-et-s-same.png"}, {"cat": "MIGNARDISE SUCRÉE", "nom": "Verrines ananas-coco en mini", "desc": "Mini-verrines de dés d'ananas frais, crème de coco sucrée et menthe", "origine": "Afrique centrale", "type": "Sucrée", "img": "https://i.ibb.co/t5W28kr/Mini-verrines-de-d-s-d-ananas-frais-cr-me-de-coco-sucr-e-et-menthe.png"}, {"cat": "DESSERT AFRICAIN", "nom": "Beignets de banane sucrés", "desc": "Rondelles de banane en pâte frites, sucrées à la cannelle", "origine": "Centrafrique / RCA", "type": "Végétarien", "img": "https://i.ibb.co/rRvgKj62/Beignets-de-banane-sucr-s.png"}, {"cat": "DESSERT AFRICAIN", "nom": "Beignets de patate douce sucrés", "desc": "Patate douce râpée en beignets frits, sucrés à la cannelle et au miel", "origine": "Centrafrique / RCA", "type": "Végétarien", "img": "https://i.ibb.co/3Y0qrCzK/Beignets-de-patate-douce-sucr-s.png"}, {"cat": "DESSERT AFRICAIN", "nom": "Beignets de taro sucrés", "desc": "Taro pilé en beignets ronds frits, enrobés de sucre vanillé", "origine": "Centrafrique / RCA", "type": "Végétarien", "img": "https://i.ibb.co/4gFJH3LM/Taro-pil-en-beignets-ronds-frits-enrob-s-de-sucre-vanill.png"}, {"cat": "DESSERT AFRICAIN", "nom": "Bouillie de maïs sucrée", "desc": "Bouillie fine de farine de maïs, sucrée, parfumée à la vanille locale", "origine": "Centrafrique / RCA", "type": "Végétarien", "img": "https://i.ibb.co/yFvV3zYd/Bouillie-de-ma-s-sucr-e.png"}, {"cat": "DESSERT AFRICAIN", "nom": "Cake à la banane et aux épices", "desc": "Gâteau moelleux à la banane mûre, cannelle, gingembre et vanille locale", "origine": "Centrafrique / RCA", "type": "Végétarien", "img": "https://i.ibb.co/39hLRhcf/Cake-la-banane-et-aux-pices.png"}, {"cat": "DESSERT AFRICAIN", "nom": "Confiture de banane maison", "desc": "Bananes mûres confites au sucre et épices, servie sur pain ou beignet", "origine": "Centrafrique / RCA", "type": "Végétarien", "img": "https://i.ibb.co/kV0pc61L/Confiture-de-banane-maison.png"}, {"cat": "DESSERT AFRICAIN", "nom": "Crème de coco à la mangue", "desc": "Lait de coco sucré épaissi, servi avec brunoise de mangue fraîche", "origine": "Afrique centrale", "type": "Végétarien", "img": "https://i.ibb.co/B2dZQGBv/Cr-me-de-coco-la-mangue.png"}, {"cat": "DESSERT AFRICAIN", "nom": "Gâteau de manioc (Kassava)", "desc": "Manioc râpé, sucre, lait de coco, raisins secs, cuit au four", "origine": "Centrafrique / RCA", "type": "Végétarien", "img": "https://i.ibb.co/1YrhV4by/G-teau-de-manioc-Kassava.png"}, {"cat": "DESSERT AFRICAIN", "nom": "Jus de gingembre frais", "desc": "Gingembre frais pressé, citron, sucre et eau, servi glacé", "origine": "Afrique centrale", "type": "Végétarien", "img": "https://i.ibb.co/C5NBtKdB/Jus-de-gingembre-frais.png"}, {"cat": "DESSERT AFRICAIN", "nom": "Jus de tamarin", "desc": "Tamarin dilué, sucré, légèrement acidulé, servi frais", "origine": "Afrique centrale", "type": "Végétarien", "img": "https://i.ibb.co/XZJChQnm/Jus-de-tamarin.png"}, {"cat": "DESSERT AFRICAIN", "nom": "Mousse de mangue au lait de coco", "desc": "Mangues fraîches mixées avec lait de coco et sucre, servie froide", "origine": "Afrique centrale", "type": "Végétarien", "img": "https://i.ibb.co/PZ2X32CC/Mousse-de-mangue-au-lait-de-coco.png"}, {"cat": "DESSERT AFRICAIN", "nom": "Pain d'épice au gingembre et miel", "desc": "Gâteau moelleux au gingembre, miel et épices africaines", "origine": "Afrique centrale", "type": "Végétarien", "img": "https://i.ibb.co/VWq9G72R/Pain-d-pice-au-gingembre-et-miel.png"}, {"cat": "DESSERT AFRICAIN", "nom": "Plateau de fruits tropicaux", "desc": "Ananas, mangue, papaye, banane, goyave — fruits de saison", "origine": "Centrafrique / RCA", "type": "Végétarien", "img": "https://i.ibb.co/wZpZGZK3/Plateau-de-fruits-tropicaux.png"}, {"cat": "DESSERT AFRICAIN", "nom": "Puff-puff (beignets dorés)", "desc": "Beignets ronds frits en pâte levée, sucrés, moelleux et dorés", "origine": "Afrique centrale", "type": "Végétarien", "img": "https://i.ibb.co/Df622GGk/Puff-puff-beignets-dor-s.png"}, {"cat": "DESSERT AFRICAIN", "nom": "Riz au lait de coco sucré", "desc": "Riz cuit dans le lait de coco avec sucre, vanille et zeste de citron", "origine": "Afrique centrale", "type": "Végétarien", "img": "https://i.ibb.co/rRJNcJdq/Riz-au-lait-de-coco-sucr.png"}, {"cat": "DESSERT AFRICAIN", "nom": "Salade de fruits exotiques au miel", "desc": "Mélange de fruits tropicaux frais nappé de miel et jus de citron vert", "origine": "Centrafrique / RCA", "type": "Végétarien", "img": "https://i.ibb.co/XkGY7rVx/Salade-de-fruits-exotiques-au-miel.png"}, {"cat": "DESSERT AFRICAIN", "nom": "Sirop de bissap (hibiscus)", "desc": "Fleurs d'hibiscus infusées sucrées, servi en boisson rafraîchissante", "origine": "Afrique de l'Ouest", "type": "Végétarien", "img": "https://i.ibb.co/MDPD2xK4/Sirop-de-bissap-hibiscus.png"}, {"cat": "DESSERT AFRICAIN", "nom": "Sorbet à la goyave", "desc": "Goyaves fraîches mixées avec sucre, citron vert et eau, servi glacé", "origine": "Centrafrique / RCA", "type": "Végétarien", "img": "https://i.ibb.co/ZR3hMfvq/Sorbet-la-goyave.png"}, {"cat": "DESSERT AFRICAIN", "nom": "Tiakri (couscous de mil sucré)", "desc": "Couscous de mil mélangé à du lait caillé sucré et fruits secs", "origine": "Sénégal / Afrique de l'Ouest", "type": "Végétarien", "img": "https://i.ibb.co/Rp3LFMCN/Tiakri-couscous-de-mil-sucr.png"}, {"cat": "DESSERT EUROPÉEN", "nom": "Charlotte aux fruits", "desc": "Biscuits à la cuillère, crème légère et fruits de saison en moule", "origine": "France", "type": "Végétarien", "img": "https://i.ibb.co/VWcjfPLC/Charlotte-aux-fruits.png"}, {"cat": "DESSERT EUROPÉEN", "nom": "Clafoutis aux fruits tropicaux", "desc": "Appareil à clafoutis cuit avec mangue, ananas et noix de coco râpée", "origine": "France (adaptation)", "type": "Végétarien", "img": "https://i.ibb.co/gZrNR29g/Clafoutis-aux-fruits-tropicaux.png"}, {"cat": "DESSERT EUROPÉEN", "nom": "Crème brûlée à la vanille", "desc": "Crème onctueuse à la vanille, caramel croustillant en surface", "origine": "France", "type": "Végétarien", "img": "https://i.ibb.co/B20r6ZnL/Cr-me-br-l-e-la-vanille.png"}, {"cat": "DESSERT EUROPÉEN", "nom": "Fondant au chocolat", "desc": "Gâteau moelleux au cœur coulant de chocolat noir", "origine": "France / Belgique", "type": "Végétarien", "img": "https://i.ibb.co/4ZM1Rt1H/Fondant-au-chocolat.png"}, {"cat": "DESSERT EUROPÉEN", "nom": "Gâteau basque à la crème", "desc": "Pâte sablée fine garnie de crème pâtissière parfumée", "origine": "France (Pays Basque)", "type": "Végétarien", "img": "https://i.ibb.co/fz3C6PNx/G-teau-basque-la-cr-me.png"}, {"cat": "DESSERT EUROPÉEN", "nom": "Mousse au chocolat", "desc": "Mousse légère et aérienne au chocolat noir", "origine": "France", "type": "Végétarien", "img": "https://i.ibb.co/bq97WL9/Mousse-au-chocolat.png"}, {"cat": "DESSERT EUROPÉEN", "nom": "Mousse de fruits de la passion", "desc": "Mousse légère et acidulée aux fruits de la passion et crème", "origine": "France (adaptation)", "type": "Végétarien", "img": "https://i.ibb.co/S4N7CHXv/Mousse-de-fruits-de-la-passion.png"}, {"cat": "DESSERT EUROPÉEN", "nom": "Panna cotta fruits exotiques", "desc": "Crème cuite gélifiée à la vanille, coulis de mangue ou ananas", "origine": "Italie / fusion", "type": "Végétarien", "img": "https://i.ibb.co/xq69RJsm/Panna-cotta-fruits-exotiques.png"}, {"cat": "DESSERT EUROPÉEN", "nom": "Paris-Brest (adaptation locale)", "desc": "Choux garnis de crème pralinée ou crème vanille, glaçage sucré", "origine": "France", "type": "Végétarien", "img": "https://i.ibb.co/prRgjJrS/Paris-Brest-adaptation-locale.png"}, {"cat": "DESSERT EUROPÉEN", "nom": "Tarte aux pommes caramélisées", "desc": "Fond sablé, pommes caramélisées au beurre et cassonade", "origine": "France", "type": "Végétarien", "img": "https://i.ibb.co/vvmydkJn/Tarte-aux-pommes-caram-lis-es.png"}, {"cat": "DESSERT EUROPÉEN", "nom": "Tarte tatin aux ananas", "desc": "Tarte renversée aux ananas caramélisés au beurre, pâte feuilletée", "origine": "France (adaptation tropicale)", "type": "Végétarien", "img": "https://i.ibb.co/VcSP6Dkg/Tarte-tatin-aux-ananas.png"}, {"cat": "DESSERT EUROPÉEN", "nom": "Tiramisu au café", "desc": "Mascarpone, biscuits imbibés de café, cacao en poudre", "origine": "Italie", "type": "Végétarien", "img": "https://i.ibb.co/LhDZkYh1/Tiramisu-au-caf.png"}, {"cat": "DESSERT EUROPÉEN", "nom": "Verrine chocolat et caramel", "desc": "Mousse au chocolat noir, caramel coulant et biscuit émietté en couches", "origine": "France", "type": "Végétarien", "img": "https://i.ibb.co/0Rp7nCwy/Verrine-chocolat-et-caramel.png"}, {"cat": "DESSERT EUROPÉEN", "nom": "Île flottante", "desc": "Blancs en neige pochés sur crème anglaise vanillée et caramel", "origine": "France", "type": "Végétarien", "img": "https://i.ibb.co/bMCWDKtQ/le-flottante.png"}];
+
+const CAT_META = {
+  "ENTRÉE AFRICAINE":  {ribbon:"ribbon-ea", color:"#2e8b4a", icon:"🌍", label:"Entrées Africaines",  term:"entrées"},
+  "ENTRÉE EUROPÉENNE": {ribbon:"ribbon-ee", color:"#1f3a6b", icon:"🍽️", label:"Entrées Européennes", term:"entrées"},
+  "PLAT AFRICAIN":     {ribbon:"ribbon-pa", color:"#2e8b4a", icon:"🌍", label:"Plats Africains",     term:"plats"},
+  "PLAT EUROPÉEN":     {ribbon:"ribbon-pe", color:"#1f3a6b", icon:"🍽️", label:"Plats Européens",     term:"plats"},
+  "MIGNARDISE SALÉE":  {ribbon:"ribbon-ms", color:"#c85a1a", icon:"🍢", label:"Mignardises Salées",  term:"mignardises"},
+  "MIGNARDISE SUCRÉE": {ribbon:"ribbon-mx", color:"#c8962a", icon:"🍫", label:"Mignardises Sucrées", term:"mignardises"},
+  "DESSERT AFRICAIN":  {ribbon:"ribbon-da", color:"#9c5e2b", icon:"🌍", label:"Desserts Africains",  term:"desserts"},
+  "DESSERT EUROPÉEN":  {ribbon:"ribbon-de", color:"#1f3a6b", icon:"🍽️", label:"Desserts Européens",  term:"desserts"},
+};
+
+const ORDER = ["ENTRÉE AFRICAINE","ENTRÉE EUROPÉENNE","PLAT AFRICAIN","PLAT EUROPÉEN","MIGNARDISE SALÉE","MIGNARDISE SUCRÉE","DESSERT AFRICAIN","DESSERT EUROPÉEN"];
+
+// Wikimedia Commons image proxy using openverse API (no key needed for display)
+// We use Unsplash source + DuckDuckGo image cache as fallback
+function imgUrl(query) {
+  if (query && query.startsWith('http')) return query;
+  return `https://source.unsplash.com/400x280/?${encodeURIComponent(query)}`;
+}
+
+function makeCard(d) {
+  const meta = CAT_META[d.cat];
+  const ribbon = `<span class="cat-ribbon ${meta.ribbon}">${meta.label}</span>`;
+  const img = imgUrl(d.img);
+  return `
+<div class="card" data-cat="${d.cat}" data-nom="${d.nom.toLowerCase()}" data-desc="${d.desc.toLowerCase()}">
+  <div class="card-img-wrap">
+    <img src="${img}" alt="${d.nom}" loading="lazy"
+      onerror="this.parentElement.innerHTML='<div class=\'card-img-placeholder\'><span>🍽️</span><small>${d.cat}</small></div>'"/>
+  </div>
+  ${ribbon}
+  <div class="card-body">
+    <div class="card-name">${d.nom}</div>
+    <div class="card-desc">${d.desc}</div>
+    <div class="card-meta">
+      <span class="meta-pill">${d.type}</span>
+      <span class="meta-pill meta-origine">${d.origine}</span>
+      <span class="like-wrap"><button class="like-btn" data-nom="${d.nom}" onclick="doLike(this)">🤍</button><span class="like-count"></span></span>
+    </div>
+  </div>
+</div>`;
+}
+
+function buildSections() {
+  const container = document.getElementById('main-content');
+
+  // ALL section
+  let allHtml = `<div class="all-section active" id="section-all">
+    <div class="all-header">Catalogue Complet</div>
+    <div class="all-sub">${DISHES.length} spécialités</div>
+    <div class="cards-grid" id="grid-all">`;
+  DISHES.forEach(d => { allHtml += makeCard(d); });
+  allHtml += `</div></div>`;
+
+  // Category sections — ID simple basé sur index
+  ORDER.forEach((cat, idx) => {
+    const meta = CAT_META[cat];
+    const items = DISHES.filter(d => d.cat === cat);
+    let sec = `<div class="section" id="section-cat-${idx}">
+      <div class="section-header">
+        <span class="section-title">${meta.label}</span>
+        <span class="section-count">${items.length} ${meta.term}</span>
+      </div>
+      <div class="cards-grid">`;
+    items.forEach(d => { sec += makeCard(d); });
+    sec += `</div></div>`;
+    allHtml += sec;
+  });
+
+  container.innerHTML = allHtml;
+}
+
+function showSection(key) {
+  document.querySelectorAll('.section,.all-section').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));
+
+  if(key==='all'){
+    document.getElementById('section-all').classList.add('active');
+  } else {
+    const idx = ORDER.indexOf(key);
+    const el = document.getElementById('section-cat-' + idx);
+    if(el) el.classList.add('active');
+  }
+  document.querySelector(`[data-section="${key}"]`).classList.add('active');
+  document.getElementById('searchInput').value='';
+  filterCards('');
+}
+
+function filterCards(q) {
+  q = q.toLowerCase().trim();
+  // Only filter in active section
+  const activeSection = document.querySelector('.section.active, .all-section.active');
+  if(!activeSection) return;
+  activeSection.querySelectorAll('.card').forEach(card => {
+    const nom = card.dataset.nom||'';
+    const desc = card.dataset.desc||'';
+    const cat = card.dataset.cat.toLowerCase();
+    card.style.display = (!q || nom.includes(q)||desc.includes(q)||cat.includes(q)) ? '' : 'none';
+  });
+}
+
+
+function buildNav() {
+  const wrap = document.querySelector('.nav-tabs');
+  if (!wrap) return;
+  wrap.innerHTML = '';
+  const allTab = document.createElement('div');
+  allTab.className = 'nav-tab active';
+  allTab.dataset.section = 'all';
+  allTab.textContent = 'Tous';
+  allTab.onclick = () => showSection('all');
+  wrap.appendChild(allTab);
+  ORDER.forEach(cat => {
+    const meta = CAT_META[cat];
+    const tab = document.createElement('div');
+    tab.className = 'nav-tab';
+    tab.dataset.section = cat;
+    tab.textContent = meta.label;
+    tab.onclick = () => showSection(cat);
+    wrap.appendChild(tab);
+  });
+}
+
+buildNav();
+buildSections();
+
+const _lk = {};
+function doLike(btn) {
+  const nom = btn.dataset.nom;
+  const on = btn.classList.toggle('liked');
+  btn.textContent = on ? '❤️' : '🤍';
+  _lk[nom] = (_lk[nom] || 0) + (on ? 1 : -1);
+  const cnt = btn.nextElementSibling;
+  if (cnt) cnt.textContent = _lk[nom] > 0 ? _lk[nom] : '';
+}
+</script>
+</body>
+</html>
