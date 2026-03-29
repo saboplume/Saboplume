@@ -221,6 +221,70 @@ select.inp{cursor:pointer}
 .bres{width:100%;background:var(--vt);color:#fff;border:none;padding:15px;font-family:"Cinzel",serif;font-size:12px;letter-spacing:.12em;cursor:pointer}
 .bres:hover{background:var(--vtf)}
 
+/* ═══ GRANDE SALLE ═══ */
+.ssalle{background:linear-gradient(160deg,#1a1208 0%,#2a1a08 40%,#1a2a10 100%);padding:90px 80px;color:#fff;position:relative;overflow:hidden}
+.ssalle::before{content:'';position:absolute;inset:0;background-image:radial-gradient(ellipse at 70% 30%,rgba(200,169,110,.08) 0%,transparent 60%),radial-gradient(ellipse at 20% 80%,rgba(59,94,43,.12) 0%,transparent 50%);pointer-events:none}
+.ssalle::after{content:'';position:absolute;inset:0;background-image:repeating-linear-gradient(45deg,rgba(255,255,255,.015) 0px,rgba(255,255,255,.015) 1px,transparent 1px,transparent 32px);pointer-events:none}
+.sallec{max-width:1100px;margin:0 auto}
+.salleh{text-align:center;margin-bottom:52px}
+.salleh h1{font-family:"Cormorant Garamond",serif;font-size:52px;font-style:italic;color:#fff;margin-bottom:10px}
+.salleh p{font-size:16px;color:rgba(255,255,255,.65);max-width:580px;margin:0 auto}
+.salle-badge{display:inline-block;background:var(--or);color:#1a1208;font-family:"Cinzel",serif;font-size:10px;letter-spacing:.18em;padding:5px 16px;margin-bottom:20px}
+.salle-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start;margin-bottom:50px}
+.salle-visuel{position:relative}
+.salle-img-main{width:100%;height:380px;object-fit:cover;display:block;border:1px solid rgba(200,169,110,.2);filter:brightness(.9)}
+.salle-img-main:hover{filter:brightness(1);transition:filter .4s}
+.salle-cap{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(to top,rgba(26,18,8,.9),transparent);padding:24px 20px 16px;display:flex;gap:16px;align-items:flex-end}
+.salle-stat{text-align:center}
+.salle-stat-n{font-family:"Cormorant Garamond",serif;font-size:38px;font-style:italic;color:var(--or);line-height:1}
+.salle-stat-l{font-family:"Cinzel",serif;font-size:9px;letter-spacing:.14em;color:rgba(255,255,255,.6);text-transform:uppercase;margin-top:3px}
+.salle-stat-sep{width:1px;flex:0 0 1px;background:rgba(200,169,110,.3);margin-bottom:6px}
+.salle-infos{display:flex;flex-direction:column;justify-content:center;gap:22px}
+.salle-info{display:flex;gap:16px;align-items:flex-start;padding-bottom:20px;border-bottom:1px solid rgba(255,255,255,.08)}
+.salle-info:last-child{border-bottom:none;padding-bottom:0}
+.salle-info-num{font-family:"Cormorant Garamond",serif;font-size:42px;color:rgba(200,169,110,.2);font-style:italic;line-height:1;flex-shrink:0;width:44px;text-align:right}
+.salle-info-txt h4{font-family:"Cinzel",serif;font-size:11px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:5px;color:rgba(255,255,255,.9)}
+.salle-info-txt p{font-size:14px;color:rgba(255,255,255,.55);line-height:1.6}
+.salle-feats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(200,169,110,.12);border:1px solid rgba(200,169,110,.15);margin-bottom:40px}
+.salle-feat{background:#1a1208;padding:22px 18px;text-align:center;transition:background .2s}
+.salle-feat:hover{background:#221508}
+.salle-feat-icon{font-family:"Cormorant Garamond",serif;font-size:28px;font-style:italic;color:var(--or);margin-bottom:8px;opacity:.7}
+.salle-feat-t{font-family:"Cinzel",serif;font-size:10px;letter-spacing:.1em;color:rgba(255,255,255,.8);text-transform:uppercase;margin-bottom:5px}
+.salle-feat-d{font-size:12px;color:rgba(255,255,255,.45);line-height:1.5}
+.salle-devis{background:rgba(200,169,110,.06);border:1px solid rgba(200,169,110,.2);border-top:3px solid var(--or);padding:34px;max-width:680px;margin:0 auto}
+.salle-devis h3{font-family:"Cinzel",serif;font-size:12px;letter-spacing:.14em;color:var(--or);margin-bottom:22px;text-transform:uppercase}
+
+/* ═══ BOOTHS PHOTO & VIDEO ═══ */
+.sbooth{background:var(--crl);padding:90px 80px;position:relative;overflow:hidden}
+.sbooth::before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle,rgba(200,169,110,.06) 1px,transparent 1px);background-size:32px 32px;pointer-events:none}
+.boothc{max-width:1100px;margin:0 auto}
+.boothh{text-align:center;margin-bottom:52px}
+.boothh h1{font-family:"Cormorant Garamond",serif;font-size:52px;margin-bottom:10px}
+.boothh p{font-size:16px;color:#666;max-width:600px;margin:0 auto}
+.booth-cards{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.booth-card{background:#fff;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,.08);border-bottom:3px solid var(--or);position:relative;transition:transform .3s,box-shadow .3s}
+.booth-card:hover{transform:translateY(-8px);box-shadow:0 22px 50px rgba(0,0,0,.14)}
+.booth-card-header{height:260px;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.booth-card.photo-booth .booth-card-header{background:linear-gradient(135deg,#1a1208 0%,#3a2510 50%,#2a1a08 100%)}
+.booth-card.video-booth .booth-card-header{background:linear-gradient(135deg,#0a1a10 0%,#1e3a2f 50%,#0d2018 100%)}
+.booth-card-header::after{content:'';position:absolute;inset:0;background-image:repeating-linear-gradient(45deg,rgba(255,255,255,.02) 0px,rgba(255,255,255,.02) 1px,transparent 1px,transparent 20px)}
+.booth-icon{text-align:center;position:relative;z-index:1}
+.booth-icon-ring{width:90px;height:90px;border-radius:50%;border:1px solid rgba(200,169,110,.4);display:flex;align-items:center;justify-content:center;margin:0 auto 14px;position:relative}
+.booth-icon-ring::before{content:'';position:absolute;inset:-6px;border-radius:50%;border:1px solid rgba(200,169,110,.15)}
+.booth-icon-letter{font-family:"Cormorant Garamond",serif;font-size:42px;font-style:italic;color:var(--or);line-height:1}
+.booth-icon-label{font-family:"Cinzel",serif;font-size:10px;letter-spacing:.22em;color:rgba(255,255,255,.5);text-transform:uppercase}
+.booth-tag{position:absolute;top:16px;right:16px;background:var(--or);color:#1a1208;font-family:"Cinzel",serif;font-size:9px;letter-spacing:.14em;padding:4px 12px;z-index:2}
+.booth-body{padding:28px}
+.booth-body h3{font-family:"Cormorant Garamond",serif;font-size:28px;color:var(--vt);margin-bottom:8px}
+.booth-body .booth-sub{font-family:"Cinzel",serif;font-size:10px;letter-spacing:.14em;color:var(--br);text-transform:uppercase;margin-bottom:14px}
+.booth-body p{font-size:14px;color:#666;line-height:1.7;margin-bottom:18px}
+.booth-features{display:flex;flex-direction:column;gap:7px;margin-bottom:20px}
+.booth-feat{display:flex;align-items:center;gap:10px;font-size:13px;color:#555}
+.booth-feat::before{content:'';width:18px;height:1px;background:var(--or);flex-shrink:0}
+.booth-prix{display:flex;align-items:center;justify-content:space-between;border-top:1px solid #f0ece6;padding-top:16px}
+.booth-prix-val{font-family:"Cormorant Garamond",serif;font-size:24px;color:var(--vt)}
+.booth-prix-label{font-family:"Cinzel",serif;font-size:9px;letter-spacing:.1em;color:#999;text-transform:uppercase}
+
 /* CONTACT RDV */
 .copt{margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid rgba(255,255,255,.12)}
 .copt h4{font-family:"Cormorant Garamond",serif;font-style:italic;font-size:27px;margin-bottom:4px}
@@ -397,6 +461,10 @@ footer span{font-family:"Cinzel",serif;font-size:10px;letter-spacing:.06em;color
 .sabo-slide-up{animation:saboSlideUp .55s cubic-bezier(.22,1,.36,1) both}
 .sabo-d1{animation-delay:.08s}.sabo-d2{animation-delay:.18s}.sabo-d3{animation-delay:.28s}
 .sabo-d4{animation-delay:.38s}.sabo-d5{animation-delay:.48s}.sabo-d6{animation-delay:.58s}
+/* conteneurs inline grande salle et booth */
+.sallec-inline{padding:90px 80px}
+.boothc-inline{padding:90px 80px}
+
 @media(max-width:900px){
   .hcards,.quig,.valg,.prodg,.temog,.contg{grid-template-columns:1fr}
   .aprg{grid-template-columns:1fr;text-align:center}
@@ -412,6 +480,24 @@ footer span{font-family:"Cinzel",serif;font-size:10px;letter-spacing:.06em;color
   .nav{padding:0 16px}
   .locong{grid-template-columns:1fr}
   .dateg{grid-template-columns:1fr}
+
+  /* ── GRANDE SALLE — mobile ── */
+  .ssalle{padding:50px 20px}
+  .salleh h1{font-size:34px}
+  .salle-grid{grid-template-columns:1fr;gap:24px}
+  .salle-img-main{height:240px}
+  .salle-feats{grid-template-columns:1fr 1fr;gap:0}
+  .salle-feat{padding:16px 12px}
+  .salle-devis{padding:24px 18px}
+  .salle-info-num{font-size:32px;width:34px}
+  .sallec-inline{padding:50px 20px}
+
+  /* ── PHOTO BOOTH & VIDEO BOOTH — mobile ── */
+  .sbooth{padding:50px 20px}
+  .boothh h1{font-size:34px}
+  .booth-cards{grid-template-columns:1fr;gap:20px}
+  .booth-card-header{height:200px}
+  .boothc-inline{padding:50px 20px}
 }
 
 /* ── CATALOGUE CTA BUTTON ── */
@@ -773,10 +859,10 @@ footer{transition:opacity .8s ease,transform .8s ease}
   <p class="htag">« À vos côtés pour chaque occasion »</p>
   <p class="hloc">BIMBO &nbsp;·&nbsp; RÉPUBLIQUE CENTRAFRICAINE</p>
   <div class="hdiv"></div>
-  <div class="hcards">
+  <div class="hcards" style="width:100%;max-width:1100px">
     <div class="hcard sabo-anim" data-anim="sabo-fade-up sabo-d2"><h3>Produits Fermiers</h3><p>Volailles, caprins et oeufs frais directement de notre ferme</p></div>
     <div class="hcard sabo-anim" data-anim="sabo-fade-up sabo-d3"><h3>Traiteur</h3><p>Conception et réalisation de menus pour tous vos événements</p></div>
-    <div class="hcard sabo-anim" data-anim="sabo-fade-up sabo-d4"><h3>Location Événementielle</h3><p>Chaises et tentes pour tous vos rassemblements</p></div>
+    <div class="hcard sabo-anim" data-anim="sabo-fade-up sabo-d4"><h3>Location Événementielle</h3><p>Grande salle 200 places, chaises, tentes, Photo &amp; Vidéo Booth 360°</p></div>
   </div>
 </section>
 
@@ -831,7 +917,7 @@ footer{transition:opacity .8s ease,transform .8s ease}
     <div class="aprr sabo-anim" data-anim="sabo-fade-right">
       <div class="aprs sabo-anim" data-anim="sabo-fade-right"><h4>Produits Fermiers</h4><p>Volailles, caprins et oeufs frais. Production locale contrôlée, disponible 7j/7.</p></div>
       <div class="aprs sabo-anim" data-anim="sabo-fade-right"><h4>Saboplume Traiteur</h4><p>Prise en charge complète de la restauration pour vos événements.</p></div>
-      <div class="aprs sabo-anim" data-anim="sabo-fade-right"><h4>Location Événementielle</h4><p>Chaises et tentes pour toutes vos réceptions, livrées sur place.</p></div>
+      <div class="aprs sabo-anim" data-anim="sabo-fade-right"><h4>Location Événementielle</h4><p>Grande salle 200 places, chaises, tentes, Photo Booth &amp; Vidéo Booth 360°.</p></div>
     </div>
   </div>
 </section>
@@ -931,7 +1017,7 @@ footer{transition:opacity .8s ease,transform .8s ease}
 <section class="sloc" id="location">
   <div class="locc sabo-anim" data-anim="sabo-fade-up">
     <h2>Saboplume Location Événementielle</h2>
-    <p class="locintro">Matériel événementiel de qualité : chaises et tentes. Livraison et reprise incluses.</p>
+    <p class="locintro">De la chaise à la grande salle, en passant par les expériences photo et vidéo — tout pour que votre événement soit parfait.</p>
     <div class="loc-photos">
       <img src="https://i.ibb.co/kFLqBJ1/Whats-App-Image-2026-02-21-at-12-15-43.jpg" alt="Chaises location" class="loc-photo" style="object-fit:cover;object-position:center">
       <img src="https://i.ibb.co/BHV7y0HS/Whats-App-Image-2026-02-22-at-17-28-35.jpg" alt="Tentes location" class="loc-photo">
@@ -957,6 +1043,145 @@ footer{transition:opacity .8s ease,transform .8s ease}
       <button class="bres" id="bres">Réserver</button>
     </div>
   </div>
+
+  <!-- ── GRANDE SALLE (même style que section ssalle) ── -->
+  <div class="sallec sallec-inline" style="margin-top:0;background:linear-gradient(160deg,#1a1208 0%,#2a1a08 40%,#1a2a10 100%);position:relative;overflow:hidden">
+    <div style="position:absolute;inset:0;background-image:radial-gradient(ellipse at 70% 30%,rgba(200,169,110,.08) 0%,transparent 60%),radial-gradient(ellipse at 20% 80%,rgba(59,94,43,.12) 0%,transparent 50%);pointer-events:none"></div>
+    <div style="position:absolute;inset:0;background-image:repeating-linear-gradient(45deg,rgba(255,255,255,.015) 0px,rgba(255,255,255,.015) 1px,transparent 1px,transparent 32px);pointer-events:none"></div>
+    <div class="salleh sabo-anim" data-anim="sabo-fade-up">
+      <span class="salle-badge">Nouveau · Disponible à la réservation</span>
+      <h1 class="titre-trait sabo-trait-anim">Grande Salle de Réception</h1>
+      <p>Un espace élégant et spacieux pour vos événements les plus importants, au cœur de Bimbo.</p>
+    </div>
+    <div class="salle-grid sabo-anim" data-anim="sabo-fade-up">
+      <div class="salle-visuel">
+        <div class="salle-img-main" style="background:linear-gradient(135deg,#2a1a08,#1e3a2f);display:flex;align-items:center;justify-content:center;">
+          <div style="text-align:center;opacity:.4">
+            <div style="font-family:'Cormorant Garamond',serif;font-size:72px;color:var(--or);font-style:italic;line-height:1">S</div>
+            <div style="font-family:'Cinzel',serif;font-size:11px;letter-spacing:.2em;color:#fff;margin-top:8px">Photo à venir</div>
+          </div>
+        </div>
+        <div class="salle-cap">
+          <div class="salle-stat"><div class="salle-stat-n">200</div><div class="salle-stat-l">Places</div></div>
+          <div class="salle-stat-sep" style="height:48px"></div>
+          <div class="salle-stat"><div class="salle-stat-n">1</div><div class="salle-stat-l">Salle exclusive</div></div>
+          <div class="salle-stat-sep" style="height:48px"></div>
+          <div class="salle-stat"><div class="salle-stat-n">7j</div><div class="salle-stat-l">Disponible</div></div>
+        </div>
+      </div>
+      <div class="salle-infos">
+        <div class="salle-info">
+          <div class="salle-info-num">1</div>
+          <div class="salle-info-txt"><h4>Capacité d'accueil</h4><p>Jusqu'à 200 personnes assises. Idéale pour mariages, baptêmes, anniversaires, conférences et réceptions d'entreprise.</p></div>
+        </div>
+        <div class="salle-info">
+          <div class="salle-info-num">2</div>
+          <div class="salle-info-txt"><h4>Pack événement complet</h4><p>Combinez la salle avec notre service traiteur et notre location de matériel pour une prise en charge totale de votre événement.</p></div>
+        </div>
+        <div class="salle-info">
+          <div class="salle-info-num">3</div>
+          <div class="salle-info-txt"><h4>Réservation flexible</h4><p>Demi-journée ou journée complète. Aménagement selon vos besoins. Devis personnalisé sur demande.</p></div>
+        </div>
+      </div>
+    </div>
+    <div class="salle-feats sabo-anim" data-anim="sabo-fade-up">
+      <div class="salle-feat"><div class="salle-feat-icon">200</div><div class="salle-feat-t">Capacité</div><div class="salle-feat-d">Places assises confortables</div></div>
+      <div class="salle-feat"><div class="salle-feat-icon">Sc</div><div class="salle-feat-t">Scène &amp; podium</div><div class="salle-feat-d">Espace pour discours et spectacles</div></div>
+      <div class="salle-feat"><div class="salle-feat-icon">Pk</div><div class="salle-feat-t">Parking</div><div class="salle-feat-d">Accès et stationnement aisés</div></div>
+      <div class="salle-feat"><div class="salle-feat-icon">Cl</div><div class="salle-feat-t">Climatisée</div><div class="salle-feat-d">Confort optimal toute l'année</div></div>
+    </div>
+    <div class="salle-devis sabo-anim" data-anim="sabo-slide-up">
+      <h3>Réserver la grande salle</h3>
+      <input class="inp" type="text" id="snom" placeholder="Votre nom">
+      <input class="inp" type="tel" id="stel" placeholder="Votre téléphone">
+      <input class="inp" type="text" id="sevt" placeholder="Type d'événement (mariage, conférence...)">
+      <div class="dateg">
+        <select class="inp" id="sjour" style="margin-bottom:0"><option value="">Jour</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option><option>13</option><option>14</option><option>15</option><option>16</option><option>17</option><option>18</option><option>19</option><option>20</option><option>21</option><option>22</option><option>23</option><option>24</option><option>25</option><option>26</option><option>27</option><option>28</option><option>29</option><option>30</option><option>31</option></select>
+        <select class="inp" id="smois" style="margin-bottom:0"><option value="">Mois</option><option>Janvier</option><option>Février</option><option>Mars</option><option>Avril</option><option>Mai</option><option>Juin</option><option>Juillet</option><option>Août</option><option>Septembre</option><option>Octobre</option><option>Novembre</option><option>Décembre</option></select>
+        <select class="inp" id="sannee" style="margin-bottom:0"><option value="">Année</option><option>2026</option><option>2027</option><option>2028</option></select>
+      </div>
+      <input class="inp" type="number" id="spers" placeholder="Nombre de personnes attendues">
+      <textarea class="inp" id="sdetails" placeholder="Détails supplémentaires (durée, besoins spéciaux...)"></textarea>
+      <button class="benv" onclick="(function(){
+        var n=document.getElementById('snom').value.trim(),t=document.getElementById('stel').value.trim();
+        var e=document.getElementById('sevt').value.trim(),j=document.getElementById('sjour').value;
+        var m=document.getElementById('smois').value,a=document.getElementById('sannee').value;
+        var p=document.getElementById('spers').value,d=document.getElementById('sdetails').value.trim();
+        if(!n||!t){alert('Veuillez entrer votre nom et téléphone.');return;}
+        var date=j&&m&&a?j+' '+m+' '+a:'Non précisée';
+        var msg='Réservation Grande Salle Saboplume\n\nNom : '+n+'\nTél : '+t+'\nÉvénement : '+(e||'Non précisé')+'\nDate : '+date+'\nNombre de personnes : '+(p||'Non précisé')+'\n\nDétails : '+(d||'Aucun')+'\n\nVia saboplume.vercel.app';
+        window.open('https://wa.me/23674225757?text='+encodeURIComponent(msg),'_blank');
+      })()">Envoyer ma demande</button>
+    </div>
+  </div>
+
+  <!-- ── PHOTO BOOTH & VIDEO BOOTH (même style que section sbooth) ── -->
+  <div class="boothc boothc-inline" style="background:var(--crl);position:relative;overflow:hidden">
+    <div style="position:absolute;inset:0;background-image:radial-gradient(circle,rgba(200,169,110,.06) 1px,transparent 1px);background-size:32px 32px;pointer-events:none"></div>
+    <div class="boothh sabo-anim" data-anim="sabo-fade-up">
+      <div class="lbl" style="justify-content:center">Services Premium</div>
+      <h1 class="titre-trait sabo-trait-anim">Photo Booth &amp; Vidéo Booth 360°</h1>
+      <p>Rendez vos événements inoubliables avec nos expériences photo et vidéo d'exception.</p>
+    </div>
+    <div class="booth-cards sabo-anim" data-anim="sabo-fade-up">
+      <div class="booth-card photo-booth">
+        <div class="booth-card-header">
+          <div class="booth-icon">
+            <div class="booth-icon-ring"><div class="booth-icon-letter">Ph</div></div>
+            <div class="booth-icon-label">Photo Booth</div>
+          </div>
+          <div class="booth-tag">Nouveau</div>
+        </div>
+        <div class="booth-body">
+          <div class="booth-sub">Expérience photo premium</div>
+          <h3>Photo Booth</h3>
+          <p>Un espace photo élégant et amusant pour immortaliser vos moments. Impressions instantanées, accessoires inclus, fond personnalisable aux couleurs de votre événement.</p>
+          <div class="booth-features">
+            <div class="booth-feat">Impressions instantanées en haute qualité</div>
+            <div class="booth-feat">Fond personnalisable (couleur, logo, thème)</div>
+            <div class="booth-feat">Accessoires et props fournis</div>
+            <div class="booth-feat">Photos numériques partagées instantanément</div>
+            <div class="booth-feat">Opérateur inclus pendant l'événement</div>
+          </div>
+          <div class="booth-prix">
+            <div><div class="booth-prix-val">Sur devis</div><div class="booth-prix-label">Selon durée &amp; options</div></div>
+            <button class="badd" onclick="(function(){window.open('https://wa.me/23674225757?text='+encodeURIComponent('Demande Photo Booth Saboplume\n\nJe souhaite avoir un devis pour la location du Photo Booth.\n\nVia saboplume.vercel.app'),'_blank');})()">Demander un devis</button>
+          </div>
+        </div>
+      </div>
+      <div class="booth-card video-booth">
+        <div class="booth-card-header">
+          <div class="booth-icon">
+            <div class="booth-icon-ring"><div class="booth-icon-letter">360</div></div>
+            <div class="booth-icon-label">Vidéo 360°</div>
+          </div>
+          <div class="booth-tag">Exclusif</div>
+        </div>
+        <div class="booth-body">
+          <div class="booth-sub">Expérience vidéo immersive</div>
+          <h3>Vidéo Booth 360°</h3>
+          <p>La plateforme tournante qui fait le buzz ! Vos invités montent sur la plateforme, la caméra les filme à 360° en slow motion. Un souvenir vidéo spectaculaire partageable sur les réseaux.</p>
+          <div class="booth-features">
+            <div class="booth-feat">Plateforme rotative motorisée 360°</div>
+            <div class="booth-feat">Vidéo slow motion ultra-qualité</div>
+            <div class="booth-feat">Partage instantané (WhatsApp, réseaux)</div>
+            <div class="booth-feat">Lumières LED et effets inclus</div>
+            <div class="booth-feat">Opérateur professionnel inclus</div>
+          </div>
+          <div class="booth-prix">
+            <div><div class="booth-prix-val">Sur devis</div><div class="booth-prix-label">Selon durée &amp; options</div></div>
+            <button class="badd" onclick="(function(){window.open('https://wa.me/23674225757?text='+encodeURIComponent('Demande Vidéo Booth 360° Saboplume\n\nJe souhaite avoir un devis pour la location du Vidéo Booth 360°.\n\nVia saboplume.vercel.app'),'_blank');})()">Demander un devis</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="mcard sabo-anim" data-anim="sabo-fade-up" style="margin-top:24px;border-left-color:var(--or)">
+      <h3>Pack Événement Complet</h3>
+      <p>Combinez la Grande Salle + Traiteur + Location (chaises &amp; tentes) + Photo Booth + Vidéo Booth 360° pour une expérience événementielle clé en main. Devis global sur demande.</p>
+      <button class="bdk" style="margin-top:16px" onclick="(function(){window.open('https://wa.me/23674225757?text='+encodeURIComponent('Demande Pack Événement Complet Saboplume\n\nJe suis intéressé(e) par le pack complet : Grande Salle + Traiteur + Location + Photo Booth + Vidéo Booth 360°.\n\nMerci de me contacter pour établir un devis.\n\nVia saboplume.vercel.app'),'_blank');})()">Demander le pack complet</button>
+    </div>
+  </div>
+
 </section>
 
 <!-- TEMOIGNAGES -->
